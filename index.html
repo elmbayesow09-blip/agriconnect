@@ -6,7 +6,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
+body {<h2>Rechercher une entreprise agricole</h2>
+
+<input type="text" id="searchInput" placeholder="Tapez le nom de l'entreprise...">
+
+<ul id="entreprises">
+<li>Entreprise agricole Kaffrine</li>
+<li>Coopérative agricole Fatick</li>
+<li>Entreprise semences Kaolack</li>
+<li>Organisation paysanne Tambacounda</li>
+</ul>
+
+<script>
+const input = document.getElementById("searchInput");
+const list = document.getElementById("entreprises").getElementsByTagName("li");
+
+input.addEventListener("keyup", function() {
+let filter = input.value.toLowerCase();
+
+for (let i = 0; i < list.length; i++) {
+let text = list[i].textContent.toLowerCase();
+
+if (text.includes(filter)) {
+list[i].style.display = "";
+} else {
+list[i].style.display = "none";
+}
+}
+});
+</script>
     margin:0;
     font-family: Arial, sans-serif;
     background: linear-gradient(to right, #2e7d32, #66bb6a);
@@ -135,3 +163,4 @@ function ajouterEntreprise() {
 
 </body>
 </html>
+
