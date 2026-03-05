@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>AgriConnect Sénégal</title>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+body { background-color: #e6f2e6; font-family: Arial, sans-serif; text-align:center; }
+h1 { color: green; }
+select, button, input { padding:10px; font-size:16px; margin:5px; }
+#resultat { margin-top:20px; }
+.carte { margin-top:30px; padding:20px; background-color:white; display:inline-block; border-radius:10px; }
+#map { height: 300px; width:90%; margin:auto; }
+</style>
+</head>
+
+<body>
+
+<h1>AgriConnect Sénégal</h1>
+
+<h2>🔍 Recherche d’entreprise</h2>
+
+<select id="region">
+<option value="kaffrine">Kaffrine</option>
+<option value="kaolack">Kaolack</option>
+<option value="fatick">Fatick</option>
+</select>
+
+<br>
+
+<button onclick="rechercher()">Rechercher</button>
+
+<div id="resultat"></div>
+
+<hr>
+
+<h2>📝 Ajouter une entreprise</h2>
+
+<input type="text" id="nomEntreprise" placeholder="Nom de l'entreprise">
+<input type="text" id="telephoneEntreprise" placeholder="Téléphone">
+<select id="regionEntreprise">
+<option value="kaffrine">Kaffrine</option>
+<option value="kaolack">Kaolack</option>
+<option value="fatick">Fatick</option>
+</select>
+
+<br>
+<button onclick="ajouterEntreprise()">Ajouter</button>
+
+<div id="contactInfo"></div>
+
+<div class="carte">
+<h3>📍 Carte interactive</h3>
+<p>Les entreprises apparaissent sur la carte selon leur région</p>
+<div id="map"></div>
+</div>
+
+<script>
+// Coordonnées des régions
+const coordsRegions = {
+    kaffrine: [14.0735, -15.4647],
+    kaolack: [14.1463, -16.0740],
+    fatick: [14.3412, -16.4772]
+};
+
+// Initialiser la carte
+const map = L.map('map').setView([14.5, -16.0], 7);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap',
+}).addTo(map);
+
+// Charger les données JSON (maintenant situé dans le dossier data)
+let data = {};
+let entreprises = {};
+fetch('data/entreprises.json')
+.then(response => response.json())
+.then(json => {
+    data = json;
+    entreprises = data.entreprises;
+
+    // Afficher contact
+    const contactDiv = document.getElementById("contactInfo");
+    contactDiv.innerHTML = `<p>Contact : ${data.contact.nom} - <a href="mailto:${data.contact.email}">${data.contact.email}</a></p>`;
+})
+.catch(error => console.error("Impossible de charger le fichier JSON :", error));
+
+// Fonction pour afficher entreprises sur carte et liste
+function afficherEntreprises(region) {
+    let liste = entreprises[region];
+    let resultatDiv = document.getElementById("resultat");
+    resultatDiv.innerHTML = "";
+
+    // Supprimer anciens marqueurs
+    if(window.markers){
+        window.markers.forEach(m => map.removeLayer(m));
+    }
+    window.markers = [];
+
+    if(liste.length === 0){
+        resultatDiv.innerHTML = "Aucune entreprise trouvée.";
+        return;
+    }
+
+    liste.forEach(function(ent){
+        resultatDiv.innerHTML += `
+            <p>
+                <strong>${ent.nom}</strong><br>
+                📞 <a href="tel:${ent.tel}">${ent.tel}</a>
+            </p>
+        `;
+
+        let latlng = coordsRegions[region];
+        let marker = L.marker(latlng).addTo(map)
+            .bindPopup(`<strong>${ent.nom}</strong><br>📞 ${ent.tel}`);
+        window.markers.push(marker);
+    });
+
+    map.setView(coordsRegions[region], 10);
+}
+
+// Recherche
+function rechercher() {
+    let regionChoisie = document.getElementById("region").value;
+    afficherEntreprises(regionChoisie);
+}
+
+// Ajouter entreprise
+function ajouterEntreprise(){
+    let nom = document.getElementById("nomEntreprise").value;
+    let tel = document.getElementById("telephoneEntreprise").value;
+    let region = document.getElementById("regionEntreprise").value;
+
+    if(nom === "" || tel === ""){
+        alert("Veuillez remplir tous les champs.");
+        return;
+    }
+
+    entreprises[region].push({nom: nom, tel: tel});
+    alert("Entreprise ajoutée avec succès !");
+    document.getElementById("nomEntreprise").value = "";
+    document.getElementById("telephoneEntreprise").value = "";
+
+    afficherEntreprises(region);
+}
+</script>
+</body>
+</html>data/
+config.jsondata/
+entreprises.json
+entreprises.json
+{
+    "contact": {
+        "nom": "Elhadji Mbaye Thioyele Sow",
+        "email": "elmbayesow09@gmail.com"
+    },
+    "entreprises": {
+        "kaffrine": [
+            {"nom": "Agro Kaffrine", "tel": "770000000"},
+            {"nom": "Semences Kaffrine", "tel": "771111111"}
+        ],
+        "kaolack": [
+            {"nom": "Agro Kaolack", "tel": "781111111"}
+        ],
+        "fatick": [
+            {"nom": "Service Fatick", "tel": "762222222"}
+        ]
+    }
+}
+"contact": {
+    "nom": "Elhadji Mbaye Thioyele Sow",
+    "email": "elmbayesow17@gmail.com"
+  },
+  "entreprises": {
+    "kaffrine": [
+      {"nom": "Agro Kaffrine", "tel": "770000000"},
+      {"nom": "Semences Kaffrine", "tel": "771111111"}
+    ],
+    "kaolack": [
+      {"nom": "Agro Kaolack", "tel": "781111111"}
+    ],
+    "fatick": [
+      {"nom": "Service Fatick", "tel": "762222222"}
+    ]
+  }
+}
+// Fonction de validation du téléphone
+function validerTelephone(tel) {
+    return /^\d{9}$/.test(tel.replace(/\s/g, ''));
+}
+
+// Fonction de recherche avancée
+function rechercherAvancee(nom) {
+    let resultats = [];
+    for (let region in entreprises) {
+        entreprises[region].forEach(ent => {
+            if (ent.nom.toLowerCase().includes(nom.toLowerCase())) {
+                resultats.push({...ent, region: region});
+            }
+        });
+    }
+    return resultats;
+}
+
+// Afficher résultats de recherche
+function afficherResultatsRecherche(resultats) {
+    let resultatDiv = document.getElementById("resultat");
+    resultatDiv.innerHTML = "";
+    
+    if (resultats.length === 0) {
+        resultatDiv.innerHTML = "Aucun résultat trouvé.";
+        return;
+    }
+    
+    resultats.forEach(ent => {
+        resultatDiv.innerHTML += `
+            <p>
+                <strong>${ent.nom}</strong> (${ent.region})<br>
+                📞 <a href="tel:${ent.tel}">${ent.tel}</a>
+            </p>
+        `;
+    });
+}
+
+// Événement pour recherche en temps réel
+document.getElementById("nomEntreprise").addEventListener("input", function(e) {
+    if (e.target.value.length > 0) {
+        let resultats = rechercherAvancee(e.target.value);
+        afficherResultatsRecherche(resultats);
+    } else {
+        document.getElementById("resultat").innerHTML = "";
+    }
+});
