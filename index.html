@@ -23,7 +23,31 @@ font-size:30px;
 padding:40px;
 }
 
-button{<!DOCTYPE html>
+button{ <input type="text" id="searchInput" placeholder="Rechercher une entreprise...">
+
+<ul id="liste">
+<li>Entreprise agricole Kaffrine</li>
+<li>Coopérative agricole Fatick</li>
+<li>Entreprise semences Kaolack</li>
+<li>Organisation paysanne Tambacounda</li>
+</ul>
+
+<script>
+let input = document.getElementById("searchInput");
+let items = document.querySelectorAll("#liste li");
+
+input.addEventListener("keyup", function() {
+let valeur = input.value.toLowerCase();
+
+items.forEach(function(item){
+if(item.textContent.toLowerCase().includes(valeur)){
+item.style.display = "list-item";
+}else{
+item.style.display = "none";
+}
+});
+});
+</script>
 <html>
 <head>
 <title>AgriConnect</title>
@@ -129,4 +153,5 @@ AgriConnect 🌱
 
 </body>
 </html>
+
 
