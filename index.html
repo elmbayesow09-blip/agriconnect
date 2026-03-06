@@ -1,137 +1,66 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>AgriConnect Sénégal</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriConnect</title>
 
 <style>
-body {
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #2e7d32, #66bb6a);
-    color:white;
-    text-align:center;
+
+body{
+font-family: Arial;
+background-color:#f4f4f4;
+text-align:center;
+margin:0;
 }
 
-header {
-    padding:20px;
-    font-size:28px;
-    font-weight:bold;
+header{
+background-color:green;
+color:white;
+padding:20px;
+font-size:30px;
 }
 
-.container {
-    background:white;
-    color:black;
-    margin:30px auto;
-    padding:20px;
-    width:90%;
-    max-width:600px;
-    border-radius:10px;
+.container{
+padding:40px;
 }
 
-button {
-    padding:10px 20px;
-    background:#2e7d32;
-    color:white;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
+button{
+background-color:green;
+color:white;
+border:none;
+padding:15px;
+font-size:18px;
+margin:10px;
+cursor:pointer;
+border-radius:10px;
 }
 
-button:hover {
-    background:#1b5e20;
+button:hover{
+background-color:darkgreen;
 }
 
-input, select {
-    padding:8px;
-    margin:5px;
-    width:80%;
-}
 </style>
+
 </head>
 
 <body>
 
-<header>🌾 AgriConnect Sénégal</header>
+<header>
+AgriConnect 🌱
+</header>
 
 <div class="container">
 
-<h2>🔎 Recherche d'entreprise</h2>
+<h2>Bienvenue sur AgriConnect</h2>
 
-<select id="region">
-<option value="Kaffrine">Kaffrine</option>
-<option value="Kaolack">Kaolack</option>
-<option value="Fatick">Fatick</option>
-</select>
-<br>
-<button onclick="rechercher()">Rechercher</button>
+<p>Cette plateforme aide les organisations paysannes à trouver des entreprises agricoles proches.</p>
 
-<div id="resultat"></div>
+<button>Rechercher une entreprise</button>
 
-<hr>
+<button>S'inscrire comme organisation paysanne</button>
 
-<h2>📝 Inscription Entreprise</h2>
-
-<input type="text" id="nomEntreprise" placeholder="Nom de l'entreprise">
-<br>
-<input type="text" id="telephoneEntreprise" placeholder="Téléphone">
-<br>
-<select id="regionEntreprise">
-<option value="Kaffrine">Kaffrine</option>
-<option value="Kaolack">Kaolack</option>
-<option value="Fatick">Fatick</option>
-</select>
-<br>
-<button onclick="ajouterEntreprise()">Ajouter</button>
+<button>S'inscrire comme entreprise</button>
 
 </div>
-
-<script>
-
-let entreprises = {
-    Kaffrine: [],
-    Kaolack: [],
-    Fatick: []
-};
-
-function rechercher() {
-    let region = document.getElementById("region").value;
-    let resultat = document.getElementById("resultat");
-
-    resultat.innerHTML = "";
-
-    if (entreprises[region].length === 0) {
-        resultat.innerHTML = "<p>Aucune entreprise trouvée.</p>";
-        return;
-    }
-
-    entreprises[region].forEach(function(ent) {
-        resultat.innerHTML += `
-            <p><strong>${ent.nom}</strong><br>📞 ${ent.tel}</p>
-        `;
-    });
-}
-
-function ajouterEntreprise() {
-    let nom = document.getElementById("nomEntreprise").value;
-    let tel = document.getElementById("telephoneEntreprise").value;
-    let region = document.getElementById("regionEntreprise").value;
-
-    if (nom === "" || tel === "") {
-        alert("Veuillez remplir tous les champs.");
-        return;
-    }
-
-    entreprises[region].push({nom: nom, tel: tel});
-
-    alert("Entreprise ajoutée avec succès !");
-
-    document.getElementById("nomEntreprise").value = "";
-    document.getElementById("telephoneEntreprise").value = "";
-}
-
-</script>
 
 </body>
 </html>
