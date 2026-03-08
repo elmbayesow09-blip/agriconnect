@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Contact</title> 
-<style>
+<style> 
 body{font-family:Arial;margin:0;background:#f4f4f4;}
 header{background:green;color:white;padding:20px;text-align:center;}
 nav{background:#222;padding:10px;text-align:center;}
