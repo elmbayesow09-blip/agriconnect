@@ -1,0 +1,12 @@
+[
+  {
+    "nom": "Mamadou Diop",
+    "photo": "mamadou.jpg",
+    "description": "Agriculteur spécialisé en légumes."
+  },
+  {
+    "nom": "Awa Fall",
+    "photo": "awa.jpg",
+    "description": "Agricultrice spécialisée en fruits."
+  }
+]
