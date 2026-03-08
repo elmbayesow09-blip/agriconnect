@@ -1,0 +1,17 @@
+[
+  {
+    "nom": "Tomates",
+    "image": "tomates.jpg",
+    "description": "Tomates fraîches cultivées localement."
+  },
+  {
+    "nom": "Maïs",
+    "image": "mais.jpg",
+    "description": "Maïs de haute qualité prêt à la vente."
+  },
+  {
+    "nom": "Patates",
+    "image": "patates.jpg",
+    "description": "Patates fraîches pour vos besoins alimentaires."
+  }
+]
