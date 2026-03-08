@@ -2,25 +2,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Produits - AgriConnect</title>
+<title>Produits</title>
 <style>
-body{font-family: Arial; background:#f4f4f4; margin:0;}
-header{background:green; color:white; padding:20px; text-align:center; font-size:30px;}
-nav{background:#222; padding:10px; text-align:center;}
-nav a{color:white; margin:15px; text-decoration:none; font-size:18px;}
-nav a:hover{color:lightgreen;}
-.section{padding:40px; text-align:center;}
-.card{background:white; padding:20px; margin:20px; display:inline-block; width:250px; box-shadow:0 0 10px rgba(0,0,0,0.2);}
-.card img{width:100%; height:150px; object-fit:cover; border-radius:5px;}
-footer{background:#222; color:white; text-align:center; padding:20px;}
+body{font-family:Arial;margin:0;background:#f4f4f4;}
+header{background:green;color:white;padding:20px;text-align:center;}
+nav{background:#222;padding:10px;text-align:center;}
+nav a{color:white;margin:15px;text-decoration:none;}
+.section{text-align:center;padding:40px;}
+.card{background:white;width:250px;display:inline-block;margin:20px;padding:20px;box-shadow:0 0 10px rgba(0,0,0,0.2);}
+.card img{width:100%;height:150px;object-fit:cover;}
 </style>
 </head>
 
 <body>
 
-<header>
-🌱 AgriConnect Sénégal
-</header>
+<header>🌱 AgriConnect Sénégal</header>
 
 <nav>
 <a href="index.html">Accueil</a>
@@ -30,38 +26,39 @@ footer{background:#222; color:white; text-align:center; padding:20px;}
 </nav>
 
 <section class="section">
+
 <h2>Nos Produits</h2>
-<p>Découvrez les produits agricoles disponibles :</p>
 
 <div id="produits-container"></div>
 
 <script>
-fetch('produits.json')
-.then(response => response
 
-<div class="card">
-<img src="tomates.jpg" alt="Tomates fraîches">
-<h3>🍅 Tomates</h3>
-<p>Tomates fraîches cultivées localement.</p>
-</div>
+const container = document.getElementById("produits-container");
 
-<div class="card">
-<img src="mais.jpg" alt="Maïs">
-<h3>🌽 Maïs</h3>
-<p>Maïs de haute qualité prêt à la vente.</p>
-</div>
+fetch("produits.json")
+.then(response => response.json())
+.then(data => {
 
-<div class="card">
-<img src="patates.jpg" alt="Patates">
-<h3>🥔 Patates</h3>
-<p>Patates fraîches pour vos besoins alimentaires.</p>
-</div>
+data.forEach(produit => {
+
+const card = document.createElement("div");
+card.className="card";
+
+card.innerHTML = `
+<img src="${produit.image}">
+<h3>${produit.nom}</h3>
+<p>${produit.description}</p>
+`;
+
+container.appendChild(card);
+
+});
+
+});
+
+</script>
 
 </section>
-
-<footer>
-AgriConnect © 2026
-</footer>
 
 </body>
 </html>
