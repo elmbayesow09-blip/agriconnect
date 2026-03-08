@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Agriculteurs - AgriConnect</title>
+<style>
+body{font-family: Arial; background:#f4f4f4; margin:0;}
+header{background:green; color:white; padding:20px; text-align:center; font-size:30px;}
+nav{background:#222; padding:10px; text-align:center;}
+nav a{color:white; margin:15px; text-decoration:none; font-size:18px;}
+nav a:hover{color:lightgreen;}
+section{padding:40px; text-align:center;}
+footer{background:#222; color:white; text-align:center; padding:20px;}
+</style>
+</head>
+<body>
+
+<header>
+🌱 AgriConnect Sénégal
+</header>
+
+<nav>
+<a href="index.html">Accueil</a>
+<a href="agriculteurs.html">Agriculteurs</a>
+<a href="produits.html">Produits</a>
+<a href="contact.html">Contact</a>
+</nav>
+
+<section>
+<h2>Agriculteurs</h2>
+<p>Liste des agriculteurs inscrits et leurs produits.</p>
+</section>
+
+<footer>
+AgriConnect © 2026
+</footer>
+
+</body>
+</html>
