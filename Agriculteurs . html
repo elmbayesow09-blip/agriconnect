@@ -2,22 +2,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Agriculteurs - AgriConnect</title>
+<title>Agriculteurs</title>
 <style>
-body{font-family: Arial; background:#f4f4f4; margin:0;}
-header{background:green; color:white; padding:20px; text-align:center; font-size:30px;}
-nav{background:#222; padding:10px; text-align:center;}
-nav a{color:white; margin:15px; text-decoration:none; font-size:18px;}
-nav a:hover{color:lightgreen;}
-section{padding:40px; text-align:center;}
-footer{background:#222; color:white; text-align:center; padding:20px;}
+body{font-family:Arial;margin:0;background:#f4f4f4;}
+header{background:green;color:white;padding:20px;text-align:center;}
+nav{background:#222;padding:10px;text-align:center;}
+nav a{color:white;margin:15px;text-decoration:none;}
+.section{text-align:center;padding:40px;}
+.card{background:white;width:250px;display:inline-block;margin:20px;padding:20px;box-shadow:0 0 10px rgba(0,0,0,0.2);}
+.card img{width:100%;height:150px;object-fit:cover;}
 </style>
 </head>
+
 <body>
 
-<header>
-🌱 AgriConnect Sénégal
-</header>
+<header>🌱 AgriConnect Sénégal</header>
 
 <nav>
 <a href="index.html">Accueil</a>
@@ -26,14 +25,40 @@ footer{background:#222; color:white; text-align:center; padding:20px;}
 <a href="contact.html">Contact</a>
 </nav>
 
-<section>
-<h2>Agriculteurs</h2>
-<p>Liste des agriculteurs inscrits et leurs produits.</p>
-</section>
+<section class="section">
 
-<footer>
-AgriConnect © 2026
-</footer>
+<h2>Nos Agriculteurs</h2>
+
+<div id="agriculteurs-container"></div>
+
+<script>
+
+const container = document.getElementById("agriculteurs-container");
+
+fetch("agriculteurs.json")
+.then(response => response.json())
+.then(data => {
+
+data.forEach(agri => {
+
+const card = document.createElement("div");
+card.className="card";
+
+card.innerHTML = `
+<img src="${agri.photo}">
+<h3>${agri.nom}</h3>
+<p>${agri.description}</p>
+`;
+
+container.appendChild(card);
+
+});
+
+});
+
+</script>
+
+</section>
 
 </body>
 </html>
