@@ -33,6 +33,12 @@ footer{background:#222; color:white; text-align:center; padding:20px;}
 <h2>Nos Produits</h2>
 <p>Découvrez les produits agricoles disponibles :</p>
 
+<div id="produits-container"></div>
+
+<script>
+fetch('produits.json')
+.then(response => response
+
 <div class="card">
 <img src="tomates.jpg" alt="Tomates fraîches">
 <h3>🍅 Tomates</h3>
