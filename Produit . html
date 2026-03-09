@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html> 
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Produits</title>
+<title>Produits - AgriConnect</title>
 <style>
 body{font-family:Arial;margin:0;background:#f4f4f4;}
-header{background:green;color:white;padding:20px;text-align:center;}
-nav{background:#222;padding:10px;text-align:center;}
-nav a{color:white;margin:15px;text-decoration:none;} 
-.section{text-align:center;padding:40px;}
-.card{background:white;width:250px;display:inline-block;margin:20px;padding:20px;box-shadow:0 0 10px rgba(0,0,0,0.2);}
-.card img{width:100%;height:150px;object-fit:cover;}
+header{background:#27ae60;color:white;padding:20px;text-align:center;font-size:28px;font-weight:bold;}
+nav{background:#2c3e50;text-align:center;padding:10px;}
+nav a{color:white;text-decoration:none;margin:15px;font-size:18px;}
+nav a:hover{color:#1abc9c;}
+.section{padding:40px;text-align:center;}
+.card{background:white;width:250px;display:inline-block;margin:20px;padding:20px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.2);}
+.card img{width:100%;height:150px;object-fit:cover;border-radius:8px;}
+button{background:#27ae60;color:white;border:none;padding:10px 15px;margin-top:10px;border-radius:5px;cursor:pointer;}
+button:hover{background:#1e8449;}
+#panierBtn{background:#e67e22;margin-bottom:20px;}
+#panierBtn:hover{background:#d35400;}
 </style>
 </head>
-
-<body> 
+<body>
 
 <header>🌱 AgriConnect Sénégal</header>
 
@@ -25,117 +29,52 @@ nav a{color:white;margin:15px;text-decoration:none;}
 <a href="contact.html">Contact</a>
 </nav>
 
-<section class="section">
-
+<div class="section">
 <h2>Nos Produits</h2>
-
-<div id="produits-container"></div>
-<h2>Nos Produits</h2>
-
-<button onclick="voirPanier()">
-Voir le panier
-</button>
-
-<div id="produits-container"></div>
-<h3>Ajouter un produit</h3>
-
-<input type="text" id="nomProduit" placeholder="Nom du produit">
-
-<input type="text" id="imageProduit" placeholder="Nom de l'image (ex: tomates.jpg)">
-
-<p>${produit.description}</p>
-var map = L.map('map').setView([14.4974, -14.4524], 6);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap'
-}).addTo(map);
-
-L.marker([14.7167, -17.4677]).addTo(map)
-.bindPopup("Agriculteur à Dakar");
-
-L.marker([16.0167, -16.5000]).addTo(map)
-.bindPopup("Agriculteur à Saint-Louis");
-
-<a href="https://wa.me/221771234567" target="_blank">
-<button>Contacter sur WhatsApp</button>
-</a>
-
+<button id="panierBtn" onclick="voirPanier()">Voir le panier</button>
 <br><br>
+<input type="text" id="nomProduit" placeholder="Nom du produit">
+<input type="text" id="imageProduit" placeholder="Nom de l'image">
+<input type="text" id="descriptionProduit" placeholder="Description">
+<br>
+<button onclick="ajouterProduit()">Ajouter un produit</button>
 
-<button onclick="ajouterPanier('${produit.nom}')">
-Ajouter au panier
-</button>
+<div id="produits-container"></div>
+</div>
 
-}
-const container = document.getElementById("produits-container");
+<script>
+let panier=[];
+const container=document.getElementById("produits-container");
 
 fetch("produits.json")
-.then(response => response.json())
-.then(data => {
+.then(res=>res.json())
+.then(data=>{
+  data.forEach(produit=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`<img src="${produit.image}"><h3>${produit.nom}</h3><p>${produit.description}</p>
+      <button onclick="ajouterPanier('${produit.nom}')">Ajouter au panier</button>
+      <a href="https://wa.me/221771234567" target="_blank"><button>WhatsApp</button></a>`;
+    container.appendChild(card);
+  });
+});
 
-data.forEach(produit => {
-
-const card = document.createElement("div");
-card.className="card";
-
-card.innerHTML = `
-<img src="${produit.image}">
-<h3>${produit.nom}</h3>
-<p>${produit.description}</p>
-`;
-
-container.appendChild(card);
 function ajouterProduit(){
-
-const nom = document.getElementById("nomProduit").value;
-const image = document.getElementById("imageProduit").value;
-const description = document.getElementById("descriptionProduit").value;
-
-const container = document.getElementById("produits-container");
-
-const card = document.createElement("div");
-card.className = "card";
-
-card.innerHTML = `
-<img src="${image}">
-<h3>${nom}</h3>
-<p>${description}</p>
-`;
-
-container.appendChild(card);
-
+  const nom=document.getElementById("nomProduit").value;
+  const image=document.getElementById("imageProduit").value;
+  const description=document.getElementById("descriptionProduit").value;
+  const card=document.createElement("div");
+  card.className="card";
+  card.innerHTML=`<img src="${image}"><h3>${nom}</h3><p>${description}</p>
+    <button onclick="ajouterPanier('${nom}')">Ajouter au panier</button>
+    <a href="https://wa.me/221771234567" target="_blank"><button>WhatsApp</button></a>`;
+  container.appendChild(card);
 }
 
-});
-
-});
-let panier = [];
-
-function ajouterPanier(produit){
-
-panier.push(produit);
-
-alert(produit + " ajouté au panier");
-
-}
+function ajouterPanier(produit){panier.push(produit);alert(produit+" ajouté au panier");}
+function voirPanier(){alert("Produits dans le panier : "+panier.join(", "));}
 </script>
-let panier = [];
 
-function ajouterPanier(produit){
-
-panier.push(produit);
-
-alert(produit + " ajouté au panier");
-
-}
-
-function voirPanier(){
-
-alert("Produits dans le panier : " + panier.join(", "));
-
-}
-
-</section>
-
+<footer>AgriConnect © 2026</footer>
 </body>
 </html>
