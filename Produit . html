@@ -30,6 +30,13 @@ nav a{color:white;margin:15px;text-decoration:none;}
 <h2>Nos Produits</h2>
 
 <div id="produits-container"></div>
+<h2>Nos Produits</h2>
+
+<button onclick="voirPanier()">
+Voir le panier
+</button>
+
+<div id="produits-container"></div>
 <h3>Ajouter un produit</h3>
 
 <input type="text" id="nomProduit" placeholder="Nom du produit">
@@ -55,12 +62,9 @@ L.marker([16.0167, -16.5000]).addTo(map)
 
 <br><br>
 
-<button onclick="ajouterProduit()">Ajouter</button>
-
-<script>
-function commander(nomProduit){
-
-alert("Vous avez commandé : " + nomProduit);
+<button onclick="ajouterPanier('${produit.nom}')">
+Ajouter au panier
+</button>
 
 }
 const container = document.getElementById("produits-container");
@@ -105,8 +109,31 @@ container.appendChild(card);
 });
 
 });
+let panier = [];
 
+function ajouterPanier(produit){
+
+panier.push(produit);
+
+alert(produit + " ajouté au panier");
+
+}
 </script>
+let panier = [];
+
+function ajouterPanier(produit){
+
+panier.push(produit);
+
+alert(produit + " ajouté au panier");
+
+}
+
+function voirPanier(){
+
+alert("Produits dans le panier : " + panier.join(", "));
+
+}
 
 </section>
 
