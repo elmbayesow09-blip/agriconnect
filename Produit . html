@@ -21,7 +21,6 @@ button:hover{background:#1e8449;}
 <body>
 
 <header>🌱 AgriConnect Sénégal</header>
-
 <nav>
 <a href="index.html">Accueil</a>
 <a href="agriculteurs.html">Agriculteurs</a>
@@ -32,13 +31,6 @@ button:hover{background:#1e8449;}
 <div class="section">
 <h2>Nos Produits</h2>
 <button id="panierBtn" onclick="voirPanier()">Voir le panier</button>
-<br><br>
-<input type="text" id="nomProduit" placeholder="Nom du produit">
-<input type="text" id="imageProduit" placeholder="Nom de l'image">
-<input type="text" id="descriptionProduit" placeholder="Description">
-<br>
-<button onclick="ajouterProduit()">Ajouter un produit</button>
-
 <div id="produits-container"></div>
 </div>
 
@@ -46,30 +38,19 @@ button:hover{background:#1e8449;}
 let panier=[];
 const container=document.getElementById("produits-container");
 
+// Exemple produits.json
 fetch("produits.json")
 .then(res=>res.json())
 .then(data=>{
   data.forEach(produit=>{
     const card=document.createElement("div");
     card.className="card";
-    card.innerHTML=`<img src="${produit.image}"><h3>${produit.nom}</h3><p>${produit.description}</p>
+    card.innerHTML=`<img src="images/${produit.image}"><h3>${produit.nom}</h3><p>${produit.description}</p>
       <button onclick="ajouterPanier('${produit.nom}')">Ajouter au panier</button>
       <a href="https://wa.me/221771234567" target="_blank"><button>WhatsApp</button></a>`;
     container.appendChild(card);
   });
 });
-
-function ajouterProduit(){
-  const nom=document.getElementById("nomProduit").value;
-  const image=document.getElementById("imageProduit").value;
-  const description=document.getElementById("descriptionProduit").value;
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`<img src="${image}"><h3>${nom}</h3><p>${description}</p>
-    <button onclick="ajouterPanier('${nom}')">Ajouter au panier</button>
-    <a href="https://wa.me/221771234567" target="_blank"><button>WhatsApp</button></a>`;
-  container.appendChild(card);
-}
 
 function ajouterPanier(produit){panier.push(produit);alert(produit+" ajouté au panier");}
 function voirPanier(){alert("Produits dans le panier : "+panier.join(", "));}
