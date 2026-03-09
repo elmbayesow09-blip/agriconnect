@@ -37,6 +37,17 @@ nav a{color:white;margin:15px;text-decoration:none;}
 <input type="text" id="imageProduit" placeholder="Nom de l'image (ex: tomates.jpg)">
 
 <p>${produit.description}</p>
+var map = L.map('map').setView([14.4974, -14.4524], 6);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+}).addTo(map);
+
+L.marker([14.7167, -17.4677]).addTo(map)
+.bindPopup("Agriculteur à Dakar");
+
+L.marker([16.0167, -16.5000]).addTo(map)
+.bindPopup("Agriculteur à Saint-Louis");
 
 <a href="https://wa.me/221771234567" target="_blank">
 <button>Contacter sur WhatsApp</button>
@@ -47,7 +58,11 @@ nav a{color:white;margin:15px;text-decoration:none;}
 <button onclick="ajouterProduit()">Ajouter</button>
 
 <script>
+function commander(nomProduit){
 
+alert("Vous avez commandé : " + nomProduit);
+
+}
 const container = document.getElementById("produits-container");
 
 fetch("produits.json")
