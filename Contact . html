@@ -2,18 +2,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Contact</title> 
-<style>  
+<title>Contact - AgriConnect</title>
+<style>
 body{font-family:Arial;margin:0;background:#f4f4f4;}
-header{background:green;color:white;padding:20px;text-align:center;}
-nav{background:#222;padding:10px;text-align:center;}
+header{background:#27ae60;color:white;padding:20px;text-align:center;font-size:28px;}
+nav{background:#2c3e50;padding:10px;text-align:center;}
 nav a{color:white;margin:15px;text-decoration:none;}
+nav a:hover{color:#1abc9c;}
 section{text-align:center;padding:40px;}
+input, textarea{width:50%;padding:10px;margin:10px 0;border-radius:5px;border:1px solid #ccc;}
+input[type="submit"]{background:#27ae60;color:white;border:none;cursor:pointer;}
+input[type="submit"]:hover{background:#1e8449;}
 </style>
 </head>
-
 <body>
-
 <header>🌱 AgriConnect Sénégal</header>
 
 <nav>
@@ -24,16 +26,17 @@ section{text-align:center;padding:40px;}
 </nav>
 
 <section>
-
 <h2>Contact</h2>
+<p>Email : <a href="mailto:elmbayesow09@gmail.com">elmbayesow09@gmail.com</a></p>
 
-<p>Email : 
-<a href="mailto:elmbayesow09@gmail.com">
-elmbayesow09@gmail.com
-</a>
-</p>
-
+<form>
+<input type="text" placeholder="Nom" required><br>
+<input type="email" placeholder="Email" required><br>
+<textarea placeholder="Message" rows="5" required></textarea><br>
+<input type="submit" value="Envoyer">
+</form>
 </section>
 
+<footer>AgriConnect © 2026</footer>
 </body>
 </html>
