@@ -1,5 +1,4 @@
 [
-{"nom":"Tomates","image":"tomates.jpg","description":"Tomates fraîches"},
-{"nom":"Maïs","image":"mais.jpg","description":"Maïs de qualité"},
-{"nom":"Patates","image":"patates.jpg","description":"Patates fraîches"}
+  {"nom":"Tomates","image":"tomates.jpg","description":"Tomates fraîches du Sénégal"},
+  {"nom":"Maïs","image":"mais.jpg","description":"Maïs de saison"}
 ]
