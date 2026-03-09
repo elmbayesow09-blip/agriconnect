@@ -1,39 +1,5 @@
 [
-  {
-    "nom": "Tomates",
-    "image": "tomates.jpg",
-    "description": "Tomates fraîches cultivées localement."
-  },
-  {
-    "nom": "Maïs",
-    "image": "mais.jpg",
-    "description": "Maïs de haute qualité prêt à la vente."
-  },
-  {
-    "nom": "Patates",
-    "image": "patates.jpg",
-    "description": "Patates fraîches pour vos besoins alimentaires."
-  }
-]
-[
-  {
-    "nom": "Tomates",
-    "image": "tomates.jpg",
-    "description": "Tomates fraîches cultivées localement."
-  },
-  {
-    "nom": "Maïs",
-    "image": "mais.jpg",
-    "description": "Maïs de haute qualité prêt à la vente."
-  },
-  {
-    "nom": "Patates",
-    "image": "patates.jpg",
-    "description": "Patates fraîches pour vos besoins alimentaires."
-  },
-  {
-    "nom": "Oignons",
-    "image": "oignons.jpg",
-    "description": "Oignons frais du Sénégal."
-  }
+{"nom":"Tomates","image":"tomates.jpg","description":"Tomates fraîches"},
+{"nom":"Maïs","image":"mais.jpg","description":"Maïs de qualité"},
+{"nom":"Patates","image":"patates.jpg","description":"Patates fraîches"}
 ]
