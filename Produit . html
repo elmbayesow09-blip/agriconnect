@@ -36,7 +36,11 @@ nav a{color:white;margin:15px;text-decoration:none;}
 
 <input type="text" id="imageProduit" placeholder="Nom de l'image (ex: tomates.jpg)">
 
-<input type="text" id="descriptionProduit" placeholder="Description du produit">
+<p>${produit.description}</p>
+
+<a href="https://wa.me/221771234567" target="_blank">
+<button>Contacter sur WhatsApp</button>
+</a>
 
 <br><br>
 
