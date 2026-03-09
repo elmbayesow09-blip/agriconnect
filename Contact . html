@@ -17,7 +17,6 @@ input[type="submit"]:hover{background:#1e8449;}
 </head>
 <body>
 <header>🌱 AgriConnect Sénégal</header>
-
 <nav>
 <a href="index.html">Accueil</a>
 <a href="agriculteurs.html">Agriculteurs</a>
