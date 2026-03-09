@@ -15,12 +15,13 @@ nav a:hover{color:#1abc9c;}
 .card{background:white;width:250px;display:inline-block;margin:20px;padding:20px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.2);}
 .card img{width:100%;height:150px;object-fit:cover;border-radius:8px;}
 #map{height:400px;margin:20px 0;border-radius:10px;}
+button{background:#27ae60;color:white;border:none;padding:10px 15px;margin-top:10px;border-radius:5px;cursor:pointer;}
+button:hover{background:#1e8449;}
 </style>
 </head>
 <body>
 
 <header>🌱 AgriConnect Sénégal</header>
-
 <nav>
 <a href="index.html">Accueil</a>
 <a href="agriculteurs.html">Agriculteurs</a>
@@ -35,18 +36,17 @@ nav a:hover{color:#1abc9c;}
 </section>
 
 <script>
+// Exemple d’agriculteurs (tu peux ajouter plus dans agriculteurs.json)
 const container = document.getElementById("agriculteurs-container");
-
 fetch("agriculteurs.json")
-.then(response => response.json())
+.then(res => res.json())
 .then(data => {
   data.forEach(agri => {
     const card = document.createElement("div");
     card.className="card";
-    card.innerHTML = `<img src="${agri.photo}"><h3>${agri.nom}</h3><p>${agri.description}</p>
+    card.innerHTML = `<img src="images/${agri.photo}"><h3>${agri.nom}</h3><p>${agri.description}</p>
       <a href="https://wa.me/221771234567" target="_blank">
-        <button>WhatsApp</button>
-      </a>`;
+      <button>WhatsApp</button></a>`;
     container.appendChild(card);
   });
 });
