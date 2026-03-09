@@ -30,6 +30,17 @@ nav a{color:white;margin:15px;text-decoration:none;}
 <h2>Nos Produits</h2>
 
 <div id="produits-container"></div>
+<h3>Ajouter un produit</h3>
+
+<input type="text" id="nomProduit" placeholder="Nom du produit">
+
+<input type="text" id="imageProduit" placeholder="Nom de l'image (ex: tomates.jpg)">
+
+<input type="text" id="descriptionProduit" placeholder="Description du produit">
+
+<br><br>
+
+<button onclick="ajouterProduit()">Ajouter</button>
 
 <script>
 
@@ -51,6 +62,26 @@ card.innerHTML = `
 `;
 
 container.appendChild(card);
+function ajouterProduit(){
+
+const nom = document.getElementById("nomProduit").value;
+const image = document.getElementById("imageProduit").value;
+const description = document.getElementById("descriptionProduit").value;
+
+const container = document.getElementById("produits-container");
+
+const card = document.createElement("div");
+card.className = "card";
+
+card.innerHTML = `
+<img src="${image}">
+<h3>${nom}</h3>
+<p>${description}</p>
+`;
+
+container.appendChild(card);
+
+}
 
 });
 
