@@ -2,3 +2,5 @@
   {"nom":"Tomates","image":"tomates.jpg","description":"Tomates fraîches du Sénégal"},
   {"nom":"Maïs","image":"mais.jpg","description":"Maïs de saison"}
 ]
+[ { "nom": "Tomate", "prix": "500 FCFA/kg", "image": "images/tomate.jpg" }, 
+  { "nom": "Maïs", "prix": "300 FCFA/kg", "image": "images/mais.jpg" } ]
