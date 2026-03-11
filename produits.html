@@ -1,61 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Produits - AgriConnect</title>
-<style>
-body{font-family:Arial;margin:0;background:#f4f4f4;}
-header{background:#27ae60;color:white;padding:20px;text-align:center;font-size:28px;font-weight:bold;}
-nav{background:#2c3e50;text-align:center;padding:10px;}
-nav a{color:white;text-decoration:none;margin:15px;font-size:18px;}
-nav a:hover{color:#1abc9c;}
-.section{padding:40px;text-align:center;}
-.card{background:white;width:250px;display:inline-block;margin:20px;padding:20px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.2);}
-.card img{width:100%;height:150px;object-fit:cover;border-radius:8px;}
-button{background:#27ae60;color:white;border:none;padding:10px 15px;margin-top:10px;border-radius:5px;cursor:pointer;}
-button:hover{background:#1e8449;}
-#panierBtn{background:#e67e22;margin-bottom:20px;}
-#panierBtn:hover{background:#d35400;}
-</style>
-</head>
-<body>
-
-<header>🌱 AgriConnect Sénégal</header>
-<nav>
-<a href="index.html">Accueil</a>
-<a href="agriculteurs.html">Agriculteurs</a>
-<a href="produits.html">Produits</a>
-<a href="contact.html">Contact</a>
-</nav>
-
-<div class="section">
-<h2>Nos Produits</h2>
-<button id="panierBtn" onclick="voirPanier()">Voir le panier</button>
 <div id="produits-container"></div>
-</div>
 
 <script>
-let panier=[];
-const container=document.getElementById("produits-container");
-
-// Exemple produits.json
-fetch("produits.json")
-.then(res=>res.json())
-.then(data=>{
-  data.forEach(produit=>{
-    const card=document.createElement("div");
-    card.className="card";
-    card.innerHTML=`<img src="images/${produit.image}"><h3>${produit.nom}</h3><p>${produit.description}</p>
-      <button onclick="ajouterPanier('${produit.nom}')">Ajouter au panier</button>
-      <a href="https://wa.me/221771234567" target="_blank"><button>WhatsApp</button></a>`;
-    container.appendChild(card);
+// On récupère les produits depuis produits.json
+fetch('produits.json')
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById('produits-container');
+    data.forEach(produit => {
+      // Crée une carte pour chaque produit
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="images/${produit.image}" alt="${produit.nom}" width="200">
+        <h3>${produit.nom}</h3>
+        <p>${produit.description}</p>
+        <p><strong>${produit.prix}</strong></p>
+      `;
+      container.appendChild(card);
+    });
   });
-});
-
-function ajouterPanier(produit){panier.push(produit);alert(produit+" ajouté au panier");}
-function voirPanier(){alert("Produits dans le panier : "+panier.join(", "));}
 </script>
-
-<footer>AgriConnect © 2026</footer>
-</body>
-</html>
