@@ -1,6 +1,14 @@
 [
-  {"nom":"Tomates","image":"tomates.jpg","description":"Tomates fraîches du Sénégal"},
-  {"nom":"Maïs","image":"mais.jpg","description":"Maïs de saison"}
+  {
+    "nom": "Tomate",
+    "prix": "500 FCFA/kg",
+    "description": "Tomates fraîches et bio",
+    "image": "tomate.jpg"
+  },
+  {
+    "nom": "Maïs",
+    "prix": "300 FCFA/kg",
+    "description": "Maïs bio de qualité",
+    "image": "mais.jpg"
+  }
 ]
-[ { "nom": "Tomate", "prix": "500 FCFA/kg", "image": "images/tomate.jpg" }, 
-  { "nom": "Maïs", "prix": "300 FCFA/kg", "image": "images/mais.jpg" } ]
