@@ -2,130 +2,76 @@
 <html>
 <head>
 <title>Agriculteurs - Agriconnect</title>
-
 <style>
-body{
-font-family:Arial;
-background:#f4f4f4;
-text-align:center;
-}
-
-h1{
-color:green;
-}
-
-#agriculteurs{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-}
-
-.card{
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-width:220px;
-}
-
-button{
-background:green;
-color:white;
-border:none;
-padding:10px;
-border-radius:5px;
-cursor:pointer;
-}
+body { font-family: Arial; background:#f4f4f4; text-align:center; }
+h1, h2 { color: green; }
+#agriculteurs { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
+.card { background:white; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); width:220px; }
+#map { height:400px; margin-top:20px; }
+input { padding:10px; width:250px; margin-bottom:10px; }
+button { background:green; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer; }
+button:hover { background:darkgreen; }
 </style>
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
-
 <body>
 
 <h1>Nos Agriculteurs 🌾</h1>
 
+<!-- Filtrer les produits sur la carte -->
+<h2>Filtrer les produits sur la carte</h2>
+<input type="text" id="searchMap" placeholder="Tapez un produit (ex: Tomate)">
+
+<div id="map"></div>
 <div id="agriculteurs"></div>
 
 <script>
-
-fetch('agriculteurs.json')
-.then(response => response.json())
-.then(data => {
-
-const container = document.getElementById('agriculteurs');
-
-data.forEach(a => {
-
-const card = document.createElement('div');
-card.className="card";
-
-card.innerHTML = `
-<h3>${a.nom}</h3>
-<p>Région : ${a.region}</p>
-<p>Produit : ${a.produit}</p>
-
-<a href="https://wa.me/${a.telephone}">
-<button>Contacter</button>
-</a>
-`;
-
-container.appendChild(card);
-
-});
-
-});
-
-</script>
-<div id="map" style="height:400px; margin-top:30px;"></div>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-<script>
-
 var map = L.map('map').setView([14.4974, -14.4524], 6);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
  attribution: '© OpenStreetMap'
 }).addTo(map);
 
+let markers = [];
+
 fetch('agriculteurs.json')
 .then(res => res.json())
 .then(data => {
 
-data.forEach(a => {
+const searchMap = document.getElementById('searchMap');
 
-L.marker([a.lat, a.lng])
-.addTo(map)
-[
- {
-  "nom": "Mamadou Diallo",
-  "region": "Kaolack",
-  "telephone": "221770000000",
-  "lat": 14.1652,
-  "lng": -16.0726,
-  "produits": [
-      {"nom": "Tomate", "prix": "500 FCFA/kg", "image": "tomate.jpg"},
-      {"nom": "Riz", "prix": "400 FCFA/kg", "image": "riz.jpg"}
-  ]
- },
- {
-  "nom": "Awa Ndiaye",
-  "region": "Saint-Louis",
-  "telephone": "221780000000",
-  "lat": 16.0326,
-  "lng": -16.4818,
-  "produits": [
-      {"nom": "Maïs", "prix": "300 FCFA/kg", "image": "mais.jpg"}
-  ]
- }
-]
+function afficherCarte(filtre = "") {
+    markers.forEach(m => map.removeLayer(m));
+    markers = [];
 
+    data.forEach(a => {
+        const produitsFiltres = a.produits.filter(p => p.nom.toLowerCase().includes(filtre.toLowerCase()));
+        if(produitsFiltres.length > 0) {
+            let popupHTML = `<b>${a.nom}</b><br>Région : ${a.region}<br>`;
+            produitsFiltres.forEach(p => {
+                popupHTML += `<hr>
+                <img src="images/${p.image}" width="100"><br>
+                ${p.nom}<br>
+                <b>${p.prix}</b><br>`;
+            });
+            popupHTML += `<a href="https://wa.me/${a.telephone}">📞 Contacter</a>`;
+
+            const marker = L.marker([a.lat, a.lng]).addTo(map).bindPopup(popupHTML);
+            markers.push(marker);
+        }
+    });
+}
+
+// Affiche tous les agriculteurs au chargement
+afficherCarte("");
+
+// Filtre en temps réel
+searchMap.addEventListener("input", () => {
+    afficherCarte(searchMap.value);
 });
-
 });
-
 </script>
+
 </body>
 </html>
