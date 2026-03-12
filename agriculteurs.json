@@ -1,4 +1,14 @@
 [
-  {"nom":"Mamadou","photo":"mamadou.jpg","description":"Agriculteur à Dakar"},
-  {"nom":"Aissatou","photo":"aissatou.jpg","description":"Agricultrice à Saint-Louis"}
+ {
+  "nom": "Mamadou Diallo",
+  "region": "Kaolack",
+  "produit": "Tomate",
+  "telephone": "221770000000"
+ },
+ {
+  "nom": "Awa Ndiaye",
+  "region": "Saint-Louis",
+  "produit": "Maïs",
+  "telephone": "221780000000"
+ }
 ]
