@@ -3,32 +3,38 @@
 <head>
 <title>Agriculteurs - Agriconnect</title>
 <style>
-body { font-family: Arial; background:#f4f4f4; text-align:center; }
-h1, h2 { color: green; }
-#agriculteurs { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
-.card { background:white; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); width:220px; }
-#map { height:400px; margin-top:20px; }
+body { font-family: Arial; background:#f4f4f4; text-align:center; margin:0; }
+nav { background:green; padding:15px; }
+nav a { color:white; margin-right:20px; text-decoration:none; font-weight:bold; }
+h1,h2 { color:green; margin-top:20px; }
 input { padding:10px; width:250px; margin-bottom:10px; }
-button { background:green; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer; }
-button:hover { background:darkgreen; }
+#map { height:400px; margin-top:20px; }
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
 
+<!-- Menu -->
+<nav>
+  <a href="index.html">Accueil</a>
+  <a href="produits.html">Produits</a>
+  <a href="agriculteurs.html">Agriculteurs</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
 <h1>Nos Agriculteurs 🌾</h1>
 
-<!-- Filtrer les produits sur la carte -->
 <h2>Filtrer les produits sur la carte</h2>
 <input type="text" id="searchMap" placeholder="Tapez un produit (ex: Tomate)">
 
 <div id="map"></div>
-<div id="agriculteurs"></div>
 
 <script>
-var map = L.map('map').setView([14.4974, -14.4524], 6);
+// Ancien code carte commenté
+// L.marker([lat, lng]).addTo(map)...
 
+var map = L.map('map').setView([14.4974, -14.4524], 6);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
  attribution: '© OpenStreetMap'
 }).addTo(map);
@@ -63,14 +69,15 @@ function afficherCarte(filtre = "") {
     });
 }
 
-// Affiche tous les agriculteurs au chargement
 afficherCarte("");
-
-// Filtre en temps réel
 searchMap.addEventListener("input", () => {
     afficherCarte(searchMap.value);
 });
+
 });
+
+// Ancien code popups commenté
+// bindPopup("<b>Agriculteur</b> ...")
 </script>
 
 </body>
