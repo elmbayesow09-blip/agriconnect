@@ -4,73 +4,79 @@
 <title>Produits - Agriconnect</title>
 
 <style>
-body{
-font-family: Arial;
-background:#f4f4f4;
-text-align:center;
+body {
+    font-family: Arial;
+    background: #f4f4f4;
+    text-align: center;
 }
 
-h1{
-color:green;
+h1, h2 {
+    color: green;
 }
 
-#produits-container{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-margin-top:20px;
+#search, #nom, #description, #prix, #image {
+    padding: 10px;
+    width: 250px;
+    margin-bottom: 10px;
 }
 
-.card{
-background:white;
-padding:15px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-width:220px;
+#produits-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
 }
 
-.card img{
-width:200px;
-border-radius:10px;
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 220px;
 }
 
-button{
-background:green;
-color:white;
-border:none;
-padding:10px;
-border-radius:5px;
-cursor:pointer;
+.card img {
+    width: 200px;
+    border-radius: 10px;
 }
 
-button:hover{
-background:darkgreen;
+button {
+    background: green;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: darkgreen;
 }
 </style>
 
 </head>
-
 <body>
 
 <h1>Nos Produits Agricoles 🌱</h1>
-  <input type="text" id="search" placeholder="Rechercher un produit..." style="padding:10px; width:250px;">
-  
+
+<!-- Barre de recherche -->
+<input type="text" id="search" placeholder="Rechercher un produit...">
+
+<!-- Formulaire ajouter un produit -->
 <h2>Ajouter un produit</h2>
-
-<input type="text" id="nom" placeholder="Nom du produit"><br><br>
-<input type="text" id="description" placeholder="Description"><br><br>
-<input type="text" id="prix" placeholder="Prix"><br><br>
+<input type="text" id="nom" placeholder="Nom du produit"><br>
+<input type="text" id="description" placeholder="Description"><br>
+<input type="text" id="prix" placeholder="Prix"><br>
 <input type="text" id="image" placeholder="Nom de l'image (ex: tomate.jpg)"><br><br>
-
 <button onclick="ajouterProduit()">Ajouter</button>
-
 <hr>
 
+<!-- Conteneur des produits -->
 <div id="produits-container"></div>
 
 <script>
-  
+// Récupération des produits depuis produits.json
 fetch('produits.json')
 .then(response => response.json())
 .then(data => {
@@ -79,47 +85,55 @@ const container = document.getElementById('produits-container');
 const search = document.getElementById('search');
 
 function afficherProduits(liste){
-
-container.innerHTML="";
-
-liste.forEach(produit => {
-
-const card = document.createElement('div');
-card.className="card";
-
-card.innerHTML = `
-<img src="images/${produit.image}">
-<h3>${produit.nom}</h3>
-<p>${produit.description}</p>
-<p><b>${produit.prix}</b></p>
-`;
-
-container.appendChild(card);
-
-});
-
+    container.innerHTML = "";
+    liste.forEach(produit => {
+        const card = document.createElement('div');
+        card.className = "card";
+        card.innerHTML = `
+            <img src="images/${produit.image}" alt="${produit.nom}">
+            <h3>${produit.nom}</h3>
+            <p>${produit.description}</p>
+            <p><b>${produit.prix}</b></p>
+        `;
+        container.appendChild(card);
+    });
 }
 
+// Affiche tous les produits au chargement
 afficherProduits(data);
 
+// Recherche en temps réel
 search.addEventListener("input", () => {
-
-const mot = search.value.toLowerCase();
-
-const filtres = data.filter(p =>
-p.nom.toLowerCase().includes(mot)
-);
-
-afficherProduits(filtres);
-
+    const mot = search.value.toLowerCase();
+    const filtres = data.filter(p => p.nom.toLowerCase().includes(mot));
+    afficherProduits(filtres);
 });
 
-});
-  
-});
+// Fonction pour ajouter un produit via le formulaire
+window.ajouterProduit = function() {
+    const nom = document.getElementById("nom").value;
+    const description = document.getElementById("description").value;
+    const prix = document.getElementById("prix").value;
+    const image = document.getElementById("image").value;
+
+    const card = document.createElement('div');
+    card.className = "card";
+    card.innerHTML = `
+        <img src="images/${image}" alt="${nom}">
+        <h3>${nom}</h3>
+        <p>${description}</p>
+        <p><b>${prix}</b></p>
+    `;
+    container.appendChild(card);
+
+    // Réinitialiser le formulaire
+    document.getElementById("nom").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("prix").value = "";
+    document.getElementById("image").value = "";
+}
 
 });
-
 </script>
 
 </body>
