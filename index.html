@@ -3,29 +3,27 @@
 <head>
   <title>Accueil - Agriconnect</title>
   <style>
-    body { font-family: Arial; background:#f4f4f4; text-align:center; margin:0; }
-    nav { background:green; padding:15px; }
-    nav a { color:white; margin-right:20px; text-decoration:none; font-weight:bold; }
-    h1 { color:green; margin-top:30px; }
-    p { max-width:600px; margin:auto; }
+    body { font-family: Arial; background:#f4f4f4; margin:0; text-align:center; }
+    h1 { color:green; margin-top:20px; }
+    p { max-width:600px; margin:auto; font-size:18px; }
+    .hero { background:#e6ffe6; padding:50px 20px; border-radius:10px; margin:20px; }
   </style>
 </head>
 <body>
 
-<!-- Menu de navigation -->
-<nav>
-  <a href="index.html">Accueil</a>
-  <a href="produits.html">Produits</a>
-  <a href="agriculteurs.html">Agriculteurs</a>
-  <a href="contact.html">Contact</a>
+<!-- Menu fixe -->
+<nav style="position:fixed; top:0; width:100%; background:green; padding:15px; z-index:1000; box-shadow:0 2px 5px rgba(0,0,0,0.2);">
+  <a href="index.html" style="color:white; margin-right:20px; text-decoration:none; font-weight:bold;">Accueil</a>
+  <a href="produits.html" style="color:white; margin-right:20px; text-decoration:none; font-weight:bold;">Produits</a>
+  <a href="agriculteurs.html" style="color:white; margin-right:20px; text-decoration:none; font-weight:bold;">Agriculteurs</a>
+  <a href="contact.html" style="color:white; margin-right:20px; text-decoration:none; font-weight:bold;">Contact</a>
 </nav>
+<div style="padding-top:70px;"></div>
 
-<h1>Bienvenue sur Agriconnect 🌱</h1>
-<p>Plateforme pour connecter les producteurs agricoles avec les clients.  
-Vous pouvez consulter les produits disponibles, contacter les agriculteurs, et voir leur localisation sur la carte.</p>
-
-<!-- Ancien contenu commenté -->
-<!-- <div>Ancienne page d’accueil</div> -->
+<div class="hero">
+  <h1>Bienvenue sur Agriconnect 🌱</h1>
+  <p>Connectez-vous avec des agriculteurs locaux, découvrez leurs produits frais et bio, et achetez directement auprès d’eux. Tout en un seul endroit !</p>
+</div>
 
 </body>
 </html>
