@@ -2,17 +2,22 @@
  {
   "nom": "Mamadou Diallo",
   "region": "Kaolack",
-  "produit": "Tomate",
   "telephone": "221770000000",
   "lat": 14.1652,
-  "lng": -16.0726
+  "lng": -16.0726,
+  "produits": [
+      {"nom": "Tomate", "prix": "500 FCFA/kg", "image": "tomate.jpg"},
+      {"nom": "Riz", "prix": "400 FCFA/kg", "image": "riz.jpg"}
+  ]
  },
  {
   "nom": "Awa Ndiaye",
   "region": "Saint-Louis",
-  "produit": "Maïs",
   "telephone": "221780000000",
   "lat": 16.0326,
-  "lng": -16.4818
+  "lng": -16.4818,
+  "produits": [
+      {"nom": "Maïs", "prix": "300 FCFA/kg", "image": "mais.jpg"}
+  ]
  }
 ]
