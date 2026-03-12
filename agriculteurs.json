@@ -3,12 +3,16 @@
   "nom": "Mamadou Diallo",
   "region": "Kaolack",
   "produit": "Tomate",
-  "telephone": "221770000000"
+  "telephone": "221770000000",
+  "lat": 14.1652,
+  "lng": -16.0726
  },
  {
   "nom": "Awa Ndiaye",
   "region": "Saint-Louis",
   "produit": "Maïs",
-  "telephone": "221780000000"
+  "telephone": "221780000000",
+  "lat": 16.0326,
+  "lng": -16.4818
  }
 ]
