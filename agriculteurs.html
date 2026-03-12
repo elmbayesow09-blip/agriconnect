@@ -98,8 +98,12 @@ data.forEach(a => {
 
 L.marker([a.lat, a.lng])
 .addTo(map)
-.bindPopup(`<b>${a.nom}</b><br>${a.produit}<br>
-<a href="https://wa.me/${a.telephone}">Contacter</a>`);
+.bindPopup(`
+<b>${a.nom}</b><br>
+Produit : ${a.produit}<br>
+📍 Région : ${a.region}<br>
+<a href="https://wa.me/${a.telephone}">📞 Contacter sur WhatsApp</a>
+`);
 
 });
 
