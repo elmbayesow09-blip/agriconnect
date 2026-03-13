@@ -1,66 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Agriculteurs - Agriconnect</title>
-<style>
-body { font-family: Arial; background:#f4f4f4; margin:0; text-align:center; }
-nav { position:fixed; top:0; width:100%; background:green; padding:15px; z-index:1000; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
-nav a { color:white; margin-right:20px; text-decoration:none; font-weight:bold; }
-h1,h2 { color:green; margin-top:20px; }
-input { padding:10px; width:250px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc; }
-#map { height:400px; margin-top:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
-</style>
+
+<title>Agriculteurs</title>
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+text-align:center;
+}
+
+nav{
+background:green;
+padding:15px;
+}
+
+nav a{
+color:white;
+margin:20px;
+text-decoration:none;
+font-weight:bold;
+}
+
+#map{
+height:400px;
+margin-top:20px;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<!-- Menu fixe -->
 <nav>
-  <a href="index.html">Accueil</a>
-  <a href="produits.html">Produits</a>
-  <a href="agriculteurs.html">Agriculteurs</a>
-  <a href="contact.html">Contact</a>
+<a href="index.html">Accueil</a>
+<a href="produits.html">Produits</a>
+<a href="agriculteurs.html">Agriculteurs</a>
+<a href="contact.html">Contact</a>
 </nav>
-<div style="padding-top:70px;"></div>
 
-<h1>Nos Agriculteurs 🌾</h1>
-<h2>Filtrer les produits sur la carte</h2>
-<input type="text" id="searchMap" placeholder="Tapez un produit (ex: Tomate)">
+<h1>Carte des Agriculteurs 🌾</h1>
 
 <div id="map"></div>
 
 <script>
-var map=L.map('map').setView([14.4974,-14.4524],6);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
- attribution:'© OpenStreetMap'
-}).addTo(map);
 
-let markers=[];
+var map=L.map('map').setView([14.4974,-14.4524],6)
 
-fetch('agriculteurs.json').then(res=>res.json()).then(data=>{
-const searchMap=document.getElementById('searchMap');
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
 
-function afficherCarte(filtre=""){
-    markers.forEach(m=>map.removeLayer(m));
-    markers=[];
-    data.forEach(a=>{
-        const produitsFiltres=a.produits.filter(p=>p.nom.toLowerCase().includes(filtre.toLowerCase()));
-        if(produitsFiltres.length>0){
-            let popupHTML=`<b>${a.nom}</b><br>Région : ${a.region}<br>`;
-            produitsFiltres.forEach(p=>{
-                popupHTML+=`<hr><img src="images/${p.image}" width="100" style="border-radius:5px;"><br>${p.nom}<br><b>${p.prix}</b><br>`;
-            });
-            popupHTML+=`<a href="https://wa.me/${a.telephone}" target="_blank">📞 Contacter</a>`;
-            const marker=L.marker([a.lat,a.lng]).addTo(map).bindPopup(popupHTML);
-            markers.push(marker);
-        }
-    });
-}
+fetch('agriculteurs.json')
 
-afficherCarte("");
-searchMap.addEventListener("input",()=>{afficherCarte(searchMap.value)});
-});
+.then(res=>res.json())
+
+.then(data=>{
+
+data.forEach(a=>{
+
+L.marker([a.lat,a.lng])
+
+.addTo(map)
+
+.bindPopup(
+
+"<b>"+a.nom+"</b><br>"+a.region+
+
+"<br><a href='https://wa.me/"+a.telephone+"'>Contacter</a>"
+
+)
+
+})
+
+})
+
 </script>
 
 </body>
