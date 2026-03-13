@@ -1,29 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="google-site-verification" content="3uQ8jrBqz0MRnDXhhKPYVlS3ZzFgZfXVFR6oXJV_PYs" />
-  <title>Accueil - Agriconnect</title>
-  <style>
-    body { font-family: Arial; background:#f4f4f4; margin:0; text-align:center; }
-    h1 { color:green; margin-top:20px; }
-    p { max-width:600px; margin:auto; font-size:18px; }
-    .hero { background:#e6ffe6; padding:50px 20px; border-radius:10px; margin:20px; }
-  </style>
+
+<title>Agriconnect</title>
+
+<meta name="description" content="Plateforme qui connecte les agriculteurs et les clients.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+margin:0;
+text-align:center;
+}
+
+nav{
+background:green;
+padding:15px;
+}
+
+nav a{
+color:white;
+margin:20px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.hero{
+padding:40px;
+}
+
+button{
+background:green;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:darkgreen;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<!-- Menu fixe -->
-<nav style="position:fixed; top:0; width:100%; background:green; padding:15px; z-index:1000; box-shadow:0 2px 5px rgba(0,0,0,0.2);">
-  <a href="index.html" style="color:white; margin-right:20px; text-decoration:none; font-weight:bold;">Accueil</a>
-  <a href="produits.html" style="color:white; margin-right:20px; text-decoration:none; font-weight:bold;">Produits</a>
-  <a href="agriculteurs.html" style="color:white; margin-right:20px; text-decoration:none; font-weight:bold;">Agriculteurs</a>
-  <a href="contact.html" style="color:white; margin-right:20px; text-decoration:none; font-weight:bold;">Contact</a>
+<nav>
+<a href="index.html">Accueil</a>
+<a href="produits.html">Produits</a>
+<a href="agriculteurs.html">Agriculteurs</a>
+<a href="contact.html">Contact</a>
 </nav>
-<div style="padding-top:70px;"></div>
 
 <div class="hero">
-  <h1>Bienvenue sur Agriconnect 🌱</h1>
-  <p>Connectez-vous avec des agriculteurs locaux, découvrez leurs produits frais et bio, et achetez directement auprès d’eux. Tout en un seul endroit !</p>
+
+<h1>Bienvenue sur Agriconnect 🌱</h1>
+
+<img src="images/ferme.jpg" width="400">
+
+<p>Découvrez les produits agricoles locaux et contactez directement les agriculteurs.</p>
+
+<br>
+
+<a href="login.html">
+<button>Connexion Agriculteur</button>
+</a>
+
 </div>
 
 </body>
