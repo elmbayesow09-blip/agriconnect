@@ -1,85 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>Connexion Agriculteur - Agriconnect</title>
-
-<style>
-
-body{
-font-family:Arial;
-background:#f4f4f4;
-margin:0;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
-
-.login-box{
-background:white;
-padding:40px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
-width:300px;
-text-align:center;
-}
-
-h2{
-color:green;
-}
-
-input{
-width:100%;
-padding:10px;
-margin:10px 0;
-border-radius:5px;
-border:1px solid #ccc;
-}
-
-button{
-background:green;
-color:white;
-border:none;
-padding:10px;
-width:100%;
-border-radius:5px;
-cursor:pointer;
-}
-
-button:hover{
-background:darkgreen;
-}
-
-a{
-text-decoration:none;
-color:green;
-font-size:14px;
-}
-
-</style>
-
+    <title>Connexion Agriculteur - Agriconnect</title>
+    <style>
+        body{
+            font-family: Arial;
+            text-align: center;
+            background: #f4f4f4;
+        }
+        .login-box{
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 50px;
+            display: inline-block;
+        }
+        input{
+            width: 200px;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button{
+            background: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover{
+            background: darkgreen;
+        }
+        a{
+            text-decoration: none;
+            color: green;
+            font-size: 14px;
+        }
+    </style>
 </head>
-
 <body>
 
 <div class="login-box">
+    <h2>Agriconnect 🌱</h2>
+    <p>Connexion Agriculteur</p>
 
-<h2>Agriconnect 🌱</h2>
+    <input id="email" type="email" placeholder="Email">
+    <br>
+    <input id="password" type="password" placeholder="Mot de passe">
+    <br>
 
-<p>Connexion Agriculteur</p>
-
-<input type="text" placeholder="Nom d'utilisateur">
-
-<input type="password" placeholder="Mot de passe">
-
-<button>Se connecter</button>
-
-<br><br>
-
-<a href="index.html">Retour à l'accueil</a>
-
+    <button onclick="login()">Se connecter</button>
+    <button onclick="signup()">Créer un compte</button>
+    <br><br>
+    <a href="index.html">Retour à l'accueil</a>
 </div>
+
+<!-- Firebase scripts -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+<script>
+    // ⚠️ Remplace les XXXX par tes propres infos Firebase
+    const firebaseConfig = {
+        apiKey: "XXXX",
+        authDomain: "XXXX.firebaseapp.com",
+        projectId: "XXXX",
+        storageBucket: "XXXX.appspot.com",
+        messagingSenderId: "XXXX",
+        appId: "XXXX"
+    };
+
+    // Initialiser Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Création de compte
+    function signup() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        auth.createUserWithEmailAndPassword(email, password)
+        .then(() => alert("Compte créé !"))
+        .catch(error => alert(error.message));
+    }
+
+    // Connexion
+    function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+            alert("Connecté !");
+            window.location.href = "index.html"; // Redirection vers la page d'accueil
+        })
+        .catch(error => alert(error.message));
+    }
+</script>
 
 </body>
 </html>
