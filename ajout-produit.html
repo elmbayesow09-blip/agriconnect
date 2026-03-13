@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter Produit - Agriconnect</title>
+    <style>
+        body{
+            font-family: Arial;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        h1{
+            color: green;
+            margin-top: 20px;
+        }
+        .form-box{
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 50px;
+            display: inline-block;
+        }
+        input{
+            width: 250px;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button{
+            background: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 260px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover{
+            background: darkgreen;
+        }
+        a{
+            text-decoration: none;
+            color: green;
+            font-size: 14px;
+            display: block;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Ajouter un produit</h1>
+
+<div class="form-box">
+    <input id="nom" type="text" placeholder="Nom du produit"><br>
+    <input id="description" type="text" placeholder="Description"><br>
+    <input id="prix" type="text" placeholder="Prix"><br>
+    <input id="image" type="text" placeholder="Nom de l'image (ex: tomate.jpg)"><br>
+    <button onclick="ajouterProduit()">Ajouter Produit</button>
+    <a href="index.html">Retour à l'accueil</a>
+</div>
+
+<!-- Firebase scripts -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+<script>
+    // ⚠️ Remplace les XXXX par tes informations Firebase
+    const
