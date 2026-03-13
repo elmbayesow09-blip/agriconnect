@@ -1,24 +1,85 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-<title>Connexion Agriculteur</title>
+
+<title>Connexion Agriculteur - Agriconnect</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.login-box{
+background:white;
+padding:40px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+width:300px;
+text-align:center;
+}
+
+h2{
+color:green;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+button{
+background:green;
+color:white;
+border:none;
+padding:10px;
+width:100%;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:darkgreen;
+}
+
+a{
+text-decoration:none;
+color:green;
+font-size:14px;
+}
+
+</style>
+
 </head>
 
-<body style="text-align:center;font-family:Arial">
+<body>
 
-<h2>Connexion Agriculteur</h2>
+<div class="login-box">
 
-<input type="text" placeholder="Nom">
+<h2>Agriconnect 🌱</h2>
 
-<br><br>
+<p>Connexion Agriculteur</p>
+
+<input type="text" placeholder="Nom d'utilisateur">
 
 <input type="password" placeholder="Mot de passe">
 
-<br><br>
-
 <button>Se connecter</button>
 
-</body>
+<br><br>
 
+<a href="index.html">Retour à l'accueil</a>
+
+</div>
+
+</body>
 </html>
