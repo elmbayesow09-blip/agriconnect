@@ -1,14 +1,22 @@
 [
-  {
-    "nom": "Tomate",
-    "prix": "500 FCFA/kg",
-    "description": "Tomates fraîches et bio",
-    "image": "tomate.jpg"
-  },
-  {
-    "nom": "Maïs",
-    "prix": "300 FCFA/kg",
-    "description": "Maïs bio de qualité",
-    "image": "mais.jpg"
-  }
+{
+"nom":"Tomate",
+"description":"Tomates fraîches",
+"prix":"500 FCFA/kg",
+"image":"tomate.jpg"
+},
+
+{
+"nom":"Maïs",
+"description":"Maïs naturel",
+"prix":"300 FCFA/kg",
+"image":"mais.jpg"
+},
+
+{
+"nom":"Riz",
+"description":"Riz local",
+"prix":"400 FCFA/kg",
+"image":"riz.jpg"
+}
 ]
