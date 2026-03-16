@@ -31,7 +31,7 @@ let email=document.getElementById("email").value;
 let password=document.getElementById("password").value;
 
 signInWithEmailAndPassword(auth,email,password)
-.then(()=>{alert("Connexion réussie");window.location="ajout-produit.html";})
+.then(()=>{alert("Connexion réussie");window.location="dashboard.html";})
 .catch((error)=>{alert(error.message);});
 }
 </script>
