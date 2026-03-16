@@ -20,14 +20,13 @@ footer{background:#2e7d32;color:white;text-align:center;padding:20px;margin-top:
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
 <script>
 var map = L.map('map').setView([14.4974, -14.4524], 7);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution: 'Map data © OpenStreetMap'
 }).addTo(map);
 
-// Exemples de localisation d'agriculteurs
+// Exemple : les agriculteurs peuvent provenir de Firebase plus tard
 var agriculteurs = [
 {nom:"Mamadou", region:"Dakar", lat:14.7167, lon:-17.4677, produit:"Maïs"},
 {nom:"Aissatou", region:"Kaolack", lat:13.95, lon:-16.05, produit:"Arachide"},
