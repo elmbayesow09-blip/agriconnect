@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Inscription Agriculteur - Agriconnect</title>
+<style>
+body{font-family:Arial;background:#f4f4f4;text-align:center}
+input{padding:10px;margin:10px;width:250px}
+button{background:#2e7d32;color:white;padding:10px;border:none}
+</style>
+</head>
+
+<body>
+
+<h2>Créer un compte Agriculteur</h2>
+
+<input id="nom" placeholder="Nom complet"><br>
+
+<input id="email" placeholder="Email"><br>
+
+<input id="password" type="password" placeholder="Mot de passe"><br>
+
+<input id="telephone" placeholder="Téléphone"><br>
+
+<input id="region" placeholder="Région"><br>
+
+<button onclick="register()">Créer le compte</button>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import { getAuth, createUserWithEmailAndPassword }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import { getFirestore, setDoc, doc }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4",
+
+authDomain: "agriconnect-933f0.firebaseapp.com",
+
+projectId: "agriconnect-933f0",
+
+storageBucket: "agriconnect-933f0.appspot.com",
+
+messagingSenderId: "1028061092951",
+
+appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+window.register = async function(){
+
+let nom=document.getElementById("nom").value;
+
+let email=document.getElementById("email").value;
+
+let password=document.getElementById("password").value;
+
+let telephone=document.getElementById("telephone").value;
+
+let region=document.getElementById("region").value;
+
+const userCredential = await createUserWithEmailAndPassword(auth,email,password);
+
+const user = userCredential.user;
+
+await setDoc(doc(db,"agriculteurs",user.uid),{
+
+nom:nom,
+
+email:email,
+
+telephone:telephone,
+
+region:region
+
+});
+
+alert("Compte créé avec succès");
+
+window.location="login.html";
+
+}
+
+</script>
+
+</body>
+</html>
