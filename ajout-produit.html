@@ -1,91 +1,64 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-<meta charset="UTF-8"> 
-<title>Ajouter un produit - Agriconnect</title>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"; 
-
-const firebaseConfig = {
-  apiKey: AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4 
-  authDomain: "agriconnect-933f0.firebaseapp.com",
-  projectId: "agriconnect-933f0",
-  storageBucket: "agriconnect-933f0.appspot.com",
-  messagingSenderId: "1028061092951",
-  appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-
-window.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('addProductForm');
-    
-    onAuthStateChanged(auth, user => {
-        if (!user) {
-            alert("Vous devez être connecté pour ajouter un produit.");
-            window.location.href = "login.html";
-        }
-    });
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const nom = document.getElementById('nom').value;
-        const description = document.getElementById('description').value;
-        const image = document.getElementById('image').value;
-        try {
-            await addDoc(collection(db, "produits"), { nom, description, image });
-            alert("Produit ajouté avec succès !");
-            form.reset();
-        } catch (error) {
-            alert("Erreur : " + error.message);
-        }
-    });
-});
-</script>
-<style>
-body{margin:0;font-family:Arial;background:#f5f5f5;}
-header{background:green;color:white;text-align:center;padding:20px;}
-main{padding:20px;max-width:400px;margin:30px auto;background:white;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.2);}
-input{width:100%;padding:10px;margin:10px 0;border-radius:5px;border:1px solid #ccc;}
-button{width:100%;padding:10px;background:#4CAF50;color:white;border:none;border-radius:5px;font-weight:bold;cursor:pointer;}
-button:hover{background:#388E3C;}
-#btnEntreprises{position:fixed;bottom:20px;left:20px;background:#4CAF50;color:white;padding:15px 20px;border-radius:50px;text-decoration:none;font-weight:bold;box-shadow:0 0 10px rgba(0,0,0,0.3);z-index:1000;transition:0.3s;}
-#btnEntreprises:hover{background:#388E3C;}
-#contactBox{position:fixed;bottom:20px;right:20px;width:220px;padding:15px;background:#f0fff0;border:2px solid #4CAF50;border-radius:10px;box-shadow:0 0 12px rgba(0,0,0,0.2);text-align:center;font-size:14px;z-index:1000;}
-#contactBox h4{margin:0 0 5px 0;color:#4CAF50;}
-#contactBox p{margin:5px 0;}
-#contactBox a{color:#4CAF50;font-weight:bold;text-decoration:none;}
-#contactBox a:hover{text-decoration:underline;}
-footer{background:#f0f0f0;text-align:center;padding:15px;color:#555;font-size:13px;margin-top:40px;}
-</style>
+<title>Ajouter produit</title>
 </head>
+
 <body>
 
-<header><h1>Ajouter un produit</h1></header>
+<h2>Ajouter un produit</h2>
 
-<main>
-<form id="addProductForm">
-<input type="text" id="nom" placeholder="Nom du produit" required>
-<input type="text" id="description" placeholder="Description" required>
-<input type="text" id="image" placeholder="Nom de l'image (ex: riz.jpg)" required>
-<button type="submit">Ajouter</button>
-</form>
-</main>
+<input id="nom" placeholder="Nom produit"><br><br>
+<input id="description" placeholder="Description"><br><br>
 
-<a href="entreprises.html" id="btnEntreprises">Entreprises agricoles</a>
+<button onclick="ajouterProduit()">Ajouter</button>
 
-<div id="contactBox">
-<h4>Contactez le créateur</h4>
-<p>Pour toute question :</p>
-<a href="mailto:elmbayesow09@gmail.com">elmbayesow09@gmail.com</a>
-</div>
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4",
+authDomain: "agriconnect-933f0.firebaseapp.com",
+projectId: "agriconnect-933f0",
+storageBucket: "agriconnect-933f0.appspot.com",
+messagingSenderId: "1028061092951",
+appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
+
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+
+window.ajouterProduit=async function(){
+
+let nom=document.getElementById("nom").value;
+let description=document.getElementById("description").value;
+
+await addDoc(collection(db,"produits"),{
+
+nom:nom,
+description:description
+
+});
+
+alert("Produit ajouté");
+
+}
+
+</script>
 
 <footer>
-Créé par Elmbaye Sow | © 2026 Agriconnect | <a href="mailto:elmbayesow09@gmail.com">elmbayesow09@gmail.com</a>
+© 2026 Agriconnect | Contact : elmbayesow09@gmail.com
 </footer>
 
 </body>
