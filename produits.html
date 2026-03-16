@@ -1,12 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Produits agricoles</title>
+
+<title>Produits agricoles - Agriconnect</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+text-align:center;
+}
+
+h1{
+color:#2e7d32;
+}
+
+#search{
+width:60%;
+padding:10px;
+margin:20px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+.produit{
+background:white;
+margin:20px;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 8px rgba(0,0,0,0.1);
+}
+
+</style>
+
 </head>
 
 <body>
 
 <h1>Produits agricoles</h1>
+
+<input type="text" id="search" placeholder="Rechercher un produit..." onkeyup="rechercher()">
 
 <div id="listeProduits"></div>
 
@@ -33,20 +67,24 @@ appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
 
 };
 
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let produits = [];
 
 async function chargerProduits(){
 
-const querySnapshot=await getDocs(collection(db,"produits"));
+const querySnapshot = await getDocs(collection(db,"produits"));
 
 querySnapshot.forEach((doc)=>{
 
-let p=doc.data();
+let p = doc.data();
 
-document.getElementById("listeProduits").innerHTML+=`
+produits.push(p);
 
-<div style="background:white;padding:20px;margin:20px;border-radius:10px">
+document.getElementById("listeProduits").innerHTML += `
+
+<div class="produit">
 
 <h3>${p.nom}</h3>
 
@@ -62,10 +100,42 @@ document.getElementById("listeProduits").innerHTML+=`
 
 chargerProduits();
 
+window.rechercher = function(){
+
+let mot = document.getElementById("search").value.toLowerCase();
+
+let resultat="";
+
+produits.forEach((p)=>{
+
+if(p.nom.toLowerCase().includes(mot)){
+
+resultat += `
+
+<div class="produit">
+
+<h3>${p.nom}</h3>
+
+<p>${p.description}</p>
+
+</div>
+
+`;
+
+}
+
+});
+
+document.getElementById("listeProduits").innerHTML = resultat;
+
+}
+
 </script>
 
-<footer>
+<footer style="margin-top:40px;background:#2e7d32;color:white;padding:20px">
+
 © 2026 Agriconnect | Contact : elmbayesow09@gmail.com
+
 </footer>
 
 </body>
