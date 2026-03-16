@@ -1,125 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Tableau de bord Agriculteur</title>
+<title>Dashboard Agriculteur</title>
 <style>
-body{font-family:Arial;background:#f4f4f4;margin:0;padding:0;}
-header{background:#2e7d32;color:white;padding:20px;text-align:center;}
-nav{background:#1b5e20;padding:10px;text-align:center;}
-nav a{color:white;margin:10px;text-decoration:none;font-weight:bold;}
-.container{padding:20px;}
-h2{color:#2e7d32;}
-input, textarea{width:80%;padding:10px;margin:5px 0;border-radius:5px;border:1px solid #ccc;}
-button{background:#2e7d32;color:white;padding:10px 15px;border:none;border-radius:5px;cursor:pointer;margin-top:10px;}
-.produit{background:white;padding:15px;margin:10px;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,0.1);}
-.produit img{max-width:150px;border-radius:5px;}
+
+body{font-family:Arial;background:#f4f4f4;text-align:center}
+
+input{padding:10px;margin:10px}
+
+button{background:#2e7d32;color:white;padding:10px;border:none}
+
 </style>
 </head>
+
 <body>
 
-<header>
-<h1>Tableau de bord Agriculteur</h1>
-<p>Gérez vos produits et votre localisation</p>
-</header>
-
-<nav>
-<a href="index.html">Accueil</a>
-<a href="produits.html">Produits</a>
-<a href="agriculteurs.html">Agriculteurs</a>
-<a href="logout.html">Déconnexion</a>
-</nav>
-
-<div class="container">
 <h2>Ajouter un produit</h2>
-<input id="nom" placeholder="Nom du produit"><br>
-<textarea id="description" placeholder="Description"></textarea><br>
-<input id="image" placeholder="URL de l'image"><br>
-<input id="region" placeholder="Région"><br>
-<input id="lat" placeholder="Latitude"><br>
-<input id="lon" placeholder="Longitude"><br>
-<button onclick="ajouterProduit()">Ajouter</button>
 
-<h2>Mes produits</h2>
-<div id="listeProduits"></div>
-</div>
+<input id="nom" placeholder="Nom du produit"><br>
+
+<input id="description" placeholder="Description"><br>
+
+<input id="prix" placeholder="Prix"><br>
+
+<input id="image" placeholder="images/tomate.jpg"><br>
+
+<button onclick="addProduct()">Ajouter</button>
 
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import { getFirestore, addDoc, collection }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
+
 apiKey: "AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4",
+
 authDomain: "agriconnect-933f0.firebaseapp.com",
+
 projectId: "agriconnect-933f0",
+
 storageBucket: "agriconnect-933f0.appspot.com",
+
 messagingSenderId: "1028061092951",
+
 appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
+
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
-const auth = getAuth(app);
-let currentUserEmail="";
 
-// Vérifier si l'agriculteur est connecté
-onAuthStateChanged(auth, (user)=>{
-  if(user){ 
-    currentUserEmail = user.email;
-    chargerProduits();
-  } else {
-    alert("Vous devez être connecté !");
-    window.location="login.html";
-  }
-});
+window.addProduct = async function(){
 
-// Ajouter un produit
-window.ajouterProduit = async function(){
-let nom = document.getElementById("nom").value;
-let description = document.getElementById("description").value;
-let image = document.getElementById("image").value;
-let region = document.getElementById("region").value;
-let lat = parseFloat(document.getElementById("lat").value);
-let lon = parseFloat(document.getElementById("lon").value);
+let nom=document.getElementById("nom").value;
 
-if(!nom || !description || !region || !lat || !lon){ alert("Remplissez tous les champs"); return;}
+let description=document.getElementById("description").value;
+
+let prix=document.getElementById("prix").value;
+
+let image=document.getElementById("image").value;
 
 await addDoc(collection(db,"produits"),{
-nom: nom,
-description: description,
-image: image,
-region: region,
-lat: lat,
-lon: lon,
-emailAgriculteur: currentUserEmail
+
+nom:nom,
+
+description:description,
+
+prix:prix,
+
+image:image
+
 });
 
-alert("Produit ajouté avec succès");
-chargerProduits();
+alert("Produit ajouté");
+
 }
 
-// Charger les produits de l'agriculteur connecté
-async function chargerProduits(){
-document.getElementById("listeProduits").innerHTML="";
-const q = query(collection(db,"produits"), where("emailAgriculteur","==",currentUserEmail));
-const querySnapshot = await getDocs(q);
-querySnapshot.forEach((doc)=>{
-let p = doc.data();
-document.getElementById("listeProduits").innerHTML += `
-<div class="produit">
-<img src="${p.image}" alt="${p.nom}">
-<h3>${p.nom}</h3>
-<p>${p.description}</p>
-<p>Région: ${p.region}</p>
-<p>Latitude: ${p.lat} | Longitude: ${p.lon}</p>
-</div>`;
-});
-}
 </script>
-
-<footer style="background:#2e7d32;color:white;padding:20px;margin-top:40px;text-align:center;">
-© 2026 Agriconnect | Contact : elmbayesow09@gmail.com
-</footer>
 
 </body>
 </html>
