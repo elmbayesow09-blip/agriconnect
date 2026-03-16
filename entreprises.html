@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Entreprises agricoles - Agriconnect</title>
+
+<!-- Leaflet pour la carte interactive -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+body{font-family:Arial, sans-serif; background:#f5f5f5; padding:20px;}
+h1{text-align:center; color:green; margin-bottom:10px;}
+p.intro{text-align:center; color:#555; margin-bottom:30px;}
+#filterRegion{display:block; margin:0 auto 20px auto; padding:10px; font-size:16px; max-width:300px;}
+.entreprise-container{display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:20px; margin-bottom:30px;}
+.entreprise{background:white; padding:15px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); text-align:center;}
+.entreprise img{max-width:100%; border-radius:10px; height:150px; object-fit:cover;}
+.entreprise h3{color:green; margin:10px 0 5px 0;}
+.entreprise p{margin:5px 0; font-size:14px; color:#333;}
+.entreprise a{display:inline-block; margin:5px 5px 0 5px; padding:8px 12px; background:green; color:white; text-decoration:none; border-radius:5px; font-weight:bold; transition:0.3s;}
+.entreprise a:hover{background:#388E3C;}
+#map{height:400px; width:100%; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); margin-bottom:30px;}
+#btnAccueil{position:fixed; bottom:20px; right:20px; background:orange; color:white; padding:15px 20px; border-radius:50px; text-decoration:none; font-weight:bold; box-shadow:0 0 10px rgba(0,0,0,0.2); transition:0.3s;}
+#btnAccueil:hover{background:#e67e22;}
+</style>
+</head>
+
+<body>
+
+<h1>Nos entreprises partenaires</h1>
+<p class="intro">Découvrez et contactez facilement les entreprises agricoles dans tout le Sénégal. Filtrez par région ou utilisez la carte pour trouver rapidement des semences, engrais ou matériels agricoles !</p>
+
+<!-- Filtre par région -->
+<select id="filterRegion">
+    <option value="toutes">Toutes les régions</option>
+    <option value="Dakar">Dakar</option>
+    <option value="Thiès">Thiès</option>
+    <option value="Saint-Louis">Saint-Louis</option>
+    <option value="Kaolack">Kaolack</option>
+    <option value="Ziguinchor">Ziguinchor</option>
+</select>
+
+<!-- Liste des entreprises -->
+<div class="entreprise-container" id="entrepriseListe">
+
+<div class="entreprise" data-region="Dakar">
+<img src="images/ancar.jpg" alt="ANCAR">
+<h3>ANCAR</h3>
+<p>Semences de qualité pour vos cultures</p>
+<a href="https://www.ancar.sn" target="_blank">Site web</a>
+<a href="https://wa.me/221770000000" target="_blank">WhatsApp</a>
+</div>
+
+<div class="entreprise" data-region="Dakar">
+<img src="images/cncr.jpg" alt="CNCR">
+<h3>CNCR</h3>
+<p>Coordination nationale des conseils ruraux</p>
+<a href="https://www.cncr.sn" target="_blank">Site web</a>
+<a href="https://wa.me/221770000001" target="_blank">WhatsApp</a>
+</div>
+
+<div class="entreprise" data-region="Thiès">
+<img src="images/corpsem.jpg" alt="CorpOsem">
+<h3>CorpOsem</h3>
+<p>Fourniture de semences et intrants agricoles</p>
+<a href="https://www.corpsem.sn" target="_blank">Site web</a>
+<a href="https://wa.me/221770000002" target="_blank">WhatsApp</a>
+</div>
+
+<div class="entreprise" data-region="Saint-Louis">
+<img src="images/tropicasem.jpg" alt="TropicaSem">
+<h3>TropicaSem</h3>
+<p>Semences tropicales adaptées à toutes les régions</p>
+<a href="https://www.tropicasem.sn" target="_blank">Site web</a>
+<a href="https://wa.me/221770000003" target="_blank">WhatsApp</a>
+</div>
+
+<div class="entreprise" data-region="Kaolack">
+<img src="images/sdrd.jpg" alt="SDRD">
+<h3>SDRD</h3>
+<p>Produits et intrants agricoles fiables</p>
+<a href="https://www.sdrd.sn" target="_blank">Site web</a>
+<a href="https://wa.me/221770000004" target="_blank">WhatsApp</a>
+</div>
+
+</div>
+
+<h2 style="text-align:center; color:green;">Localisez les entreprises sur la carte</h2>
+<div id="map"></div>
+
+<a href="index.html" id="btnAccueil">Accueil</a>
+
+<script>
+// Initialiser la carte
+const map = L.map('map').setView([14.6928, -17.4467], 7);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:'© OpenStreetMap contributors'
+}).addTo(map);
+
+// Entreprises avec coordonnées et région
+const entreprisesMap = [
+    {nom:"ANCAR", lat:14.6937, lng:-17.4477, region:"Dakar", site:"https://www.ancar.sn", whatsapp:"https://wa.me/221770000000"},
+    {nom:"CNCR", lat:14.6789, lng:-17.4389, region:"Dakar", site:"https://www.cncr.sn", whatsapp:"https://wa.me/221770000001"},
+    {nom:"CorpOsem", lat:14.7012, lng:-17.4512, region:"Thiès", site:"https://www.corpsem.sn", whatsapp:"https://wa.me/221770000002"},
+    {nom:"TropicaSem", lat:14.7120, lng:-17.4600, region:"Saint-Louis", site:"https://www.tropicasem.sn", whatsapp:"https://wa.me/221770000003"},
+    {nom:"SDRD", lat:14.6900, lng:-17.4550, region:"Kaolack", site:"https://www.sdrd.sn", whatsapp:"https://wa.me/221770000004"}
+];
+
+let markers = [];
+
+function showMarkers(region){
+    markers.forEach(m => map.removeLayer(m));
+    markers = [];
+    entreprisesMap.forEach(e => {
+        if(region === "toutes" || e.region === region){
+            const marker = L.marker([e.lat, e.lng]).addTo(map)
+            .bindPopup(`<b>${e.nom}</b><br>Région: ${e.region}<br><a href="${e.site}" target="_blank">Site web</a><br><a href="${e.whatsapp}" target="_blank">WhatsApp</a>`);
+            markers.push(marker);
+        }
+    });
+}
+
+// Afficher toutes les entreprises par défaut
+showMarkers("toutes");
+
+// Filtre par région pour la carte et la liste
+const filterSelect = document.getElementById("filterRegion");
+filterSelect.addEventListener("change", (e)=>{
+    const region = e.target.value;
+    showMarkers(region);
+
+    // Filtrer la liste des entreprises
+    const entreprisesList = document.querySelectorAll("#entrepriseListe .entreprise");
+    entreprisesList.forEach(div => {
+        if(region === "toutes" || div.getAttribute("data-region") === region){
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
+        }
+    });
+});
+</script>
+
+</body>
+</html>
