@@ -1,72 +1,71 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Produits - Agriconnect</title>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"; 
-
-const firebaseConfig = {
-  apiKey: AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4 
-  authDomain: "agriconnect-933f0.firebaseapp.com",
-  projectId: "agriconnect-933f0",
-  storageBucket: "agriconnect-933f0.appspot.com",
-  messagingSenderId: "1028061092951",
-  appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-window.addEventListener('DOMContentLoaded', async () => {
-    const produitsDiv = document.getElementById('produits');
-    const querySnapshot = await getDocs(collection(db, "produits"));
-    querySnapshot.forEach((doc) => {
-        const produit = doc.data();
-        const card = document.createElement('div');
-        card.classList.add('produit');
-        card.innerHTML = `
-            <img src="assets/images/${produit.image || 'placeholder.png'}" alt="${produit.nom}">
-            <h3>${produit.nom}</h3>
-            <p>${produit.description}</p>
-        `;
-        produitsDiv.appendChild(card);
-    });
-});
-</script>
-<style>
-body{margin:0;font-family:Arial;background:#f5f5f5;}
-header{background:green;color:white;text-align:center;padding:20px;}
-.produit{background:white;padding:15px;margin:10px;border-radius:10px;display:inline-block;width:250px;vertical-align:top;box-shadow:0 0 5px rgba(0,0,0,0.2);}
-.produit img{width:100%;border-radius:10px;}
-h1{text-align:center;}
-#btnEntreprises{position:fixed;bottom:20px;left:20px;background:#4CAF50;color:white;padding:15px 20px;border-radius:50px;text-decoration:none;font-weight:bold;box-shadow:0 0 10px rgba(0,0,0,0.3);z-index:1000;transition:0.3s;}
-#btnEntreprises:hover{background:#388E3C;}
-#contactBox{position:fixed;bottom:20px;right:20px;width:220px;padding:15px;background:#f0fff0;border:2px solid #4CAF50;border-radius:10px;box-shadow:0 0 12px rgba(0,0,0,0.2);text-align:center;font-size:14px;z-index:1000;}
-#contactBox h4{margin:0 0 5px 0;color:#4CAF50;}
-#contactBox p{margin:5px 0;}
-#contactBox a{color:#4CAF50;font-weight:bold;text-decoration:none;}
-#contactBox a:hover{text-decoration:underline;}
-footer{background:#f0f0f0;text-align:center;padding:15px;color:#555;font-size:13px;margin-top:40px;}
-@media(max-width:600px){.produit{width:90%;margin:10px auto;}#btnEntreprises{padding:12px 16px;font-size:14px;}#contactBox{width:180px;padding:10px;font-size:13px;}}
-</style>
+<title>Produits agricoles</title>
 </head>
+
 <body>
 
-<header><h1>Produits disponibles</h1></header>
-<div id="produits"></div>
+<h1>Produits agricoles</h1>
 
-<a href="entreprises.html" id="btnEntreprises">Entreprises agricoles</a>
+<div id="listeProduits"></div>
 
-<div id="contactBox">
-<h4>Contactez le créateur</h4>
-<p>Pour toute question :</p>
-<a href="mailto:elmbayesow09@gmail.com">elmbayesow09@gmail.com</a>
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4",
+authDomain: "agriconnect-933f0.firebaseapp.com",
+projectId: "agriconnect-933f0",
+storageBucket: "agriconnect-933f0.appspot.com",
+messagingSenderId: "1028061092951",
+appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
+
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+
+async function chargerProduits(){
+
+const querySnapshot=await getDocs(collection(db,"produits"));
+
+querySnapshot.forEach((doc)=>{
+
+let p=doc.data();
+
+document.getElementById("listeProduits").innerHTML+=`
+
+<div style="background:white;padding:20px;margin:20px;border-radius:10px">
+
+<h3>${p.nom}</h3>
+
+<p>${p.description}</p>
+
 </div>
 
+`;
+
+});
+
+}
+
+chargerProduits();
+
+</script>
+
 <footer>
-Créé par Elmbaye Sow | © 2026 Agriconnect | <a href="mailto:elmbayesow09@gmail.com">elmbayesow09@gmail.com</a>
+© 2026 Agriconnect | Contact : elmbayesow09@gmail.com
 </footer>
 
 </body>
