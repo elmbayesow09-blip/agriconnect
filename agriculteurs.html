@@ -1,36 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>Agriculteurs</title>
+<title>Agriculteurs - Agriconnect</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <style>
 
 body{
 font-family:Arial;
 margin:0;
+background:#f4f4f4;
 text-align:center;
 }
 
-nav{
-background:green;
-padding:15px;
-}
-
-nav a{
+header{
+background:#2e7d32;
 color:white;
-margin:20px;
-text-decoration:none;
-font-weight:bold;
+padding:20px;
+text-align:center;
 }
 
 #map{
-height:400px;
-margin-top:20px;
+height:500px;
+margin:20px;
+border-radius:10px;
+}
+
+footer{
+background:#2e7d32;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:40px;
 }
 
 </style>
@@ -39,48 +41,42 @@ margin-top:20px;
 
 <body>
 
-<nav>
-<a href="index.html">Accueil</a>
-<a href="produits.html">Produits</a>
-<a href="agriculteurs.html">Agriculteurs</a>
-<a href="contact.html">Contact</a>
-</nav>
-
-<h1>Carte des Agriculteurs 🌾</h1>
+<header>
+<h1>Agriculteurs au Sénégal</h1>
+<p>Localisation des agriculteurs et de leurs produits</p>
+</header>
 
 <div id="map"></div>
 
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <script>
 
-var map=L.map('map').setView([14.4974,-14.4524],6)
+var map = L.map('map').setView([14.4974, -14.4524], 7);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+attribution: 'Map data © OpenStreetMap'
+}).addTo(map);
 
-fetch('agriculteurs.json')
+// Exemples de localisation d'agriculteurs
+var agriculteurs = [
+  {nom:"Mamadou", region:"Dakar", lat:14.7167, lon:-17.4677, produit:"Maïs"},
+  {nom:"Aissatou", region:"Kaolack", lat:13.95, lon:-16.05, produit:"Arachide"},
+  {nom:"Oumar", region:"Thiès", lat:14.8, lon:-16.9, produit:"Oignon"},
+  {nom:"Fatou", region:"Kaffrine", lat:13.95, lon:-14.55, produit:"Mil"}
+];
 
-.then(res=>res.json())
-
-.then(data=>{
-
-data.forEach(a=>{
-
-L.marker([a.lat,a.lng])
-
-.addTo(map)
-
-.bindPopup(
-
-"<b>"+a.nom+"</b><br>"+a.region+
-
-"<br><a href='https://wa.me/"+a.telephone+"'>Contacter</a>"
-
-)
-
-})
-
-})
+// Ajouter les marqueurs sur la carte
+agriculteurs.forEach(a => {
+  L.marker([a.lat, a.lon]).addTo(map)
+  .bindPopup("<b>"+a.nom+"</b><br>Région: "+a.region+"<br>Produit: "+a.produit);
+});
 
 </script>
+
+<footer>
+© 2026 Agriconnect | Contact : elmbayesow09@gmail.com
+</footer>
 
 </body>
 </html>
