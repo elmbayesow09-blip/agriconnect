@@ -6,10 +6,13 @@
 
 <body>
 
-<h2>Ajouter un produit</h2>
+<h2>Ajouter un produit agricole</h2>
 
-<input id="nom" placeholder="Nom produit"><br><br>
+<input id="nom" placeholder="Nom du produit"><br><br>
+
 <input id="description" placeholder="Description"><br><br>
+
+<input id="image" placeholder="URL de l'image"><br><br>
 
 <button onclick="ajouterProduit()">Ajouter</button>
 
@@ -36,29 +39,33 @@ appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
 
 };
 
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-window.ajouterProduit=async function(){
+window.ajouterProduit = async function(){
 
-let nom=document.getElementById("nom").value;
-let description=document.getElementById("description").value;
+let nom = document.getElementById("nom").value;
+let description = document.getElementById("description").value;
+let image = document.getElementById("image").value;
 
 await addDoc(collection(db,"produits"),{
 
-nom:nom,
-description:description
+nom: nom,
+description: description,
+image: image
 
 });
 
-alert("Produit ajouté");
+alert("Produit ajouté avec succès");
 
 }
 
 </script>
 
-<footer>
+<footer style="margin-top:40px;background:#2e7d32;color:white;padding:20px">
+
 © 2026 Agriconnect | Contact : elmbayesow09@gmail.com
+
 </footer>
 
 </body>
