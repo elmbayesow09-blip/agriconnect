@@ -1,72 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Connexion Agriculteur - Agriconnect</title>
-    <style> 
-        body{font-family: Arial;text-align:center;background:#f4f4f4;}
-        .login-box{background:white;padding:40px;border-radius:10px;margin-top:50px;display:inline-block;}
-        input{width:200px;padding:10px;margin:10px;border-radius:5px;border:1px solid #ccc;}
-        button{background:green;color:white;border:none;padding:10px;width:100%;border-radius:5px;cursor:pointer;margin-top:10px;}
-        button:hover{background:darkgreen;}
-        a{text-decoration:none;color:green;font-size:14px;}
-    </style>
+<meta charset="UTF-8">
+<title>Connexion - Agriconnect</title>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAOuonPR7eesU7uRdvUBeF6UDci6ZD_2AQ",
+    authDomain: "agriconnect-933f0.firebaseapp.com",
+    projectId: "agriconnect-933f0",
+    storageBucket: "agriconnect-933f0.appspot.com",
+    messagingSenderId: "1028061092951",
+    appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  window.loginUser = async function(){
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    try{
+      await signInWithEmailAndPassword(auth,email,password);
+      alert("Connexion réussie !");
+      window.location.href="index.html";
+    }catch(e){
+      alert("Erreur de connexion : " + e.message);
+    }
+  }
+</script>
+<style>
+body{font-family:Arial; background:#f5f5f5; margin:0; padding:20px;}
+header{background:green; color:white; text-align:center; padding:20px;}
+form{max-width:300px; margin:30px auto; background:white; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);}
+input{width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc;}
+button{width:100%; padding:10px; background:green; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;}
+button:hover{background:#388E3C;}
+</style>
 </head>
 <body>
 
-<div class="login-box">
-    <h2>Agriconnect 🌱</h2>
-    <p>Connexion Agriculteur</p>
+<header><h1>Connexion Agriculteur</h1></header>
+<form onsubmit="event.preventDefault(); loginUser();">
+<input type="email" id="email" placeholder="Email" required>
+<input type="password" id="password" placeholder="Mot de passe" required>
+<button type="submit">Se connecter</button>
+</form>
 
-    <input id="email" type="email" placeholder="Email"><br>
-    <input id="password" type="password" placeholder="Mot de passe"><br>
-
-    <button onclick="login()">Se connecter</button>
-    <button onclick="signup()">Créer un compte</button><br><br>
-    <a href="index.html">Retour à l'accueil</a>
-</div>
-
-<!-- Firebase scripts -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-
-<script>
-    // ⚠️ Remplace les XXXX par tes infos Firebase
-    const firebaseConfig = {
-        apiKey: "XXXX",
-        authDomain: "XXXX.firebaseapp.com",
-        projectId: "XXXX",
-        storageBucket: "XXXX.appspot.com",
-        messagingSenderId: "XXXX",
-        appId: "XXXX"
-    };
-
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    // Création de compte
-    function signup() {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        auth.createUserWithEmailAndPassword(email, password)
-        .then(() => alert("Compte créé !"))
-        .catch(error => alert(error.message));
-    }
-
-    // Connexion
-    function login() {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-            alert("Connecté !");
-            window.location.href = "index.html";
-        })
-        .catch(error => alert(error.message));
-    }
-</script>
+<!-- Bouton flottant Entreprises agricoles -->
+<a href="entreprises.html" id="btnEntreprises">Entreprises agricoles</a>
+<style>
+#btnEntreprises {position:fixed; bottom:90px; right:20px; background:#4CAF50; color:white; padding:15px 20px; border-radius:50px; text-decoration:none; font-weight:bold; box-shadow:0 0 10px rgba(0,0,0,0.3); transition:0.3s; z-index:1000; font-size:16px;}
+#btnEntreprises:hover{background:#388E3C;}
+@media (max-width:600px){#btnEntreprises{bottom:70px; padding:12px 16px; font-size:14px;}}
+</style>
 
 </body>
 </html>
