@@ -1,51 +1,95 @@
 <!DOCTYPE html>
-<html lang="fr"> 
-<head> 
-<meta charset="UTF-8">
-<title>Agriconnect - Accueil</title>  
+<html>
+<head>
+<title>Agriconnect</title>
+
 <style>
-body{margin:0;font-family:Arial;background:#f5f5f5;} 
-header{background:green;color:white;padding:20px;text-align:center;}  
-nav a{color:white;text-decoration:none;margin:0 15px;font-weight:bold;}
-main{padding:20px;max-width:1000px;margin:0 auto;} 
-h1{text-align:center;margin-bottom:20px;}
-#btnEntreprises{position:fixed;bottom:20px;left:20px;background:#4CAF50;color:white;padding:15px 20px;border-radius:50px;text-decoration:none;font-weight:bold;box-shadow:0 0 10px rgba(0,0,0,0.3);z-index:1000;transition:0.3s;}
-#btnEntreprises:hover{background:#388E3C;}
-#contactBox{position:fixed;bottom:20px;right:20px;width:220px;padding:15px;background:#f0fff0;border:2px solid #4CAF50;border-radius:10px;box-shadow:0 0 12px rgba(0,0,0,0.2);text-align:center;font-size:14px;z-index:1000;}
-#contactBox h4{margin:0 0 5px 0;color:#4CAF50;}
-#contactBox p{margin:5px 0;}
-#contactBox a{color:#4CAF50;font-weight:bold;text-decoration:none;}
-#contactBox a:hover{text-decoration:underline;}
-footer{background:#f0f0f0;text-align:center;padding:15px;color:#555;font-size:13px;margin-top:40px;}
-@media (max-width:600px){#btnEntreprises{padding:12px 16px;font-size:14px;}#contactBox{width:180px;padding:10px;font-size:13px;}}
+
+body{
+font-family:Arial;
+margin:0;
+background:#f4f4f4;
+}
+
+header{
+background:#2e7d32;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+nav{
+background:#1b5e20;
+padding:10px;
+text-align:center;
+}
+
+nav a{
+color:white;
+margin:10px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.hero{
+padding:40px;
+text-align:center;
+}
+
+footer{
+background:#2e7d32;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:40px;
+}
+
 </style>
+
 </head>
+
 <body>
 
 <header>
-<h1>🌱 Agriconnect</h1>
+<h1>Agriconnect</h1>
+<p>Plateforme agricole du Sénégal</p>
+</header>
+
 <nav>
 <a href="index.html">Accueil</a>
 <a href="produits.html">Produits</a>
+<a href="entreprises.html">Entreprises</a>
 <a href="login.html">Connexion</a>
 </nav>
-</header>
 
-<main>
-<p style="text-align:center;">Bienvenue sur Agriconnect, la plateforme professionnelle pour les agriculteurs et organisations paysannes du Sénégal. Retrouvez vos produits, contactez les entreprises agricoles, et gérez vos ventes facilement !</p>
-</main>
+<div class="hero">
 
-<a href="entreprises.html" id="btnEntreprises">Entreprises agricoles</a>
+<h2>Connecter agriculteurs et entreprises agricoles</h2>
 
-<div id="contactBox">
-<h4>Contactez le créateur</h4>
-<p>Pour toute question :</p>
-<a href="mailto:elmbayesow09@gmail.com">elmbayesow09@gmail.com</a>
+<p>
+Agriconnect permet aux agriculteurs de vendre leurs produits et
+de contacter les entreprises agricoles dans toutes les régions du Sénégal.
+</p>
+
 </div>
 
 <footer>
-Créé par Elmbaye Sow | © 2026 Agriconnect | <a href="mailto:elmbayesow09@gmail.com">elmbayesow09@gmail.com</a>
+© 2026 Agriconnect | Contact : elmbayesow09@gmail.com
 </footer>
+
+<a href="https://wa.me/221771234567" target="_blank"
+style="
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:15px;
+border-radius:50px;
+text-decoration:none;
+">
+WhatsApp
+</a>
 
 </body>
 </html>
