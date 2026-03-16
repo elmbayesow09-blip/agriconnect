@@ -1,82 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>Entreprises agricoles - Agriconnect</title>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-
+<title>Entreprises agricoles</title>
 <style>
-
-body{
-font-family:Arial;
-margin:0;
-background:#f4f4f4;
-}
-
-header{
-background:#2e7d32;
-color:white;
-padding:20px;
-text-align:center;
-}
-
-#map{
-height:500px;
-margin:20px;
-border-radius:10px;
-}
-
-footer{
-background:#2e7d32;
-color:white;
-text-align:center;
-padding:20px;
-margin-top:40px;
-}
-
+body{font-family:Arial;background:#f4f4f4;text-align:center;}
+h1{color:#2e7d32;}
+.card{background:white;padding:20px;margin:20px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+button{background:#2e7d32;color:white;padding:10px 15px;border:none;border-radius:5px;cursor:pointer;}
 </style>
-
 </head>
-
 <body>
 
-<header>
 <h1>Entreprises agricoles au Sénégal</h1>
-<p>Trouvez des entreprises dans votre région</p>
-</header>
 
-<div id="map"></div>
+<div class="card">
+<h2>ANCAR</h2>
+<p>Agence Nationale de Conseil Agricole et Rural</p>
+<button onclick="window.open('https://www.ancar.sn')">Visiter</button>
+</div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<div class="card">
+<h2>CNCR</h2>
+<p>Conseil National de Concertation et de Coopération des Ruraux</p>
+<button onclick="window.open('https://www.cncr.org')">Visiter</button>
+</div>
 
-<script>
+<div class="card">
+<h2>Tropicasem</h2>
+<p>Entreprise de semences agricoles</p>
+<button onclick="window.open('https://tropicasem.sn')">Visiter</button>
+</div>
 
-var map = L.map('map').setView([14.4974, -14.4524], 7);
+<div class="card">
+<h2>Corposem</h2>
+<p>Production de semences au Sénégal</p>
+</div>
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-attribution: 'Map data © OpenStreetMap'
-}).addTo(map);
-
-
-L.marker([14.7167, -17.4677]).addTo(map)
-.bindPopup("<b>ANCAR</b><br>Dakar");
-
-
-L.marker([14.6833, -17.45]).addTo(map)
-.bindPopup("<b>CNCR</b><br>Dakar");
-
-
-L.marker([14.35, -16.4167]).addTo(map)
-.bindPopup("<b>Tropicasem</b><br>Thiès");
-
-
-L.marker([13.75, -15.8]).addTo(map)
-.bindPopup("<b>Corposem</b><br>Kaolack");
-
-</script>
-
-<footer>
+<footer style="background:#2e7d32;color:white;padding:20px">
 © 2026 Agriconnect | Contact : elmbayesow09@gmail.com
 </footer>
 
