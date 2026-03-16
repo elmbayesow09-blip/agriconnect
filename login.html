@@ -3,54 +3,37 @@
 <head>
 <title>Connexion Agriconnect</title>
 </head>
-
 <body>
 
 <h2>Connexion Agriculteur</h2>
-
 <input type="email" id="email" placeholder="Email"><br><br>
 <input type="password" id="password" placeholder="Mot de passe"><br><br>
-
 <button onclick="login()">Se connecter</button>
 
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
-
 apiKey: "AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4",
 authDomain: "agriconnect-933f0.firebaseapp.com",
 projectId: "agriconnect-933f0",
 storageBucket: "agriconnect-933f0.appspot.com",
 messagingSenderId: "1028061092951",
 appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
-
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 window.login = function(){
-
 let email=document.getElementById("email").value;
 let password=document.getElementById("password").value;
 
 signInWithEmailAndPassword(auth,email,password)
-
-.then(()=>{
-alert("Connexion réussie");
-window.location="ajout-produit.html";
-})
-
-.catch((error)=>{
-alert(error.message);
-});
-
+.then(()=>{alert("Connexion réussie");window.location="ajout-produit.html";})
+.catch((error)=>{alert(error.message);});
 }
-
 </script>
 
 <footer>
