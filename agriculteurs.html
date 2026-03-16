@@ -19,25 +19,42 @@ footer{background:#2e7d32;color:white;text-align:center;padding:20px;margin-top:
 
 <div id="map"></div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Configuration Firebase
+const firebaseConfig = {
+apiKey: "AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4",
+authDomain: "agriconnect-933f0.firebaseapp.com",
+projectId: "agriconnect-933f0",
+storageBucket: "agriconnect-933f0.appspot.com",
+messagingSenderId: "1028061092951",
+appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Initialiser la carte
 var map = L.map('map').setView([14.4974, -14.4524], 7);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution: 'Map data © OpenStreetMap'
 }).addTo(map);
 
-// Exemple : les agriculteurs peuvent provenir de Firebase plus tard
-var agriculteurs = [
-{nom:"Mamadou", region:"Dakar", lat:14.7167, lon:-17.4677, produit:"Maïs"},
-{nom:"Aissatou", region:"Kaolack", lat:13.95, lon:-16.05, produit:"Arachide"},
-{nom:"Oumar", region:"Thiès", lat:14.8, lon:-16.9, produit:"Oignon"},
-{nom:"Fatou", region:"Kaffrine", lat:13.95, lon:-14.55, produit:"Mil"}
-];
+// Charger tous les produits depuis Firebase et ajouter sur la carte
+async function chargerAgriculteurs() {
+    const querySnapshot = await getDocs(collection(db,"produits"));
+    querySnapshot.forEach((doc)=>{
+        let p = doc.data();
+        if(p.lat && p.lon){ // Vérifie que les coordonnées existent
+            L.marker([p.lat, p.lon]).addTo(map)
+            .bindPopup(`<b>${p.nom}</b><br>Région: ${p.region || "N/A"}<br>Produit: ${p.produit || "N/A"}<br>Agriculteur: ${p.emailAgriculteur}`);
+        }
+    });
+}
 
-agriculteurs.forEach(a => {
-L.marker([a.lat, a.lon]).addTo(map)
-.bindPopup("<b>"+a.nom+"</b><br>Région: "+a.region+"<br>Produit: "+a.produit);
-});
+chargerAgriculteurs();
 </script>
 
 <footer>
