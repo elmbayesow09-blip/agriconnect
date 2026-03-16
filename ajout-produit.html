@@ -1,71 +1,49 @@
 <!DOCTYPE html>
-<html> 
+<html>
 <head>
 <title>Ajouter produit</title>
 </head>
-
 <body>
 
 <h2>Ajouter un produit agricole</h2>
-
 <input id="nom" placeholder="Nom du produit"><br><br>
-
 <input id="description" placeholder="Description"><br><br>
-
 <input id="image" placeholder="URL de l'image"><br><br>
-
 <button onclick="ajouterProduit()">Ajouter</button>
 
 <script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-addDoc
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-
 apiKey: "AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4",
 authDomain: "agriconnect-933f0.firebaseapp.com",
 projectId: "agriconnect-933f0",
 storageBucket: "agriconnect-933f0.appspot.com",
 messagingSenderId: "1028061092951",
 appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
-
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 window.ajouterProduit = async function(){
-
 let nom = document.getElementById("nom").value;
 let description = document.getElementById("description").value;
 let image = document.getElementById("image").value;
 
 await addDoc(collection(db,"produits"),{
-
 nom: nom,
 description: description,
 image: image
-
 });
 
 alert("Produit ajouté avec succès");
-
 }
-
 </script>
 
 <footer style="margin-top:40px;background:#2e7d32;color:white;padding:20px">
-
 © 2026 Agriconnect | Contact : elmbayesow09@gmail.com
-
 </footer>
 
 </body>
