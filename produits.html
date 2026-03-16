@@ -43,6 +43,7 @@ document.getElementById("listeProduits").innerHTML += `
 <img src="${p.image}" alt="${p.nom}">
 <h3>${p.nom}</h3>
 <p>${p.description}</p>
+<p>Région: ${p.region || "N/A"}</p>
 </div>`;
 });
 }
@@ -58,6 +59,7 @@ resultat += `<div class="produit">
 <img src="${p.image}" alt="${p.nom}">
 <h3>${p.nom}</h3>
 <p>${p.description}</p>
+<p>Région: ${p.region || "N/A"}</p>
 </div>`;
 }
 });
