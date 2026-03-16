@@ -2,43 +2,14 @@
 <html>
 <head>
 <title>Agriculteurs - Agriconnect</title>
-
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-
 <style>
-
-body{
-font-family:Arial;
-margin:0;
-background:#f4f4f4;
-text-align:center;
-}
-
-header{
-background:#2e7d32;
-color:white;
-padding:20px;
-text-align:center;
-}
-
-#map{
-height:500px;
-margin:20px;
-border-radius:10px;
-}
-
-footer{
-background:#2e7d32;
-color:white;
-text-align:center;
-padding:20px;
-margin-top:40px;
-}
-
+body{font-family:Arial;margin:0;background:#f4f4f4;text-align:center;}
+header{background:#2e7d32;color:white;padding:20px;text-align:center;}
+#map{height:500px;margin:20px;border-radius:10px;}
+footer{background:#2e7d32;color:white;text-align:center;padding:20px;margin-top:40px;}
 </style>
-
 </head>
-
 <body>
 
 <header>
@@ -51,27 +22,23 @@ margin-top:40px;
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-
 var map = L.map('map').setView([14.4974, -14.4524], 7);
-
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution: 'Map data © OpenStreetMap'
 }).addTo(map);
 
 // Exemples de localisation d'agriculteurs
 var agriculteurs = [
-  {nom:"Mamadou", region:"Dakar", lat:14.7167, lon:-17.4677, produit:"Maïs"},
-  {nom:"Aissatou", region:"Kaolack", lat:13.95, lon:-16.05, produit:"Arachide"},
-  {nom:"Oumar", region:"Thiès", lat:14.8, lon:-16.9, produit:"Oignon"},
-  {nom:"Fatou", region:"Kaffrine", lat:13.95, lon:-14.55, produit:"Mil"}
+{nom:"Mamadou", region:"Dakar", lat:14.7167, lon:-17.4677, produit:"Maïs"},
+{nom:"Aissatou", region:"Kaolack", lat:13.95, lon:-16.05, produit:"Arachide"},
+{nom:"Oumar", region:"Thiès", lat:14.8, lon:-16.9, produit:"Oignon"},
+{nom:"Fatou", region:"Kaffrine", lat:13.95, lon:-14.55, produit:"Mil"}
 ];
 
-// Ajouter les marqueurs sur la carte
 agriculteurs.forEach(a => {
-  L.marker([a.lat, a.lon]).addTo(map)
-  .bindPopup("<b>"+a.nom+"</b><br>Région: "+a.region+"<br>Produit: "+a.produit);
+L.marker([a.lat, a.lon]).addTo(map)
+.bindPopup("<b>"+a.nom+"</b><br>Région: "+a.region+"<br>Produit: "+a.produit);
 });
-
 </script>
 
 <footer>
