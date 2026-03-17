@@ -1,37 +1,80 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Dashboard Agriculteur</title>
+
+<meta charset="UTF-8">
+
+<title>Dashboard Agriculteur - Agriconnect</title>
+
 <style>
 
-body{font-family:Arial;background:#f4f4f4;text-align:center}
+body{
+font-family:Arial;
+background:#f4f4f4;
+text-align:center;
+}
 
-input{padding:10px;margin:10px}
+header{
+background:#2e7d32;
+color:white;
+padding:20px;
+}
 
-button{background:#2e7d32;color:white;padding:10px;border:none}
+input{
+padding:10px;
+margin:10px;
+width:250px;
+}
+
+button{
+padding:10px 20px;
+background:#2e7d32;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+.produit{
+background:white;
+margin:20px auto;
+padding:20px;
+width:300px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
 
 </style>
+
 </head>
 
 <body>
 
-<h2>Ajouter un produit</h2>
+<header>
+
+<h2>Tableau de bord Agriculteur 🌾</h2>
+
+</header>
+
+<h3>Ajouter un produit</h3>
 
 <input id="nom" placeholder="Nom du produit"><br>
 
-<input id="description" placeholder="Description"><br>
-
 <input id="prix" placeholder="Prix"><br>
 
-<input id="image" placeholder="images/tomate.jpg"><br>
+<input id="image" placeholder="Image (ex: images/tomate.jpg)"><br>
 
-<button onclick="addProduct()">Ajouter</button>
+<button onclick="ajouterProduit()">Ajouter</button>
+
+<h3>Mes Produits</h3>
+
+<div id="listeProduits"></div>
 
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import { getFirestore, addDoc, collection }
+import { getFirestore, collection, addDoc, getDocs }
 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -55,11 +98,9 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-window.addProduct = async function(){
+window.ajouterProduit = async function(){
 
 let nom=document.getElementById("nom").value;
-
-let description=document.getElementById("description").value;
 
 let prix=document.getElementById("prix").value;
 
@@ -69,8 +110,6 @@ await addDoc(collection(db,"produits"),{
 
 nom:nom,
 
-description:description,
-
 prix:prix,
 
 image:image
@@ -79,9 +118,44 @@ image:image
 
 alert("Produit ajouté");
 
+chargerProduits();
+
 }
+
+async function chargerProduits(){
+
+const querySnapshot = await getDocs(collection(db,"produits"));
+
+let html="";
+
+querySnapshot.forEach((doc)=>{
+
+let p=doc.data();
+
+html+=`
+
+<div class="produit">
+
+<img src="${p.image}" width="200">
+
+<h3>${p.nom}</h3>
+
+<p>Prix : ${p.prix} FCFA</p>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("listeProduits").innerHTML=html;
+
+}
+
+chargerProduits();
 
 </script>
 
 </body>
+
 </html>
