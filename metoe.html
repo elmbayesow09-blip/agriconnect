@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Météo Agricole - Agriconnect</title>
+<style>
+body{font-family:Arial;text-align:center;background:#f4f4f4;}
+header{background:#2e7d32;color:white;padding:20px;}
+#resultat{background:white;width:400px;margin:auto;padding:20px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+select,button{padding:10px;margin:10px;}
+</style>
+</head>
+<body>
+<header>
+<h2>Météo Agricole par Région 🌾</h2>
+</header>
+
+<h3>Choisissez votre région</h3>
+<select id="region">
+<option value="Dakar">Dakar</option>
+<option value="Thiès">Thiès</option>
+<option value="Kaolack">Kaolack</option>
+<option value="Kaffrine">Kaffrine</option>
+<option value="Ziguinchor">Ziguinchor</option>
+</select>
+<br>
+<button onclick="afficherMeteo()">Voir la météo</button>
+
+<div id="resultat"></div>
+
+<script>
+async function afficherMeteo(){
+let region=document.getElementById("region").value;
+const apiKey="VOTRE_API_KEY_OPENWEATHERMAP"; // Crée un compte gratuit sur openweathermap.org
+const url=`https://api.openweathermap.org/data/2.5/weather?q=${region},SN&units=metric&appid=${apiKey}`;
+try{
+const res=await fetch(url);
+const data=await res.json();
+if(data.main){
+document.getElementById("resultat").innerHTML=
+`<h3>Météo à ${region}</h3>
+<p>Température : ${data.main.temp} °C</p>
+<p>Humidité : ${data.main.humidity} %</p>
+<p>Conditions : ${data.weather[0].description}</p>`;
+}else{
+document.getElementById("resultat").innerHTML="Impossible de récupérer la météo";
+}
+}catch(err){
+document.getElementById("resultat").innerHTML="Erreur de connexion à l'API";
+}
+}
+</script>
+</body>
+</html>
