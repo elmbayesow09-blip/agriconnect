@@ -1,10 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
-<title>Agriconnect</title>
 
-<link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<title>Agriconnect - Plateforme Agricole du Sénégal</title>
+
+<style>
+
+body{
+font-family: Arial;
+margin:0;
+background:#f5f5f5;
+}
+
+header{
+background:#2e7d32;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+nav a{
+color:white;
+margin:15px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.hero{
+text-align:center;
+padding:60px;
+background:white;
+}
+
+.hero h1{
+font-size:40px;
+}
+
+.buttons{
+margin-top:30px;
+}
+
+button{
+padding:15px 25px;
+margin:10px;
+background:#2e7d32;
+color:white;
+border:none;
+border-radius:5px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1b5e20;
+}
+
+.section{
+padding:40px;
+text-align:center;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.card{
+background:white;
+padding:20px;
+margin:20px;
+width:250px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+footer{
+background:#2e7d32;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+</style>
 
 </head>
 
@@ -12,18 +92,14 @@
 
 <header>
 
-<h1>Agriconnect 🌾</h1>
+<h2>Agriconnect 🌾</h2>
 
 <nav>
 
 <a href="index.html">Accueil</a>
-
 <a href="produits.html">Produits</a>
-
-<a href="agriculteurs.html">Agriculteurs</a>
-
 <a href="entreprises.html">Entreprises</a>
-
+<a href="inscription.html">Inscription</a>
 <a href="login.html">Connexion</a>
 
 </nav>
@@ -32,20 +108,91 @@
 
 <section class="hero">
 
-<h2>La plateforme agricole du Sénégal</h2>
+<h1>La plateforme agricole du Sénégal</h1>
 
 <p>
 
-Achetez et vendez des produits agricoles directement avec les producteurs.
+Connecter les agriculteurs, les entreprises et les acheteurs partout au Sénégal.
 
 </p>
+
+<div class="buttons">
+
+<a href="produits.html">
+<button>Voir les Produits</button>
+</a>
+
+<a href="entreprises.html">
+<button>Entreprises agricoles</button>
+</a>
+
+<a href="inscription.html">
+<button>Créer un compte agriculteur</button>
+</a>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2>Nos services</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Vente de produits</h3>
+
+<p>
+
+Les agriculteurs peuvent vendre directement leurs produits.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Entreprises agricoles</h3>
+
+<p>
+
+Trouver des entreprises de semences et d’intrants.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Connexion nationale</h3>
+
+<p>
+
+Relier les agriculteurs dans toutes les régions du Sénégal.
+
+</p>
+
+</div>
+
+</div>
 
 </section>
 
 <footer>
 
-© 2026 Agriconnect  
+<p>
+
+© 2026 Agriconnect
+
+</p>
+
+<p>
+
 Contact : elmbayesow09@gmail.com
+
+</p>
 
 </footer>
 
