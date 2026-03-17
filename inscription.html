@@ -2,16 +2,37 @@
 <html>
 <head>
 <title>Inscription Agriculteur - Agriconnect</title>
+<meta charset="UTF-8">
+
 <style>
-body{font-family:Arial;background:#f4f4f4;text-align:center}
-input{padding:10px;margin:10px;width:250px}
-button{background:#2e7d32;color:white;padding:10px;border:none}
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+text-align:center;
+}
+
+input{
+padding:10px;
+margin:10px;
+width:250px;
+}
+
+button{
+padding:10px 20px;
+background:#2e7d32;
+color:white;
+border:none;
+cursor:pointer;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<h2>Créer un compte Agriculteur</h2>
+<h2>Créer un compte Agriculteur 🌾</h2>
 
 <input id="nom" placeholder="Nom complet"><br>
 
@@ -19,9 +40,11 @@ button{background:#2e7d32;color:white;padding:10px;border:none}
 
 <input id="password" type="password" placeholder="Mot de passe"><br>
 
-<input id="telephone" placeholder="Téléphone"><br>
-
 <input id="region" placeholder="Région"><br>
+
+<input id="latitude" placeholder="Latitude"><br>
+
+<input id="longitude" placeholder="Longitude"><br>
 
 <button onclick="register()">Créer le compte</button>
 
@@ -67,9 +90,11 @@ let email=document.getElementById("email").value;
 
 let password=document.getElementById("password").value;
 
-let telephone=document.getElementById("telephone").value;
-
 let region=document.getElementById("region").value;
+
+let latitude=document.getElementById("latitude").value;
+
+let longitude=document.getElementById("longitude").value;
 
 const userCredential = await createUserWithEmailAndPassword(auth,email,password);
 
@@ -81,15 +106,15 @@ nom:nom,
 
 email:email,
 
-telephone:telephone,
+region:region,
 
-region:region
+latitude:latitude,
+
+longitude:longitude
 
 });
 
 alert("Compte créé avec succès");
-
-window.location="login.html";
 
 }
 
