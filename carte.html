@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 
 <head>
 
 <meta charset="UTF-8">
+
 <title>Carte Agricole - Agriconnect</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
@@ -11,19 +12,19 @@
 <style>
 
 body{
-font-family:Arial;
 margin:0;
+font-family:Arial;
+}
+
+#map{
+height:600px;
 }
 
 header{
 background:#2e7d32;
 color:white;
-padding:20px;
 text-align:center;
-}
-
-#map{
-height:600px;
+padding:20px;
 }
 
 </style>
@@ -42,30 +43,57 @@ height:600px;
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<script>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import { getFirestore, collection, getDocs }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4",
+
+authDomain: "agriconnect-933f0.firebaseapp.com",
+
+projectId: "agriconnect-933f0",
+
+storageBucket: "agriconnect-933f0.appspot.com",
+
+messagingSenderId: "1028061092951",
+
+appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
 
 var map = L.map('map').setView([14.4974,-14.4524],7);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-attribution:'© OpenStreetMap'
+async function chargerAgriculteurs(){
 
-}).addTo(map);
+const querySnapshot = await getDocs(collection(db,"agriculteurs"));
 
+querySnapshot.forEach((doc)=>{
 
-// Exemple d'agriculteurs
+let data=doc.data();
 
-L.marker([14.7167,-17.4677]).addTo(map)
-.bindPopup("Agriculteur à Dakar");
+L.marker([data.latitude,data.longitude])
 
-L.marker([13.7500,-15.8000]).addTo(map)
-.bindPopup("Agriculteur à Kaffrine");
+.addTo(map)
 
-L.marker([14.6937,-16.4493]).addTo(map)
-.bindPopup("Agriculteur à Kaolack");
+.bindPopup(data.nom+" - "+data.region);
 
-L.marker([12.5681,-16.2730]).addTo(map)
-.bindPopup("Agriculteur à Ziguinchor");
+});
+
+}
+
+chargerAgriculteurs();
 
 </script>
 
