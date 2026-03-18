@@ -1,222 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr">
- 
 <head>
-
-<meta charset="UTF-8">  
-<title>Agriconnect - Plateforme Agricole du Sénégal</title> 
-
+<meta charset="UTF-8">
+<title>Agriconnect - Marketplace Agricole Sénégal</title>
 <style>
-
-body{
-font-family: Arial;
-margin:0;
-background:#f5f5f5;
-}
-
-header{
-background:#2e7d32;
-color:white;
-padding:20px;
-text-align:center;
-}
-
-nav a{
-color:white;
-margin:15px;
-text-decoration:none;
-font-weight:bold;
-}
-
-.hero{
-text-align:center;
-padding:60px;
-background:white;
-}
-
-.hero h1{
-font-size:40px;
-}
-
-.buttons{
-margin-top:30px;
-}
-
-button{
-padding:15px 25px;
-margin:10px;
-background:#2e7d32;
-color:white;
-border:none;
-border-radius:5px;
-font-size:16px;
-cursor:pointer;
-}
-
-button:hover{
-background:#1b5e20;
-}
-
-.section{
-padding:40px;
-text-align:center;
-}
-
-.cards{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-}
-
-.card{
-background:white;
-padding:20px;
-margin:20px;
-width:250px;
-border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-footer{
-background:#2e7d32;
-color:white;
-text-align:center;
-padding:20px;
-}
-
+  body { font-family: Arial, sans-serif; background:#f0f0f0; color:#333; text-align:center; padding:20px;}
+  h1 { color: #2e7d32; }
+  button { background-color: #4CAF50; color: white; border: none; padding: 15px 25px; margin: 10px; font-size: 16px; cursor: pointer; border-radius: 8px; transition:0.3s;}
+  button:hover { background-color:#388E3C; }
+  .section { background:#fff; padding:20px; margin:20px auto; max-width:600px; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1);}
 </style>
-
 </head>
- <link rel="manifest" href="manifest.json">
-<script>
-if('serviceWorker' in navigator){
-navigator.serviceWorker.register('service-worker.js')
-.then(()=>console.log("Service Worker enregistré"));
-}
-</script>
-
 <body>
 
-<header>
+<h1>Agriconnect 🌾🇸🇳</h1>
+<p>Bienvenue sur la première plateforme agricole numérique du Sénégal.</p>
 
-<h2>Agriconnect 🌾</h2>
-
-<nav>
-
-<a href="index.html">Accueil</a>
-<a href="produits.html">Produits</a>
-<a href="entreprises.html">Entreprises</a>
-<a href="carte.html">Carte agricole</a>
-<a href="prix.html">Prix agricoles</a>
-<a href="inscription.html">Inscription</a>
-<a href="login.html">Connexion</a>
-<a href="dashboard.html">Dashboard</a>
- <a href="ia.html">Assistant IA</a>
- <a href="ia-conseil.html">IA Conseils agricoles</a>
- <a href="login.html">
-<button>Se connecter</button>
-</a>
- <a href="commande.html">
-<button>Acheter produit</button></a><br><br>
-</a>
-<a href="dashboard-commandes.html">
-<button>Voir les commandes</button>
-</a> 
- 
-</nav>
-
-</header>
-
-<section class="hero">
-
-<h1>La plateforme agricole du Sénégal</h1>
-
-<p>
-
-Connecter les agriculteurs, les entreprises et les acheteurs partout au Sénégal.
-
-</p>
-
-<div class="buttons">
-
-<a href="produits.html">
-<button>Voir les Produits</button>
-</a>
-
-<a href="entreprises.html">
-<button>Entreprises agricoles</button>
-</a>
-
-<a href="inscription.html">
-<button>Créer un compte agriculteur</button>
-</a>
-
+<div class="section">
+  <h2>Connexion / Inscription</h2>
+  <a href="login.html"><button>Se connecter / S’inscrire</button></a>
 </div>
 
-</section>
-
-<section class="section">
-
-<h2>Nos services</h2>
-
-<div class="cards">
-
-<div class="card">
-
-<h3>Vente de produits</h3>
-
-<p>
-
-Les agriculteurs peuvent vendre directement leurs produits.
-
-</p>
-
+<div class="section">
+  <h2>Acheter un produit</h2>
+  <a href="commande.html"><button>Acheter produit</button></a>
 </div>
 
-<div class="card">
-
-<h3>Entreprises agricoles</h3>
-
-<p>
-
-Trouver des entreprises de semences et d’intrants.
-
-</p>
-
+<div class="section">
+  <h2>Dashboard Commandes</h2>
+  <a href="dashboard-commandes.html"><button>Voir les commandes</button></a>
 </div>
 
-<div class="card">
-
-<h3>Connexion nationale</h3>
-
-<p>
-
-Relier les agriculteurs dans toutes les régions du Sénégal.
-
-</p>
-
+<div class="section">
+  <h2>Produits agricoles</h2>
+  <a href="produits.html"><button>Voir produits</button></a>
 </div>
 
+<div class="section">
+  <h2>Entreprises agricoles</h2>
+  <a href="entreprises.html"><button>Voir entreprises</button></a>
 </div>
 
-</section>
+<div class="section">
+  <h2>Marché des prix agricoles</h2>
+  <a href="prix-agricoles.html"><button>Voir prix agricoles</button></a>
+</div>
 
-<footer>
+<div class="section">
+  <h2>Assistant IA / Conseils agricoles</h2>
+  <a href="assistant-ia.html"><button>IA Agricole</button></a>
+</div>
 
-<p>
-
-© 2026 Agriconnect
-
-</p>
-
-<p>
-
-Contact : elmbayesow09@gmail.com
-
-</p>
-
+<footer style="margin-top:40px; font-size:14px; color:#555;">
+  © 2026 Agriconnect | Contact : <a href="mailto:elmbayesow09@gmail.com">elmbayesow09@gmail.com</a>
 </footer>
 
 </body>
-
 </html>
