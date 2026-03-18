@@ -3,14 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Commander produit</title>
-</head> 
+<style>
+body { font-family: Arial; text-align:center; padding:50px; background:#f9f9f9;}
+input { padding:10px; margin:10px; width:250px; border-radius:5px; border:1px solid #ccc;}
+button { padding:12px 20px; margin:10px; border:none; border-radius:8px; background:#4CAF50; color:white; cursor:pointer;}
+button:hover { background:#388E3C; }
+</style>
+</head>
 <body>
 <h2>Commander un produit</h2>
 
-<input id="nom" placeholder="Votre nom"><br><br>
-<input id="telephone" placeholder="Téléphone"><br><br>
-<input id="produit" placeholder="Nom du produit"><br><br>
-<input id="prix" placeholder="Prix"><br><br>
+<input id="nom" placeholder="Votre nom"><br>
+<input id="telephone" placeholder="Téléphone"><br>
+<input id="produit" placeholder="Nom du produit"><br>
+<input id="prix" placeholder="Prix"><br>
 
 <button onclick="commander()">Commander</button>
 <button onclick="payer()">Payer avec Wave / Orange Money</button>
