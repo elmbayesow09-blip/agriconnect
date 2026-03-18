@@ -1,121 +1,17 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-
-<meta charset="UTF-8">
-<title>IA Conseils Agricoles - Agriconnect</title>
-
-<style>
-
-body{
-font-family:Arial;
-background:#f4f4f4;
-text-align:center;
-}
-
-header{
-background:#2e7d32;
-color:white;
-padding:20px;
-}
-
-select{
-padding:10px;
-margin:20px;
-}
-
-button{
-padding:10px 20px;
-background:#2e7d32;
-color:white;
-border:none;
-cursor:pointer;
-}
-
-#resultat{
-background:white;
-width:400px;
-margin:auto;
-padding:20px;
-border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-</style>
-
-</head>
-
-<body>
-
-<header>
-
-<h2>IA Conseils Agricoles 🌾🤖</h2>
-
-</header>
-
-<h3>Choisissez votre région</h3>
-
-<select id="region">
-
-<option value="kaffrine">Kaffrine</option>
-<option value="kaolack">Kaolack</option>
-<option value="saintlouis">Saint-Louis</option>
-<option value="ziguinchor">Ziguinchor</option>
-<option value="thies">Thiès</option>
-
-</select>
-
-<br>
-
-<button onclick="conseil()">Voir les cultures recommandées</button>
-
-<div id="resultat"></div>
-
+<head><meta charset="UTF-8"><title>IA Conseils Agricoles</title></head>
+<body style="font-family:Arial;text-align:center;padding:50px;background:#f9f9f9;">
+<h2>IA Conseils Agricoles</h2>
+<input id="question" placeholder="Demandez un conseil agricole" style="padding:10px;width:300px;"><br><br>
+<button onclick="poserConseil()" style="padding:12px 20px;background:#4CAF50;color:white;border:none;border-radius:8px;">Demander conseil</button>
+<div id="reponse" style="margin-top:20px;font-weight:bold;"></div>
+<a href="index.html"><button style="padding:12px 20px;margin-top:20px;background:#4CAF50;color:white;border:none;border-radius:8px;">Retour</button></a>
 <script>
-
-function conseil(){
-
-let region=document.getElementById("region").value;
-
-let texte="";
-
-if(region=="kaffrine"){
-
-texte="Cultures recommandées : Arachide, Mil, Maïs";
-
+function poserConseil(){
+  let q=document.getElementById("question").value;
+  document.getElementById("reponse").innerText="Conseil IA agricole pour : "+q+" → Bientôt disponible 🌱";
 }
-
-else if(region=="kaolack"){
-
-texte="Cultures recommandées : Arachide, Maïs, Niébé";
-
-}
-
-else if(region=="saintlouis"){
-
-texte="Cultures recommandées : Riz, Oignon, Tomate";
-
-}
-
-else if(region=="ziguinchor"){
-
-texte="Cultures recommandées : Riz, Manioc, Banane";
-
-}
-
-else if(region=="thies"){
-
-texte="Cultures recommandées : Tomate, Oignon, Laitue";
-
-}
-
-document.getElementById("resultat").innerHTML=texte;
-
-}
-
 </script>
-
 </body>
-
 </html>
