@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <title>Commander produit</title>
 </head>
-
 <body>
-
 <h2>Commander un produit</h2>
 
 <input id="nom" placeholder="Votre nom"><br><br>
@@ -15,52 +13,29 @@
 <input id="prix" placeholder="Prix"><br><br>
 
 <button onclick="commander()">Commander</button>
-  <button onclick="payer()">Payer avec Wave / Orange Money</button>
+<button onclick="payer()">Payer avec Wave / Orange Money</button>
 
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-apiKey: "TA_CLE_API",
-authDomain: "agriconnect-933f0.firebaseapp.com",
-projectId: "agriconnect-933f0",
-appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
-};
+import firebaseConfig from "./config.js";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 window.commander = async function(){
-
-let nom = document.getElementById("nom").value;
-let telephone = document.getElementById("telephone").value;
-let produit = document.getElementById("produit").value;
-let prix = document.getElementById("prix").value;
-
-await addDoc(collection(db, "commandes"), {
-nom,
-telephone,
-produit,
-prix,
-date: new Date()
-});
-
-alert("Commande envoyée !");
+  let nom=document.getElementById("nom").value;
+  let telephone=document.getElementById("telephone").value;
+  let produit=document.getElementById("produit").value;
+  let prix=document.getElementById("prix").value;
+  await addDoc(collection(db,"commandes"),{nom,telephone,produit,prix,date:new Date()});
+  alert("Commande envoyée !");
 }
 
-<script>
-
-function payer(){
-alert("Paiement en cours...");
-
-setTimeout(()=>{
-alert("Paiement réussi ! 🎉");
-},2000);
+window.payer = function(){
+  alert("Paiement en cours...");
+  setTimeout(()=>{ alert("Paiement réussi ! 🎉"); },2000);
 }
-
 </script>
-
 </body>
 </html>
