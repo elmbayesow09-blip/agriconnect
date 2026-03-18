@@ -2,31 +2,30 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Dashboard Commandes</title>  
+<title>Dashboard Commandes</title>
+<style>body{font-family:Arial;text-align:center;padding:50px;}div{margin:10px;}</style>
 </head>
 <body>
 <h2>Liste des commandes</h2>
 <div id="liste"></div>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import firebaseConfig from "./config.js";
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const liste = document.getElementById("liste");
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+const liste=document.getElementById("liste");
 
 onSnapshot(collection(db,"commandes"), snapshot=>{
   liste.innerHTML="";
   snapshot.forEach(doc=>{
-    let c = doc.data();
-    liste.innerHTML+=`
-    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
-    <b>Nom :</b> ${c.nom}<br>
-    <b>Téléphone :</b> ${c.telephone}<br>
-    <b>Produit :</b> ${c.produit}<br>
-    <b>Prix :</b> ${c.prix} FCFA
+    let c=doc.data();
+    liste.innerHTML+=`<div style="border:1px solid #ccc;padding:10px;margin:10px;border-radius:8px;">
+      <b>Nom :</b> ${c.nom}<br>
+      <b>Téléphone :</b> ${c.telephone}<br>
+      <b>Produit :</b> ${c.produit}<br>
+      <b>Prix :</b> ${c.prix} FCFA
     </div>`;
   });
 });
