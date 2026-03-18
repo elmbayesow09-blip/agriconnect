@@ -1,57 +1,96 @@
 <!DOCTYPE html>
-<html lang="fr"> 
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Agriconnect - Marketplace Agricole Sénégal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agriconnect 2026 🌾 - Marketplace Agricole Sénégal</title>
+
+<!-- Styles principaux -->
 <style>
-  body { font-family: Arial, sans-serif; background:#f0f0f0; color:#333; text-align:center; padding:20px;}
-  h1 { color: #2e7d32; }
-  button { background-color: #4CAF50; color: white; border: none; padding: 15px 25px; margin: 10px; font-size: 16px; cursor: pointer; border-radius: 8px; transition:0.3s;}
-  button:hover { background-color:#388E3C; }
-  .section { background:#fff; padding:20px; margin:20px auto; max-width:600px; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1);}
+  body {
+    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(180deg, #e8f5e9 0%, #ffffff 100%);
+    color: #333;
+  }
+  header {
+    background: #2e7d32; color: white;
+    padding: 40px 20px; text-align:center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  header h1 { font-size: 3em; margin: 0; }
+  header p { font-size: 1.2em; margin-top:10px; }
+  .section { max-width: 1000px; margin: 40px auto; padding: 30px; background:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:center; }
+  .section h2 { font-size: 2em; margin-bottom:20px; color:#2e7d32; }
+  .section p { font-size:1.1em; margin-bottom:30px; }
+  .section button {
+    background-color: #4CAF50; color:white; border:none; padding:15px 30px;
+    margin:10px; font-size:16px; cursor:pointer; border-radius:10px;
+    transition:0.3s;
+  }
+  .section button:hover { background-color:#388E3C; }
+  footer { text-align:center; padding:20px; color:#555; font-size:14px; margin-top:40px; }
+  @media(max-width:768px){ .section { margin:20px; padding:20px; } header h1{font-size:2em;} header p{font-size:1em;} }
 </style>
 </head>
 <body>
 
-<h1>Agriconnect 🌾🇸🇳</h1>
-<p>Bienvenue sur la première plateforme agricole numérique du Sénégal.</p>
+<!-- HEADER -->
+<header>
+  <h1>Agriconnect 🌾</h1>
+  <p>La première plateforme agricole numérique du Sénégal – 2026</p>
+</header>
 
+<!-- SECTION CONNEXION -->
 <div class="section">
   <h2>Connexion / Inscription</h2>
+  <p>Gérez vos commandes et votre profil en toute simplicité.</p>
   <a href="login.html"><button>Se connecter / S’inscrire</button></a>
 </div>
 
+<!-- SECTION ACHAT PRODUIT -->
 <div class="section">
   <h2>Acheter un produit</h2>
+  <p>Commandez semences et matières agricoles directement auprès des producteurs.</p>
   <a href="commande.html"><button>Acheter produit</button></a>
 </div>
 
+<!-- SECTION DASHBOARD -->
 <div class="section">
   <h2>Dashboard Commandes</h2>
+  <p>Suivez toutes vos commandes en temps réel.</p>
   <a href="dashboard-commandes.html"><button>Voir les commandes</button></a>
 </div>
 
+<!-- SECTION PRODUITS -->
 <div class="section">
   <h2>Produits agricoles</h2>
+  <p>Découvrez tous les produits disponibles sur notre marketplace.</p>
   <a href="produits.html"><button>Voir produits</button></a>
 </div>
 
+<!-- SECTION ENTREPRISES -->
 <div class="section">
   <h2>Entreprises agricoles</h2>
+  <p>Trouvez les entreprises partenaires dans toutes les régions du Sénégal.</p>
   <a href="entreprises.html"><button>Voir entreprises</button></a>
 </div>
 
+<!-- SECTION PRIX AGRICOLES -->
 <div class="section">
   <h2>Marché des prix agricoles</h2>
+  <p>Consultez les prix actuels pour chaque produit agricole au Sénégal.</p>
   <a href="prix-agricoles.html"><button>Voir prix agricoles</button></a>
 </div>
 
+<!-- SECTION ASSISTANT IA -->
 <div class="section">
   <h2>Assistant IA / Conseils agricoles</h2>
+  <p>Obtenez des recommandations personnalisées pour améliorer vos récoltes.</p>
   <a href="assistant-ia.html"><button>IA Agricole</button></a>
 </div>
 
-<footer style="margin-top:40px; font-size:14px; color:#555;">
+<!-- FOOTER -->
+<footer>
   © 2026 Agriconnect | Contact : <a href="mailto:elmbayesow09@gmail.com">elmbayesow09@gmail.com</a>
 </footer>
 
