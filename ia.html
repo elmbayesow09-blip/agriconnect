@@ -1,119 +1,17 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-
-<meta charset="UTF-8">
-<title>Assistant IA Agricole - Agriconnect</title>
-
-<style>
-
-body{
-font-family:Arial;
-background:#f4f4f4;
-text-align:center;
-}
-
-header{
-background:#2e7d32;
-color:white;
-padding:20px;
-}
-
-#chat{
-background:white;
-width:400px;
-margin:auto;
-padding:20px;
-border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-input{
-width:70%;
-padding:10px;
-}
-
-button{
-padding:10px;
-background:#2e7d32;
-color:white;
-border:none;
-cursor:pointer;
-}
-
-.message{
-margin:10px;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<header>
-
-<h2>Assistant IA Agricole 🤖🌾</h2>
-
-</header>
-
-<div id="chat">
-
-<div id="messages"></div>
-
-<input id="question" placeholder="Pose une question agricole">
-
-<button onclick="repondre()">Envoyer</button>
-
-</div>
-
+<head><meta charset="UTF-8"><title>Assistant IA</title></head>
+<body style="font-family:Arial;text-align:center;padding:50px;background:#f9f9f9;">
+<h2>Assistant IA</h2>
+<input id="question" placeholder="Posez votre question" style="padding:10px;width:300px;"><br><br>
+<button onclick="poserQuestion()" style="padding:12px 20px;background:#4CAF50;color:white;border:none;border-radius:8px;">Demander à l’IA</button>
+<div id="reponse" style="margin-top:20px;font-weight:bold;"></div>
+<a href="index.html"><button style="padding:12px 20px;margin-top:20px;background:#4CAF50;color:white;border:none;border-radius:8px;">Retour</button></a>
 <script>
-
-function repondre(){
-
-let question=document.getElementById("question").value;
-
-let reponse="";
-
-if(question.includes("tomate")){
-
-reponse="La tomate pousse bien dans les régions comme Thiès et Kaolack.";
-
+function poserQuestion(){
+  let q=document.getElementById("question").value;
+  document.getElementById("reponse").innerText="Réponse IA générale pour : "+q+" → Bientôt disponible 🚀";
 }
-
-else if(question.includes("riz")){
-
-reponse="Le riz pousse bien dans la vallée du fleuve Sénégal.";
-
-}
-
-else if(question.includes("maïs")){
-
-reponse="Le maïs pousse bien dans les régions de Kaffrine et Tambacounda.";
-
-}
-
-else{
-
-reponse="Je suis l'assistant agricole d'Agriconnect. Pose-moi une question sur les cultures.";
-
-}
-
-document.getElementById("messages").innerHTML+=
-
-"<div class='message'><b>Toi :</b> "+question+"</div>";
-
-document.getElementById("messages").innerHTML+=
-
-"<div class='message'><b>IA :</b> "+reponse+"</div>";
-
-document.getElementById("question").value="";
-
-}
-
 </script>
-
 </body>
-
 </html>
