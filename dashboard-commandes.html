@@ -4,47 +4,32 @@
 <meta charset="UTF-8">
 <title>Dashboard Commandes</title>
 </head>
-
 <body>
-
 <h2>Liste des commandes</h2>
-
 <div id="liste"></div>
 
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-apiKey: "TA_CLE_API",
-authDomain: "agriconnect-933f0.firebaseapp.com",
-projectId: "agriconnect-933f0",
-appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
-};
+import firebaseConfig from "./config.js";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
 const liste = document.getElementById("liste");
 
-onSnapshot(collection(db, "commandes"), (snapshot) => {
-liste.innerHTML = "";
-snapshot.forEach(doc => {
-let c = doc.data();
-
-liste.innerHTML += `
-<div style="border:1px solid #ccc; padding:10px; margin:10px;">
-<b>Nom :</b> ${c.nom} <br>
-<b>Téléphone :</b> ${c.telephone} <br>
-<b>Produit :</b> ${c.produit} <br>
-<b>Prix :</b> ${c.prix} FCFA
-</div>
-`;
+onSnapshot(collection(db,"commandes"), snapshot=>{
+  liste.innerHTML="";
+  snapshot.forEach(doc=>{
+    let c = doc.data();
+    liste.innerHTML+=`
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+    <b>Nom :</b> ${c.nom}<br>
+    <b>Téléphone :</b> ${c.telephone}<br>
+    <b>Produit :</b> ${c.produit}<br>
+    <b>Prix :</b> ${c.prix} FCFA
+    </div>`;
+  });
 });
-});
-
 </script>
-
 </body>
 </html>
