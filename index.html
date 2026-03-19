@@ -74,6 +74,19 @@ footer{
     color:white;
 }
 </style>
+body{
+    margin:0;
+    font-family:Arial;
+    background-image:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
+    background-size:cover;
+    background-position:center;
+    animation:fade 1s ease-in;
+}
+
+@keyframes fade{
+    from{opacity:0;}
+    to{opacity:1;}
+}
 </head>
 
 <body>
@@ -89,33 +102,40 @@ footer{
 </section>
 
 <section class="grid">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;padding:20px;">
 
-<a href="login.html" class="card">🔐 Connexion</a>
+<a href="login.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">🔐 Connexion</a>
 
-<a href="inscription.html" class="card">📝 Inscription</a>
+<a href="inscription.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">📝 Inscription</a>
 
-<a href="produits.html" class="card">📦 Produits</a>
+<a href="produits.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">📦 Produits</a>
 
-<a href="prix.html" class="card">📈 Prix agricoles</a>
+<a href="prix.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">📈 Prix</a>
 
-<a href="comande.html" class="card">🛒 Acheter produit</a>
+<a href="comande.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">🛒 Acheter</a>
 
-<a href="dashboard-commandes.html" class="card">📊 Mes commandes</a>
+<a href="dashboard-commandes.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">📊 Commandes</a>
 
-<a href="carte.html" class="card">🗺️ Carte agricole</a>
+<a href="carte.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">🗺️ Carte</a>
 
-<a href="assistance-ia.html" class="card">🤖 Assistant IA</a>
+<a href="assistance-ia.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">🤖 IA</a>
 
-<a href="ia-conseil-agricoles.html" class="card">🌱 Conseils IA</a>
+</div>
+<script>
+function notif(msg){
+  alert("🔔 " + msg);
+}
+</script>
 
 </section>
-
-<footer>
-    © 2026 Agriconnect <br>
-    📧 <a href="mailto:elmbayesow09@gmail.com" style="color:white;">
-        elmbayesow09@gmail.com
-    </a>
+<footer style="text-align:center;padding:20px;background:#2e7d32;color:white;">
+Publicité Agricole 💰 | Contact : elmbayesow09@gmail.com
 </footer>
+
+<nav style="position:fixed;top:0;left:0;width:100%;background:#2e7d32;color:white;padding:12px;z-index:1000;">
+  🌾 Agriconnect
+</nav>
+
 
 </body>
 </html>
