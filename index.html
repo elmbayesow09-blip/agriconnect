@@ -1,83 +1,35 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Agriconnect Sénégal</title>
+<title>Agriconnect</title>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="js/firebase.js"></script>
 
 <style>
-body {
-    margin:0;
-    font-family: Arial;
-    background:#f5f5f5;
-}
-
-header {
-    background:#2e7d32;
-    color:white;
-    padding:20px;
-    text-align:center;
-}
-
-nav a {
-    margin:10px;
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-.hero {
-    padding:80px;
-    text-align:center;
-    background:linear-gradient(#4CAF50, #2e7d32);
-    color:white;
-}
-
-.hero h1 {
-    font-size:40px;
-}
-
-.buttons a {
-    display:inline-block;
-    margin:15px;
-    padding:15px 25px;
-    background:white;
-    color:#2e7d32;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-.buttons a:hover {
-    background:#ddd;
-}
+body{font-family:Arial;margin:0;background:#f5f5f5;}
+header{background:#2e7d32;color:white;padding:20px;text-align:center;}
+a{display:block;margin:10px;padding:15px;background:white;text-align:center;text-decoration:none;color:#2e7d32;border-radius:10px;}
 </style>
-
 </head>
+
 <body>
 
 <header>
-<h2>Agriconnect 🌾🇸🇳</h2>
-<nav>
-<a href="produits.html">Produits</a>
-<a href="entreprises.html">Entreprises</a>
-<a href="prix.html">Prix agricoles</a>
-<a href="assistance-ia.html">Assistant IA</a>
-<a href="ia-conseil-agricoles.html">Conseils IA</a>
-<a href="comande.html">Acheter</a>
-<a href="carte.html">Carte Agricole</a>  
-</nav>
+<h2>Agriconnect 🇸🇳🌾</h2>
 </header>
 
-<div class="hero">
-<h1>Plateforme agricole du Sénégal</h1>
-<p>Acheter, vendre et gérer vos produits agricoles facilement</p>
-
-<div class="buttons">
-<a href="inscription.html">S'inscrire</a>
-<a href="login.html">Se connecter</a>
-</div>
-
-</div>
+<a href="login.html">Connexion</a>
+<a href="inscription.html">Inscription</a>
+<a href="produits.html">Produits</a>
+<a href="prix.html">Prix agricoles</a>
+<a href="comande.html">Acheter produit</a>
+<a href="dashboard-commandes.html">Voir commandes</a>
+<a href="carte.html">Carte agricole</a>
+<a href="assistance-ia.html">Assistant IA</a>
+<a href="ia-conseil-agricoles.html">Conseils IA</a>
 
 </body>
 </html>
