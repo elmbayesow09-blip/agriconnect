@@ -1,47 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Mes commandes</title>
-<style>
-body { font-family: Arial; text-align:center; padding:50px; }
-.card {
-    background:#fff;
-    padding:15px;
-    margin:10px auto;
-    width:300px;
-    border-radius:10px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.2);
-}
-</style>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="js/firebase.js"></script>
+
 </head>
+
 <body>
 
-<h2>Mes commandes 📦</h2>
-
+<h2>Mes commandes</h2>
 <div id="liste"></div>
 
-<br>
-<a href="index.html">Retour</a>
-
 <script>
-let commandes = JSON.parse(localStorage.getItem("commandes")) || [];
-
-let div = document.getElementById("liste");
-
-if(commandes.length === 0){
-    div.innerHTML = "Aucune commande pour le moment";
-} else {
-    commandes.forEach(c => {
-        div.innerHTML += `
-        <div class="card">
-            <p><b>${c.produit}</b></p>
-            <p>${c.prix} FCFA</p>
-            <p>${c.date}</p>
-        </div>
-        `;
-    });
+auth.onAuthStateChanged(user=>{
+if(user){
+db.collection("commandes")
+.where("user","==",user.email)
+.get()
+.then(snapshot=>{
+snapshot.forEach(doc=>{
+let c = doc.data();
+liste.innerHTML += `<p>${c.produit} - ${c.prix} FCFA</p>`;
+});
+});
 }
+});
 </script>
 
 </body>
