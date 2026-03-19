@@ -1,17 +1,28 @@
 <!DOCTYPE html>
-<html>
-<body>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Assistant IA agricole</title>
+</head>
 
-<input id="q">
-<button onclick="ia()">Demander</button>
+<body style="font-family:Arial;text-align:center;padding:20px;">
+
+<h1>🤖 Assistant IA Agricol</h1>
+
+<p>Pose ta question :</p>
+
+<input type="text" id="q" placeholder="ex: comment cultiver le riz ?">
+<br><br>
+
+<button onclick="repondre()">Envoyer</button>
 
 <p id="rep"></p>
 
 <script>
-async function ia(){
-let r = await fetch("https://api.chucknorris.io/jokes/random");
-let data = await r.json();
-rep.innerText = data.value;
+function repondre(){
+    let q = document.getElementById("q").value;
+    document.getElementById("rep").innerHTML =
+    "🤖 Conseil : Pour " + q + ", il faut préparer le sol, irriguer et surveiller les cultures.";
 }
 </script>
 
