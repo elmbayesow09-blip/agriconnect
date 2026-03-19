@@ -1,35 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <title>Agriconnect</title>
 
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-<script src="js/firebase.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body{font-family:Arial;margin:0;background:#f5f5f5;}
-header{background:#2e7d32;color:white;padding:20px;text-align:center;}
-a{display:block;margin:10px;padding:15px;background:white;text-align:center;text-decoration:none;color:#2e7d32;border-radius:10px;}
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f5f5f5;
+}
+
+/* HEADER */
+header{
+    background:linear-gradient(135deg,#2e7d32,#66bb6a);
+    color:white;
+    padding:30px;
+    text-align:center;
+}
+
+header h1{
+    margin:0;
+    font-size:32px;
+}
+
+/* HERO */
+.hero{
+    padding:40px;
+    text-align:center;
+}
+
+.hero h2{
+    color:#2e7d32;
+}
+
+.hero p{
+    color:#555;
+}
+
+/* MENU GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+/* CARD */
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    text-decoration:none;
+    color:#2e7d32;
+    font-weight:bold;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    background:#e8f5e9;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:20px;
+    background:#2e7d32;
+    color:white;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h2>Agriconnect 🇸🇳🌾</h2>
+    <h1>🌾 Agriconnect 🇸🇳</h1>
+    <p>La plateforme agricole digitale du Sénégal</p>
 </header>
 
-<a href="login.html">Connexion</a>
-<a href="inscription.html">Inscription</a>
-<a href="produits.html">Produits</a>
-<a href="prix.html">Prix agricoles</a>
-<a href="comande.html">Acheter produit</a>
-<a href="dashboard-commandes.html">Voir commandes</a>
-<a href="carte.html">Carte agricole</a>
-<a href="assistance-ia.html">Assistant IA</a>
-<a href="ia-conseil-agricoles.html">Conseils IA</a>
+<section class="hero">
+    <h2>Connecter les agriculteurs, les marchés et la technologie</h2>
+    <p>Vendez, achetez, consultez les prix et utilisez l’IA pour améliorer votre production 🚜</p>
+</section>
+
+<section class="grid">
+
+<a href="login.html" class="card">🔐 Connexion</a>
+
+<a href="inscription.html" class="card">📝 Inscription</a>
+
+<a href="produits.html" class="card">📦 Produits</a>
+
+<a href="prix.html" class="card">📈 Prix agricoles</a>
+
+<a href="comande.html" class="card">🛒 Acheter produit</a>
+
+<a href="dashboard-commandes.html" class="card">📊 Mes commandes</a>
+
+<a href="carte.html" class="card">🗺️ Carte agricole</a>
+
+<a href="assistance-ia.html" class="card">🤖 Assistant IA</a>
+
+<a href="ia-conseil-agricoles.html" class="card">🌱 Conseils IA</a>
+
+</section>
+
+<footer>
+    © 2026 Agriconnect <br>
+    📧 <a href="mailto:elmbayesow09@gmail.com" style="color:white;">
+        elmbayesow09@gmail.com
+    </a>
+</footer>
 
 </body>
 </html>
