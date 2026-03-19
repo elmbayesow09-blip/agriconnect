@@ -2,21 +2,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Inscription Agriculteur</title>
-<style>
-body { font-family: Arial; text-align:center; padding:50px; background:#f0f0f0;}
-h2 { color:#2e7d32; }
-button { padding:12px 20px; margin:10px; border:none; border-radius:8px; background:#4CAF50; color:white; cursor:pointer;}
-button:hover { background:#388E3C; }
-</style>
+<title>Inscription</title>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="js/firebase.js"></script>
 </head>
+
 <body>
 
-<h2>Inscription Agriculteur</h2>
-<p>Créer un compte pour accéder aux commandes et au dashboard</p>
+<h2>Créer compte</h2>
 
-<a href="login.html"><button>Créer compte</button></a>
-<a href="index.html"><button>Retour à l'accueil</button></a>
+<input id="email" placeholder="Email"><br>
+<input id="password" type="password" placeholder="Mot de passe"><br>
+
+<button onclick="register()">S'inscrire</button>
+
+<script>
+function register(){
+auth.createUserWithEmailAndPassword(email.value,password.value)
+.then(()=>alert("Compte créé ✅"))
+.catch(e=>alert(e.message));
+}
+</script>
 
 </body>
 </html>
