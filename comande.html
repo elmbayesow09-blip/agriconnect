@@ -1,37 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
+<title>Acheter produit</title>
 
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-<script src="js/firebase.js"></script>
+<style>
+body{
+    font-family:Arial;
+    text-align:center;
+    background:#f4f4f4;
+}
+
+.card{
+    background:white;
+    margin:20px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+</style>
 </head>
 
 <body>
 
-<h2>Acheter produit</h2>
+<h1>🛒 Acheter des produits agricoles</h1>
 
-<button onclick="acheter()">Acheter Tomate</button>
+<div class="card">
+<p>🌾 Riz local - 5 000 FCFA</p>
+<button>Acheter</button>
+</div>
 
-<script>
-function acheter(){
-let user = auth.currentUser;
+<div class="card">
+<p>🌽 Maïs - 3 000 FCFA</p>
+<button>Acheter</button>
+</div>
 
-if(!user){
-alert("Connecte-toi d'abord !");
-return;
-}
-
-db.collection("commandes").add({
-user:user.email,
-produit:"Tomate",
-prix:500,
-date:new Date()
-}).then(()=>alert("Commande envoyée 🚀"));
-}
-</script>
+<div class="card">
+<p>🥜 Arachide - 4 000 FCFA</p>
+<button>Acheter</button>
+</div>
 
 </body>
 </html>
