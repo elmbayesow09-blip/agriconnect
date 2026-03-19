@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Agriconnect</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">  
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body{
     margin:0;
-    font-family:Arial;
+    font-family:Arial, sans-serif;
     background:#f4f4f4;
 }
 
@@ -40,6 +40,7 @@ header{
     background:#2e7d32;
     color:white;
     padding:15px;
+    font-size:20px;
 }
 
 #btnMenu{
@@ -49,29 +50,62 @@ header{
 
 /* HERO */
 .hero{
-    height:250px;
     background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
+    height:250px;
     background-size:cover;
     background-position:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    text-align:center;
+}
+
+.hero h1{
+    background:rgba(0,0,0,0.5);
+    padding:10px;
+    border-radius:8px;
 }
 
 /* CONTENT */
 .container{
-    padding:25px;
+    padding:20px;
 }
 
 .section{
     background:white;
-    padding:25px;
+    padding:20px;
     margin-bottom:20px;
     border-radius:10px;
-    line-height:1.6;
 }
 
-h2{
-    color:#2e7d32;
+/* FEATURES */
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
 }
 
+.feature{
+    background:#e8f5e9;
+    padding:15px;
+    border-radius:10px;
+}
+
+/* IMAGES */
+.images{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:10px;
+    margin-top:15px;
+}
+
+.images img{
+    width:100%;
+    border-radius:10px;
+}
+
+/* FOOTER */
 footer{
     text-align:center;
     padding:20px;
@@ -104,100 +138,84 @@ footer{
 🌾 Agriconnect 🇸🇳
 </header>
 
-<!-- IMAGE -->
-<div class="hero"></div>
+<!-- HERO -->
+<div class="hero">
+<h1>Connecter l’agriculture au futur 🚜</h1>
+</div>
 
 <div class="container">
 
-<!-- INTRODUCTION -->
+<!-- PRÉSENTATION -->
 <div class="section">
-<h2>📖 Introduction</h2>
+<h2>🌍 À propos d’Agriconnect</h2>
 
 <p>
-Dans un contexte où l’agriculture représente un pilier essentiel du développement économique au Sénégal 🇸🇳,
-la digitalisation apparaît aujourd’hui comme une solution incontournable pour améliorer la productivité,
-faciliter l’accès aux marchés et renforcer les revenus des agriculteurs.
+Agriconnect est une plateforme numérique qui permet de connecter les agriculteurs, les acheteurs
+et les entreprises agricoles au Sénégal 🇸🇳. Elle facilite la vente des produits agricoles,
+améliore l’accès aux informations du marché et utilise la technologie pour moderniser l’agriculture.
 </p>
 
 <p>
-C’est dans cette dynamique que s’inscrit <strong>Agriconnect</strong>, une plateforme numérique innovante
-conçue pour connecter les agriculteurs, les acheteurs, les entreprises et les institutions agricoles.
-Son objectif principal est de moderniser le secteur agricole en utilisant les technologies numériques,
-tout en facilitant les échanges commerciaux et l’accès à l’information.
+Notre ambition est de rendre l’agriculture plus accessible, plus rentable et plus intelligente grâce
+à l’innovation digitale et à l’intelligence artificielle 🤖.
 </p>
 
 </div>
 
-<!-- DEVELOPPEMENT -->
+<!-- FONCTIONNALITÉS -->
 <div class="section">
-<h2>📊 Développement</h2>
+<h2>🚀 Fonctionnalités principales</h2>
 
-<p>
-La plateforme Agriconnect met à disposition plusieurs fonctionnalités essentielles permettant aux utilisateurs
-de bénéficier d’une expérience complète et intuitive.
-</p>
+<div class="features">
 
-<p>
-La section <strong>Connexion</strong> permet aux utilisateurs d’accéder à leur espace personnel sécurisé,
-tandis que la section <strong>Inscription</strong> offre la possibilité de créer un compte afin de rejoindre
-la communauté Agriconnect.
-</p>
+<div class="feature">📦 Consulter les produits agricoles disponibles</div>
 
-<p>
-La rubrique <strong>Produits</strong> donne accès à une variété de produits agricoles disponibles sur le marché,
-permettant ainsi aux utilisateurs de découvrir les offres existantes.
-En complément, la section <strong>Acheter produit</strong> facilite les transactions en permettant
-l’acquisition directe de produits agricoles en toute simplicité.
-</p>
+<div class="feature">🛒 Acheter facilement des produits</div>
 
-<p>
-Par ailleurs, la section <strong>Prix agricoles</strong> joue un rôle clé en fournissant des informations
-actualisées sur les prix du marché, aidant ainsi les agriculteurs et les acheteurs à prendre des décisions éclairées.
-</p>
+<div class="feature">📈 Suivre les prix du marché agricole</div>
 
-<p>
-La rubrique <strong>Entreprises</strong> met en lumière les différentes entreprises et ONG agricoles présentes
-au Sénégal, favorisant ainsi les partenariats et le développement du secteur.
-</p>
+<div class="feature">🏢 Découvrir les entreprises et ONG agricoles</div>
 
-<p>
-En outre, la <strong>Carte agricole</strong> permet de visualiser les différentes zones agricoles du pays,
-offrant une meilleure compréhension de la répartition géographique des activités agricoles.
-</p>
+<div class="feature">🗺️ Explorer la carte agricole du Sénégal</div>
 
-<p>
-L’intégration de l’intelligence artificielle constitue également un atout majeur de la plateforme.
-L’<strong>Assistant IA</strong> permet aux utilisateurs de poser des questions et d’obtenir des réponses rapides,
-tandis que la section <strong>Conseils IA</strong> fournit des recommandations pratiques pour améliorer les techniques agricoles.
-</p>
+<div class="feature">🤖 Poser des questions à l’IA agricole</div>
 
-<p>
-Enfin, la section <strong>Commandes</strong> permet aux utilisateurs de suivre leurs achats et leurs activités,
-garantissant ainsi une meilleure gestion des transactions.
-</p>
+<div class="feature">🌱 Recevoir des conseils agricoles</div>
+
+<div class="feature">📊 Suivre vos commandes</div>
 
 </div>
 
-<!-- CONCLUSION -->
+</div>
+
+<!-- IMAGES -->
 <div class="section">
-<h2>✅ Conclusion</h2>
+<h2>🚜 Agriculture moderne</h2>
+
+<div class="images">
+
+<img src="https://images.unsplash.com/photo-1598514983318-2f64f8f4796c">
+<img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6">
+<img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d">
+
+</div>
+
+</div>
+
+<!-- VISION -->
+<div class="section">
+<h2>🌟 Notre vision</h2>
 
 <p>
-En somme, Agriconnect représente une solution innovante et stratégique pour la modernisation de l’agriculture
-au Sénégal. À travers ses différentes fonctionnalités, la plateforme facilite les échanges, améliore
-l’accès à l’information et contribue à renforcer les capacités des acteurs du secteur agricole.
-</p>
-
-<p>
-En combinant technologie, commerce et intelligence artificielle, Agriconnect s’impose comme un outil essentiel
-pour accompagner la transformation numérique de l’agriculture et construire un avenir plus durable et prospère
-pour les agriculteurs africains 🌍🚜.
+Faire d’Agriconnect la première plateforme agricole numérique en Afrique 🌍,
+capable de transformer le secteur agricole grâce à la technologie et à l’innovation.
 </p>
 
 </div>
 
 </div>
 
+<!-- FOOTER -->
 <footer>
 © 2026 Agriconnect | elmbayesow09@gmail.com
 </footer>
