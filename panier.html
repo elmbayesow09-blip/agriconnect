@@ -13,38 +13,36 @@
 
 <p id="total"></p>
 
-<button onclick="payer()">💰 Payer (Wave)</button>
+<button onclick="payer()">💰 Payer</button>
 
 <script type="module">
+import { auth } from "./firebase.js";
 import { db } from "./firebase.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-let panier = JSON.parse(localStorage.getItem("panier")) || [];
-let total = 0;
-
-let liste = document.getElementById("liste");
-
-panier.forEach(p=>{
-    let li = document.createElement("li");
-    li.innerText = p.produit + " - " + p.prix + " FCFA";
-    liste.appendChild(li);
-    total += p.prix;
-});
-
-document.getElementById("total").innerText = "Total : " + total + " FCFA";
-
 window.payer = async function(){
 
-    let email = prompt("Votre email");
+    let user = auth.currentUser;
+
+    if(!user){
+        alert("⚠️ Connecte-toi d'abord !");
+        window.location.href = "login.html";
+        return;
+    }
+
+    let panier = JSON.parse(localStorage.getItem("panier")) || [];
+
+    let total = 0;
+    panier.forEach(p => total += p.prix);
 
     await addDoc(collection(db, "commandes"), {
+        email: user.email,
         panier: panier,
         total: total,
-        email: email,
         date: new Date()
     });
 
-    alert("✅ Paiement réussi + commande enregistrée !");
+    alert("✅ Paiement réussi !");
     localStorage.removeItem("panier");
 }
 </script>
