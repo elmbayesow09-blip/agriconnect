@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Panier</title>
+</head>
+
+<body style="font-family:Arial;text-align:center;">
+
+<h1>🛒 Votre panier</h1>
+
+<ul id="liste"></ul>
+
+<p id="total"></p>
+
+<button onclick="payer()">💰 Payer (Wave)</button>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+let panier = JSON.parse(localStorage.getItem("panier")) || [];
+let total = 0;
+
+let liste = document.getElementById("liste");
+
+panier.forEach(p=>{
+    let li = document.createElement("li");
+    li.innerText = p.produit + " - " + p.prix + " FCFA";
+    liste.appendChild(li);
+    total += p.prix;
+});
+
+document.getElementById("total").innerText = "Total : " + total + " FCFA";
+
+window.payer = async function(){
+
+    let email = prompt("Votre email");
+
+    await addDoc(collection(db, "commandes"), {
+        panier: panier,
+        total: total,
+        email: email,
+        date: new Date()
+    });
+
+    alert("✅ Paiement réussi + commande enregistrée !");
+    localStorage.removeItem("panier");
+}
+</script>
+
+</body>
+</html>
