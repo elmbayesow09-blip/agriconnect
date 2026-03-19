@@ -15,21 +15,24 @@ body{
 /* MENU */
 #menu{
     position:fixed;
-    left:-250px;
+    left:-260px;
     top:0;
-    width:250px;
+    width:260px;
     height:100%;
     background:#2e7d32;
     color:white;
-    padding-top:20px;
     transition:0.3s;
 }
 
 #menu a{
     display:block;
-    color:white;
     padding:15px;
+    color:white;
     text-decoration:none;
+}
+
+#menu a:hover{
+    background:#1b5e20;
 }
 
 /* HEADER */
@@ -64,7 +67,11 @@ header{
     border-radius:10px;
 }
 
-/* IMAGE CARDS */
+h2{
+    color:#2e7d32;
+}
+
+/* IMAGES */
 .images{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -83,11 +90,16 @@ header{
 <!-- MENU -->
 <div id="menu">
 <a href="index.html">🏠 Accueil</a>
+<a href="login.html">🔐 Connexion</a>
+<a href="inscription.html">📝 Inscription</a>
 <a href="produits.html">📦 Produits</a>
-<a href="prix.html">📈 Prix</a>
+<a href="prix.html">📈 Prix agricoles</a>
+<a href="comande.html">🛒 Acheter produit</a>
+<a href="dashboard-commandes.html">📊 Commandes</a>
+<a href="carte.html">🗺️ Carte agricole</a>
 <a href="entreprises.html">🏢 Entreprises</a>
-<a href="carte.html">🗺️ Carte</a>
-<a href="assistance-ia.html">🤖 IA</a>
+<a href="assistance-ia.html">🤖 Assistant IA</a>
+<a href="ia-conseil-agricoles.html">🌱 Conseils IA</a>
 </div>
 
 <!-- HEADER -->
@@ -102,13 +114,48 @@ header{
 <!-- CONTENU -->
 <div class="container">
 
+<!-- OBJECTIF -->
 <div class="section">
 <h2>🌍 Notre mission</h2>
+
 <p>
-Agriconnect connecte les agriculteurs, les marchés et les entreprises pour moderniser l’agriculture au Sénégal 🇸🇳.
+Agriconnect est une plateforme numérique agricole conçue pour connecter les agriculteurs, 
+les acheteurs, les entreprises et les marchés au Sénégal 🇸🇳.
+</p>
+
+<p>
+Notre objectif est de moderniser l’agriculture en utilisant la technologie, 
+faciliter la vente des produits agricoles et améliorer les revenus des agriculteurs 🚜.
 </p>
 </div>
 
+<!-- EXPLICATION DES BOUTONS -->
+<div class="section">
+<h2>🚀 Comment utiliser Agriconnect ?</h2>
+
+<p><strong>🔐 Connexion :</strong> accéder à votre compte personnel.</p>
+
+<p><strong>📝 Inscription :</strong> créer un compte pour rejoindre la plateforme.</p>
+
+<p><strong>📦 Produits :</strong> voir les produits agricoles disponibles.</p>
+
+<p><strong>🛒 Acheter :</strong> acheter facilement des produits agricoles.</p>
+
+<p><strong>📈 Prix agricoles :</strong> consulter les prix du marché en temps réel.</p>
+
+<p><strong>🏢 Entreprises :</strong> découvrir les entreprises et ONG agricoles du Sénégal.</p>
+
+<p><strong>🗺️ Carte agricole :</strong> localiser les zones agricoles.</p>
+
+<p><strong>🤖 Assistant IA :</strong> poser des questions agricoles intelligentes.</p>
+
+<p><strong>🌱 Conseils IA :</strong> recevoir des conseils pour améliorer votre production.</p>
+
+<p><strong>📊 Commandes :</strong> suivre vos achats et activités.</p>
+
+</div>
+
+<!-- IMAGES -->
 <div class="section">
 <h2>🚜 Agriculture moderne</h2>
 
@@ -122,13 +169,14 @@ Agriconnect connecte les agriculteurs, les marchés et les entreprises pour mode
 
 </div>
 
+<!-- VISION -->
 <div class="section">
-<h2>📖 Fonctionnalités</h2>
+<h2>🌟 Notre vision</h2>
 
-<p>📦 Produits : acheter et vendre</p>
-<p>📈 Prix : suivre le marché</p>
-<p>🏢 Entreprises : ONG et sociétés agricoles</p>
-<p>🤖 IA : conseils agricoles intelligents</p>
+<p>
+Faire d’Agriconnect la première plateforme agricole numérique en Afrique 🌍,
+capable de connecter tous les agriculteurs et moderniser le secteur agricole.
+</p>
 
 </div>
 
@@ -144,7 +192,7 @@ function toggleMenu(){
 let menu = document.getElementById("menu");
 
 if(menu.style.left === "0px"){
-menu.style.left = "-250px";
+menu.style.left = "-260px";
 }else{
 menu.style.left = "0px";
 }
