@@ -2,34 +2,47 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Dashboard Commandes</title>
-<style>body{font-family:Arial;text-align:center;padding:50px;}div{margin:10px;}</style>
+<title>Mes commandes</title>
+<style>
+body { font-family: Arial; text-align:center; padding:50px; }
+.card {
+    background:#fff;
+    padding:15px;
+    margin:10px auto;
+    width:300px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+</style>
 </head>
 <body>
-<h2>Liste des commandes</h2>
+
+<h2>Mes commandes 📦</h2>
+
 <div id="liste"></div>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import firebaseConfig from "./config.js";
 
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
-const liste=document.getElementById("liste");
+<br>
+<a href="index.html">Retour</a>
 
-onSnapshot(collection(db,"commandes"), snapshot=>{
-  liste.innerHTML="";
-  snapshot.forEach(doc=>{
-    let c=doc.data();
-    liste.innerHTML+=`<div style="border:1px solid #ccc;padding:10px;margin:10px;border-radius:8px;">
-      <b>Nom :</b> ${c.nom}<br>
-      <b>Téléphone :</b> ${c.telephone}<br>
-      <b>Produit :</b> ${c.produit}<br>
-      <b>Prix :</b> ${c.prix} FCFA
-    </div>`;
-  });
-});
+<script>
+let commandes = JSON.parse(localStorage.getItem("commandes")) || [];
+
+let div = document.getElementById("liste");
+
+if(commandes.length === 0){
+    div.innerHTML = "Aucune commande pour le moment";
+} else {
+    commandes.forEach(c => {
+        div.innerHTML += `
+        <div class="card">
+            <p><b>${c.produit}</b></p>
+            <p>${c.prix} FCFA</p>
+            <p>${c.date}</p>
+        </div>
+        `;
+    });
+}
 </script>
-<a href="index.html"><button>Retour</button></a>
+
 </body>
 </html>
