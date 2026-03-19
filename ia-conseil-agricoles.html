@@ -1,15 +1,42 @@
 <!DOCTYPE html>
-<html>
-<body>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>IA agricole</title>
+</head>
 
-<input id="q">
-<button onclick="conseil()">Conseil</button>
+<body style="font-family:Arial;text-align:center;padding:20px;">
+
+<h1>🤖 IA Conseils Agricoles</h1>
+
+<input id="q" placeholder="Pose ta question agricole">
+<br><br>
+
+<button onclick="repondre()">Envoyer</button>
 
 <p id="rep"></p>
 
 <script>
-function conseil(){
-rep.innerText = "Arrose régulièrement et utilise un bon sol 🌾";
+function repondre(){
+
+    let q = document.getElementById("q").value.toLowerCase();
+
+    let reponse = "";
+
+    if(q.includes("riz")){
+        reponse = "🌾 Pour le riz : sol humide + irrigation régulière + engrais organique.";
+    }
+    else if(q.includes("maïs")){
+        reponse = "🌽 Pour le maïs : sol fertile + semis en saison des pluies.";
+    }
+    else if(q.includes("arachide")){
+        reponse = "🥜 Arachide : sol sableux + peu d’eau + rotation des cultures.";
+    }
+    else{
+        reponse = "🤖 Conseil général : arrosage régulier + protection contre les insectes.";
+    }
+
+    document.getElementById("rep").innerHTML = reponse;
 }
 </script>
 
