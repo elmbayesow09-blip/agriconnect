@@ -1,22 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-<style>#map{height:90vh}</style>
+<meta charset="UTF-8">
+<title>Carte agricole Sénégal</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+}
+
+header{
+    background:#2e7d32;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+#map{
+    height:90vh;
+}
+</style>
 </head>
 
 <body>
+
+<header>
+<h1>🗺️ Carte agricole du Sénégal 🇸🇳</h1>
+</header>
 
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-var map = L.map('map').setView([14.5,-14.4],7);
+var map = L.map('map').setView([14.4974, -14.4524], 6);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+// fond de carte
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Agriconnect'
+}).addTo(map);
 
-L.marker([14.7,-17.4]).addTo(map).bindPopup("Dakar 🌾");
+// Dakar
+L.marker([14.7167, -17.4677]).addTo(map)
+.bindPopup("🌾 Dakar - Commerce agricole");
+
+// Saint-Louis
+L.marker([16.0320, -16.4818]).addTo(map)
+.bindPopup("🌾 Saint-Louis - Irrigation");
+
+// Kaolack
+L.marker([14.1510, -16.0720]).addTo(map)
+.bindPopup("🌾 Kaolack - Arachide");
+
+// Casamance
+L.marker([12.5833, -16.2719]).addTo(map)
+.bindPopup("🌾 Casamance - Agriculture fertile");
+
 </script>
 
 </body>
