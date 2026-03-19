@@ -10,54 +10,49 @@
 body{
     margin:0;
     font-family:Arial;
-    background:#f5f5f5;
+    background-image:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
+    background-size:cover;
+    background-position:center;
 }
 
 /* HEADER */
 header{
     background:linear-gradient(135deg,#2e7d32,#66bb6a);
     color:white;
-    padding:30px;
     text-align:center;
+    padding:30px;
 }
 
 header h1{
     margin:0;
-    font-size:32px;
 }
 
 /* HERO */
 .hero{
-    padding:40px;
     text-align:center;
+    padding:20px;
+    color:white;
+    text-shadow:0 2px 5px black;
 }
 
-.hero h2{
-    color:#2e7d32;
-}
-
-.hero p{
-    color:#555;
-}
-
-/* MENU GRID */
+/* GRID */
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:20px;
+    gap:15px;
     padding:20px;
 }
 
 /* CARD */
 .card{
     background:white;
-    padding:25px;
-    border-radius:15px;
+    padding:20px;
     text-align:center;
+    border-radius:12px;
     text-decoration:none;
     color:#2e7d32;
     font-weight:bold;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
     transition:0.3s;
 }
 
@@ -69,76 +64,53 @@ header h1{
 /* FOOTER */
 footer{
     text-align:center;
-    padding:20px;
+    padding:15px;
     background:#2e7d32;
     color:white;
+    margin-top:20px;
 }
 </style>
-body{
-    margin:0;
-    font-family:Arial;
-    background-image:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
-    background-size:cover;
-    background-position:center;
-    animation:fade 1s ease-in;
-}
-
-@keyframes fade{
-    from{opacity:0;}
-    to{opacity:1;}
-}
 </head>
 
 <body>
 
 <header>
     <h1>🌾 Agriconnect 🇸🇳</h1>
-    <p>La plateforme agricole digitale du Sénégal</p>
+    <p>Plateforme agricole digitale du Sénégal</p>
 </header>
 
-<section class="hero">
-    <h2>Connecter les agriculteurs, les marchés et la technologie</h2>
-    <p>Vendez, achetez, consultez les prix et utilisez l’IA pour améliorer votre production 🚜</p>
-</section>
-
-<section class="grid">
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;padding:20px;">
-
-<a href="login.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">🔐 Connexion</a>
-
-<a href="inscription.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">📝 Inscription</a>
-
-<a href="produits.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">📦 Produits</a>
-
-<a href="prix.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">📈 Prix</a>
-
-<a href="comande.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">🛒 Acheter</a>
-
-<a href="dashboard-commandes.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">📊 Commandes</a>
-
-<a href="carte.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">🗺️ Carte</a>
-
-<a href="assistance-ia.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">🤖 IA</a>
-<a href="entreprises.html" style="background:white;padding:20px;text-align:center;border-radius:12px;text-decoration:none;">
-🏢 Entreprises
-</a>
-    
+<div class="hero">
+    <h2>Connecter les agriculteurs, les entreprises et l’IA 🤖</h2>
 </div>
-<script>
-function notif(msg){
-  alert("🔔 " + msg);
-}
-</script>
 
-</section>
-<footer style="text-align:center;padding:20px;background:#2e7d32;color:white;">
-Publicité Agricole 💰 | Contact : elmbayesow09@gmail.com
+<!-- MENU -->
+<div class="grid">
+
+<a href="login.html" class="card">🔐 Connexion</a>
+
+<a href="inscription.html" class="card">📝 Inscription</a>
+
+<a href="produits.html" class="card">📦 Produits</a>
+
+<a href="prix.html" class="card">📈 Prix agricoles</a>
+
+<a href="comande.html" class="card">🛒 Acheter produit</a>
+
+<a href="dashboard-commandes.html" class="card">📊 Commandes</a>
+
+<a href="carte.html" class="card">🗺️ Carte agricole</a>
+
+<a href="entreprises.html" class="card">🏢 Entreprises</a>
+
+<a href="assistance-ia.html" class="card">🤖 Assistant IA</a>
+
+<a href="ia-conseil-agricoles.html" class="card">🌱 Conseils IA</a>
+
+</div>
+
+<footer>
+© 2026 Agriconnect | elmbayesow09@gmail.com
 </footer>
-
-<nav style="position:fixed;top:0;left:0;width:100%;background:#2e7d32;color:white;padding:12px;z-index:1000;">
-  🌾 Agriconnect
-</nav>
-
 
 </body>
 </html>
