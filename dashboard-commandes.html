@@ -1,33 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-<script src="js/firebase.js"></script>
-
+<meta charset="UTF-8">
+<title>Commandes</title>
 </head>
 
-<body>
+<body style="font-family:Arial;text-align:center;padding:20px;">
 
-<h2>Mes commandes</h2>
-<div id="liste"></div>
+<h1>📦 Commandes clients</h1>
 
-<script>
-auth.onAuthStateChanged(user=>{
-if(user){
-db.collection("commandes")
-.where("user","==",user.email)
-.get()
-.then(snapshot=>{
-snapshot.forEach(doc=>{
-let c = doc.data();
-liste.innerHTML += `<p>${c.produit} - ${c.prix} FCFA</p>`;
-});
-});
+<ul id="liste"></ul>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+async function charger(){
+
+    let querySnapshot = await getDocs(collection(db, "commandes"));
+
+    let liste = document.getElementById("liste");
+
+    querySnapshot.forEach((doc)=>{
+        let data = doc.data();
+
+        let li = document.createElement("li");
+        li.innerHTML = `
+        🛒 ${data.produit} - ${data.prix} FCFA 
+        | 👤 ${data.email}
+        | 📦 ${data.statut}
+        `;
+        liste.appendChild(li);
+    });
 }
-});
+
+charger();
 </script>
 
 </body>
