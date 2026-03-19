@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Conseils agricoles IA</title>
+<style>
+body { font-family: Arial; text-align:center; padding:50px; }
+input { padding:10px; width:300px; }
+button { padding:10px; background:green; color:white; }
+</style>
+</head>
+<body>
+
+<h2>Conseils agricoles IA 🌱</h2>
+
+<input id="q" placeholder="Ex: comment cultiver le riz ?">
+<br><br>
+
+<button onclick="conseil()">Obtenir conseil</button>
+
+<p id="rep"></p>
+
+<a href="index.html">Retour</a>
+
+<script>
+function conseil(){
+    let q = document.getElementById("q").value;
+    document.getElementById("rep").innerText = "Conseil agricole : arrosage régulier + bon sol 🌾";
+}
+</script>
+
+</body>
+</html>
