@@ -2,43 +2,43 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Acheter produit</title>
-
-<style>
-body{
-    font-family:Arial;
-    text-align:center;
-    background:#f4f4f4;
-}
-
-.card{
-    background:white;
-    margin:20px;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.2);
-}
-</style>
+<title>Achat produits</title>
 </head>
 
-<body>
+<body style="font-family:Arial;text-align:center;padding:20px;">
 
-<h1>🛒 Acheter des produits agricoles</h1>
+<h1>🛒 Marché Agricole</h1>
 
-<div class="card">
-<p>🌾 Riz local - 5 000 FCFA</p>
-<button>Acheter</button>
+<div>
+    <h3>🌾 Riz - 5000 FCFA</h3>
+    <button onclick="acheter('Riz',5000)">Acheter</button>
 </div>
 
-<div class="card">
-<p>🌽 Maïs - 3 000 FCFA</p>
-<button>Acheter</button>
+<div>
+    <h3>🌽 Maïs - 3000 FCFA</h3>
+    <button onclick="acheter('Maïs',3000)">Acheter</button>
 </div>
 
-<div class="card">
-<p>🥜 Arachide - 4 000 FCFA</p>
-<button>Acheter</button>
+<div>
+    <h3>🥜 Arachide - 4000 FCFA</h3>
+    <button onclick="acheter('Arachide',4000)">Acheter</button>
 </div>
+
+<script type="module">
+import { passerCommande } from "./commande.js";
+
+window.acheter = async function(produit, prix){
+
+    let email = prompt("Entrez votre email");
+
+    if(!email){
+        alert("Email requis");
+        return;
+    }
+
+    await passerCommande(produit, prix, email);
+}
+</script>
 
 </body>
 </html>
