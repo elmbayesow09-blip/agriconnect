@@ -1,38 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Carte Agricole</title>
-
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-
-<style>
-#map { height: 90vh; }
-</style>
+<style>#map{height:90vh}</style>
 </head>
 
 <body>
-
-<h2 style="text-align:center;">Carte Agricole du Sénégal 🇸🇳</h2>
 
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
-var map = L.map('map').setView([14.4974, -14.4524], 7);
+var map = L.map('map').setView([14.5,-14.4],7);
 
-// Carte OpenStreetMap
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-}).addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-// Exemple agriculteurs
-L.marker([14.7167, -17.4677]).addTo(map)
-.bindPopup("Agriculteur Dakar 🌾");
-
-L.marker([13.4549, -16.5780]).addTo(map)
-.bindPopup("Agriculteur Kaolack 🌽");
-
+L.marker([14.7,-17.4]).addTo(map).bindPopup("Dakar 🌾");
 </script>
 
 </body>
