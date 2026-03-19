@@ -1,161 +1,27 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="fr">
 <head>
-
 <meta charset="UTF-8">
-
-<title>Dashboard Agriculteur - Agriconnect</title>
-
-<style>
-
-body{
-font-family:Arial;
-background:#f4f4f4;
-text-align:center;
-}
-
-header{
-background:#2e7d32;
-color:white;
-padding:20px;
-}
-
-input{
-padding:10px;
-margin:10px;
-width:250px;
-}
-
-button{
-padding:10px 20px;
-background:#2e7d32;
-color:white;
-border:none;
-cursor:pointer;
-}
-
-.produit{
-background:white;
-margin:20px auto;
-padding:20px;
-width:300px;
-border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-</style>
-
+<title>Dashboard Agriconnect</title>
 </head>
 
-<body>
+<body style="font-family:Arial;text-align:center;padding:20px;">
 
-<header>
+<h1>📊 Tableau de bord</h1>
 
-<h2>Tableau de bord Agriculteur 🌾</h2>
+<p>Bienvenue sur Agriconnect 🚜</p>
 
-</header>
-
-<h3>Ajouter un produit</h3>
-
-<input id="nom" placeholder="Nom du produit"><br>
-
-<input id="prix" placeholder="Prix"><br>
-
-<input id="image" placeholder="Image (ex: images/tomate.jpg)"><br>
-
-<button onclick="ajouterProduit()">Ajouter</button>
-
-<h3>Mes Produits</h3>
-
-<div id="listeProduits"></div>
+<button onclick="logout()">Se déconnecter</button>
 
 <script type="module">
+import { auth } from "./firebase.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import { getFirestore, collection, addDoc, getDocs }
-
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4",
-
-authDomain: "agriconnect-933f0.firebaseapp.com",
-
-projectId: "agriconnect-933f0",
-
-storageBucket: "agriconnect-933f0.appspot.com",
-
-messagingSenderId: "1028061092951",
-
-appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
-
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-window.ajouterProduit = async function(){
-
-let nom=document.getElementById("nom").value;
-
-let prix=document.getElementById("prix").value;
-
-let image=document.getElementById("image").value;
-
-await addDoc(collection(db,"produits"),{
-
-nom:nom,
-
-prix:prix,
-
-image:image
-
-});
-
-alert("Produit ajouté");
-
-chargerProduits();
-
+window.logout = async function(){
+    await signOut(auth);
+    window.location.href = "login.html";
 }
-
-async function chargerProduits(){
-
-const querySnapshot = await getDocs(collection(db,"produits"));
-
-let html="";
-
-querySnapshot.forEach((doc)=>{
-
-let p=doc.data();
-
-html+=`
-
-<div class="produit">
-
-<img src="${p.image}" width="200">
-
-<h3>${p.nom}</h3>
-
-<p>Prix : ${p.prix} FCFA</p>
-
-</div>
-
-`;
-
-});
-
-document.getElementById("listeProduits").innerHTML=html;
-
-}
-
-chargerProduits();
-
 </script>
 
 </body>
-
 </html>
