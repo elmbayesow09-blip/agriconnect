@@ -1,28 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
-
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-<script src="js/firebase.js"></script>
+<title>Connexion</title>
 </head>
 
-<body>
+<body style="font-family:Arial;text-align:center;padding:20px;">
 
-<h2>Connexion</h2>
+<h1>🔐 Connexion</h1>
 
-<input id="email"><br>
-<input id="password" type="password"><br>
+<input id="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Mot de passe"><br><br>
 
 <button onclick="login()">Se connecter</button>
 
-<script>
-function login(){
-auth.signInWithEmailAndPassword(email.value,password.value)
-.then(()=>window.location="index.html")
-.catch(e=>alert(e.message));
+<p id="msg"></p>
+
+<script type="module">
+import { auth } from "./firebase.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+window.login = async function(){
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    try{
+        await signInWithEmailAndPassword(auth, email, password);
+        document.getElementById("msg").innerHTML = "✅ Connecté";
+        window.location.href = "dashboard.html";
+    }catch(e){
+        document.getElementById("msg").innerHTML = "❌ Erreur : " + e.message;
+    }
 }
 </script>
 
