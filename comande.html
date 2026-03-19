@@ -5,7 +5,7 @@
 <title>Acheter produit</title>
 <style>
 body { font-family: Arial; text-align:center; padding:50px; }
-button { padding:10px; background:green; color:white; border:none; border-radius:5px;}
+button { padding:12px; background:green; color:white; border:none; border-radius:8px;}
 </style>
 </head>
 <body>
@@ -19,11 +19,26 @@ button { padding:10px; background:green; color:white; border:none; border-radius
 
 <p id="msg"></p>
 
+<br><br>
+<a href="dashboard-commandes.html">Voir mes commandes</a><br>
 <a href="index.html">Retour</a>
 
 <script>
 function acheter(){
-    document.getElementById("msg").innerText = "Commande envoyée avec succès 🚀";
+
+    let commande = {
+        produit: "Tomate",
+        prix: 500,
+        date: new Date().toLocaleString()
+    };
+
+    let commandes = JSON.parse(localStorage.getItem("commandes")) || [];
+
+    commandes.push(commande);
+
+    localStorage.setItem("commandes", JSON.stringify(commandes));
+
+    document.getElementById("msg").innerText = "Commande enregistrée ✅";
 }
 </script>
 
