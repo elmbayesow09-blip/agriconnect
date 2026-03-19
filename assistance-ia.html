@@ -1,16 +1,19 @@
-<input id="q" placeholder="Pose ta question">
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="q">
 <button onclick="ia()">Demander</button>
+
 <p id="rep"></p>
 
 <script>
 async function ia(){
-
-let question = document.getElementById("q").value;
-
-let reponse = await fetch("https://api.chucknorris.io/jokes/random");
-
-let data = await reponse.json();
-
-document.getElementById("rep").innerText = "IA: " + data.value;
+let r = await fetch("https://api.chucknorris.io/jokes/random");
+let data = await r.json();
+rep.innerText = data.value;
 }
 </script>
+
+</body>
+</html>
