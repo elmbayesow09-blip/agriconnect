@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Acheter produit</title>
+<style>
+body { font-family: Arial; text-align:center; padding:50px; }
+button { padding:10px; background:green; color:white; border:none; border-radius:5px;}
+</style>
+</head>
+<body>
+
+<h2>Acheter un produit</h2>
+
+<p>Produit : Tomate</p>
+<p>Prix : 500 FCFA</p>
+
+<button onclick="acheter()">Acheter</button>
+
+<p id="msg"></p>
+
+<a href="index.html">Retour</a>
+
+<script>
+function acheter(){
+    document.getElementById("msg").innerText = "Commande envoyée avec succès 🚀";
+}
+</script>
+
+</body>
+</html>
