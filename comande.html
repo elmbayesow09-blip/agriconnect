@@ -2,50 +2,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Acheter produit</title>
-<style>
-body { font-family: Arial; text-align:center; padding:50px; }
-button { padding:12px; background:green; color:white; border:none; border-radius:8px;}
-</style>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="js/firebase.js"></script>
 </head>
+
 <body>
 
-<h2>Acheter un produit</h2>
+<h2>Acheter produit</h2>
 
-<p>Produit : Tomate</p>
-<p>Prix : 500 FCFA</p>
-
-<button onclick="acheter()">Acheter</button>
-<button onclick="payer()">Payer avec Wave</button> 
-
-<script>
-function payer(){
-    alert("Paiement Wave simulé réussi 💳");
-}
-</script>
-
-<p id="msg"></p>
-
-<br><br>
-<a href="dashboard-commandes.html">Voir mes commandes</a><br>
-<a href="index.html">Retour</a>
+<button onclick="acheter()">Acheter Tomate</button>
 
 <script>
 function acheter(){
+let user = auth.currentUser;
 
-    let commande = {
-        produit: "Tomate",
-        prix: 500,
-        date: new Date().toLocaleString()
-    };
+if(!user){
+alert("Connecte-toi d'abord !");
+return;
+}
 
-    let commandes = JSON.parse(localStorage.getItem("commandes")) || [];
-
-    commandes.push(commande);
-
-    localStorage.setItem("commandes", JSON.stringify(commandes));
-
-    document.getElementById("msg").innerText = "Commande enregistrée ✅";
+db.collection("commandes").add({
+user:user.email,
+produit:"Tomate",
+prix:500,
+date:new Date()
+}).then(()=>alert("Commande envoyée 🚀"));
 }
 </script>
 
