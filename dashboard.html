@@ -1,25 +1,46 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Dashboard Agriconnect</title>
+<title>Dashboard</title>
 </head>
 
-<body style="font-family:Arial;text-align:center;padding:20px;">
+<body style="font-family:Arial;text-align:center;">
 
-<h1>📊 Tableau de bord</h1>
+<h1>📊 Dashboard Agriconnect</h1>
 
-<p>Bienvenue sur Agriconnect 🚜</p>
+<div id="content"></div>
 
-<button onclick="logout()">Se déconnecter</button>
+<script>
+let role = localStorage.getItem("role");
 
-<script type="module">
-import { auth } from "./firebase.js";
-import { signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+let content = document.getElementById("content");
 
-window.logout = async function(){
-    await signOut(auth);
-    window.location.href = "login.html";
+if(role === "agriculteur"){
+    content.innerHTML = `
+    <h2>👨‍🌾 Espace Agriculteur</h2>
+    <p>✔ Proposer des prix</p>
+    <p>✔ Ajouter des produits</p>
+    <p>✔ Voir ses ventes</p>
+    `;
+}
+
+if(role === "entreprise"){
+    content.innerHTML = `
+    <h2>🏢 Espace Entreprise</h2>
+    <p>✔ Acheter des produits</p>
+    <p>✔ Contacter agriculteurs</p>
+    <p>✔ Suivre les marchés</p>
+    `;
+}
+
+if(role === "admin"){
+    content.innerHTML = `
+    <h2>🧑‍💼 Admin</h2>
+    <p>✔ Valider les prix</p>
+    <p>✔ Voir toutes les commandes</p>
+    <p>✔ Gérer la plateforme</p>
+    `;
 }
 </script>
 
