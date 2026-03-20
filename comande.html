@@ -17,28 +17,34 @@
 const container = document.getElementById("produits");
 
 db.collection("produits").onSnapshot(snapshot => {
-    container.innerHTML = "";
+container.innerHTML="";
 
-    snapshot.forEach(doc => {
-        const p = doc.data();
+snapshot.forEach(doc=>{
+let p = doc.data();
 
-        const div = document.createElement("div");
-
-        div.innerHTML = `
-        <p>
-        ${p.nom} - ${p.prix} FCFA<br>
-        👨‍🌾 ${p.vendeur}
-        </p>
-        <button onclick="acheter('${p.nom}', ${p.prix})">Acheter</button>
-        <hr>
-        `;
-
-        container.appendChild(div);
-    });
+container.innerHTML += `
+<p>${p.nom} - ${p.prix} FCFA</p>
+<button onclick="acheter('${p.nom}', ${p.prix})">Acheter</button>
+<hr>
+`;
+});
 });
 
 function acheter(nom, prix){
-    alert("✅ Achat de " + nom);
+let user = firebase.auth().currentUser;
+
+if(!user){
+alert("Connecte-toi !");
+return;
+}
+
+db.collection("commandes").add({
+produit: nom,
+prix: prix,
+user: user.email,
+date: new Date()
+})
+.then(()=> alert("✅ Commande enregistrée"));
 }
 </script>
 
