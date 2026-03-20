@@ -2,64 +2,58 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Chat Agriculteurs - Agriconnect</title>
-<style>
-body{font-family:Arial;text-align:center;background:#f4f4f4;}
-header{background:#2e7d32;color:white;padding:20px;}
-#chatBox{background:white;width:400px;margin:auto;padding:20px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
-input{width:70%;padding:10px;}
-button{padding:10px;background:#2e7d32;color:white;border:none;cursor:pointer;}
-.message{margin:10px;text-align:left;}
-</style>
+<title>Chat Agriconnect</title>
 </head>
-<body>
-<header>
-<h2>Chat Agriculteurs / Acheteurs 🌾💬</h2>
-</header>
 
-<div id="chatBox">
-<div id="messages"></div>
-<input id="message" placeholder="Votre message">
+<body style="font-family:Arial;">
+
+<h1>🤝 Discussion</h1>
+
+<input id="msg" placeholder="Écrire message">
 <button onclick="envoyer()">Envoyer</button>
-</div>
+
+<ul id="messages"></ul>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { db } from "./firebase.js";
+import { collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth } from "./firebase.js";
 
-const firebaseConfig = {
-apiKey: "AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4",
-authDomain: "agriconnect-933f0.firebaseapp.com",
-projectId: "agriconnect-933f0",
-storageBucket: "agriconnect-933f0.appspot.com",
-messagingSenderId: "1028061092951",
-appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const messagesDiv = document.getElementById("messages");
-const q = query(collection(db,"messages"), orderBy("date","asc"));
-
-onSnapshot(q, (snapshot)=>{
-messagesDiv.innerHTML="";
-snapshot.forEach(doc=>{
-let m = doc.data();
-messagesDiv.innerHTML+=`<div class='message'><b>${m.nom || "Anonyme"}:</b> ${m.texte}</div>`;
-});
-});
-
+// envoyer message
 window.envoyer = async function(){
-let texte = document.getElementById("message").value;
-if(texte=="") return;
-await addDoc(collection(db,"messages"),{
-texte:texte,
-nom:"Agriculteur",
-date:serverTimestamp()
-});
-document.getElementById("message").value="";
+
+    let user = auth.currentUser;
+
+    if(!user){
+        alert("Connecte-toi !");
+        return;
+    }
+
+    let msg = document.getElementById("msg").value;
+
+    await addDoc(collection(db, "messages"), {
+        text: msg,
+        email: user.email,
+        date: new Date()
+    });
 }
+
+// lire messages en temps réel
+let liste = document.getElementById("messages");
+
+onSnapshot(collection(db, "messages"), (snapshot)=>{
+
+    liste.innerHTML = "";
+
+    snapshot.forEach(doc=>{
+        let d = doc.data();
+
+        let li = document.createElement("li");
+        li.innerText = d.email + " : " + d.text;
+        liste.appendChild(li);
+    });
+});
 </script>
+
 </body>
 </html>
