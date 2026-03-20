@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Proposer prix</title>
+</head>
+
+<body style="font-family:Arial;text-align:center;">
+
+<h1>💰 Proposer un prix</h1>
+
+<input id="produit" placeholder="Nom du produit"><br><br>
+<input id="prix" placeholder="Prix proposé"><br><br>
+
+<button onclick="envoyer()">Envoyer</button>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth } from "./firebase.js";
+
+window.envoyer = async function(){
+
+    let user = auth.currentUser;
+
+    if(!user){
+        alert("Connecte-toi !");
+        return;
+    }
+
+    let produit = document.getElementById("produit").value;
+    let prix = document.getElementById("prix").value;
+
+    await addDoc(collection(db, "propositions"), {
+        produit: produit,
+        prix: prix,
+        email: user.email
+    });
+
+    alert("✅ Prix proposé !");
+}
+</script>
+
+</body>
+</html>
