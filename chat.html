@@ -2,57 +2,66 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Chat Agriconnect</title>
+<title>Chat</title>
+
+<style>
+body{font-family:Arial;}
+#messages{height:300px;overflow:auto;border:1px solid gray;padding:10px;}
+</style>
+
 </head>
 
-<body style="font-family:Arial;">
+<body>
 
-<h1>🤝 Discussion</h1>
+<h2>💬 Chat Agricole</h2>
 
-<input id="msg" placeholder="Écrire message">
-<button onclick="envoyer()">Envoyer</button>
+<div id="messages"></div>
 
-<ul id="messages"></ul>
+<input id="msg" placeholder="Votre message">
+<button onclick="send()">Envoyer</button>
 
-<script type="module">
-import { db } from "./firebase.js";
-import { collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { auth } from "./firebase.js";
+<script src="firebase.js"></script>
 
-// envoyer message
-window.envoyer = async function(){
+<script>
+const messagesDiv = document.getElementById("messages");
 
-    let user = auth.currentUser;
+// 🔥 afficher messages en temps réel
+db.collection("messages")
+.orderBy("date")
+.onSnapshot(snapshot=>{
+messagesDiv.innerHTML="";
 
-    if(!user){
-        alert("Connecte-toi !");
-        return;
-    }
+snapshot.forEach(doc=>{
+let m = doc.data();
 
-    let msg = document.getElementById("msg").value;
+messagesDiv.innerHTML += `
+<p><b>${m.user}:</b> ${m.text}</p>
+`;
+});
 
-    await addDoc(collection(db, "messages"), {
-        text: msg,
-        email: user.email,
-        date: new Date()
-    });
+// scroll auto
+messagesDiv.scrollTop = messagesDiv.scrollHeight;
+});
+
+// 🔥 envoyer message
+function send(){
+let user = firebase.auth().currentUser;
+
+if(!user){
+alert("Connecte-toi !");
+return;
 }
 
-// lire messages en temps réel
-let liste = document.getElementById("messages");
+let text = document.getElementById("msg").value;
 
-onSnapshot(collection(db, "messages"), (snapshot)=>{
-
-    liste.innerHTML = "";
-
-    snapshot.forEach(doc=>{
-        let d = doc.data();
-
-        let li = document.createElement("li");
-        li.innerText = d.email + " : " + d.text;
-        liste.appendChild(li);
-    });
+db.collection("messages").add({
+user: user.email,
+text: text,
+date: new Date()
 });
+
+document.getElementById("msg").value="";
+}
 </script>
 
 </body>
