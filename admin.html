@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Administration</title>
+
+<style>
+body{font-family:Arial;background:#f4f4f4;padding:20px;}
+.section{background:white;padding:20px;margin-bottom:20px;border-radius:10px;}
+button{background:red;color:white;border:none;padding:5px;border-radius:5px;}
+</style>
+</head>
+
+<body>
+
+<h1>Tableau de bord administrateur</h1>
+
+<div class="section">
+<h2>Produits</h2>
+<div id="produits"></div>
+</div>
+
+<div class="section">
+<h2>Commandes</h2>
+<div id="commandes"></div>
+</div>
+
+<script src="firebase.js"></script>
+
+<script>
+// PRODUITS
+db.collection("produits").onSnapshot(snapshot=>{
+    let html = "";
+
+    snapshot.forEach(doc=>{
+        let p = doc.data();
+
+        html += `
+        <p>
+        ${p.nom} - ${p.prix} FCFA
+        <button onclick="supprimer('${doc.id}')">Supprimer</button>
+        </p>
+        `;
+    });
+
+    document.getElementById("produits").innerHTML = html;
+});
+
+// SUPPRESSION
+function supprimer(id){
+    db.collection("produits").doc(id).delete();
+}
+
+// COMMANDES
+db.collection("commandes").onSnapshot(snapshot=>{
+    let html = "";
+
+    snapshot.forEach(doc=>{
+        let c = doc.data();
+
+        html += `
+        <p>
+        ${c.produit} - ${c.prix} FCFA - ${c.user}
+        </p>
+        `;
+    });
+
+    document.getElementById("commandes").innerHTML = html;
+});
+</script>
+
+</body>
+</html>
