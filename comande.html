@@ -1,42 +1,44 @@
-<!DOCTYPE html> 
-<html lang="fr">
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Achat produits</title>
+<title>Acheter</title>
 </head>
 
-<body style="font-family:Arial;text-align:center;padding:20px;">
+<body style="font-family:Arial;text-align:center;">
 
-<h1>🛒 Marché Agricole</h1>
+<h1>🛒 Acheter produits</h1>
 
-<div>
-    <h3>🌾 Riz - 5000 FCFA</h3>
-    <button onclick="acheter('Riz',5000)">Acheter</button>
-</div>
+<div id="produits"></div>
 
-<div>
-    <h3>🌽 Maïs - 3000 FCFA</h3>
-    <button onclick="acheter('Maïs',3000)">Acheter</button>
-</div>
+<script src="firebase.js"></script>
 
-<div>
-    <h3>🥜 Arachide - 4000 FCFA</h3>
-    <button onclick="acheter('Arachide',4000)">Acheter</button>
-</div>
+<script>
+const container = document.getElementById("produits");
 
-<script type="module">
-import { passerCommande } from "./commande.js";
+db.collection("produits").onSnapshot(snapshot => {
+    container.innerHTML = "";
 
-window.acheter = async function(produit, prix){
+    snapshot.forEach(doc => {
+        const p = doc.data();
 
-    let email = prompt("Entrez votre email");
+        const div = document.createElement("div");
 
-    if(!email){
-        alert("Email requis");
-        return;
-    }
+        div.innerHTML = `
+        <p>
+        ${p.nom} - ${p.prix} FCFA<br>
+        👨‍🌾 ${p.vendeur}
+        </p>
+        <button onclick="acheter('${p.nom}', ${p.prix})">Acheter</button>
+        <hr>
+        `;
 
-    await passerCommande(produit, prix, email);
+        container.appendChild(div);
+    });
+});
+
+function acheter(nom, prix){
+    alert("✅ Achat de " + nom);
 }
 </script>
 
