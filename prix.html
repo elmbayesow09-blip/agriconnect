@@ -6,13 +6,14 @@
 
 <style>
 body{font-family:Arial;background:#f4f4f4;padding:20px;}
-.card{background:white;padding:15px;margin-bottom:10px;border-radius:10px;} 
+.card{background:white;padding:15px;margin-bottom:10px;border-radius:10px;}
+button{margin-top:5px;background:#2e7d32;color:white;border:none;padding:5px;}
 </style>
 </head>
 
 <body>
 
-<h1>📈 Marché des prix agricoles (temps réel)</h1>
+<h1>📈 Marché agricole (modification possible)</h1>
 
 <div id="liste"></div>
 
@@ -21,24 +22,45 @@ body{font-family:Arial;background:#f4f4f4;padding:20px;}
 <script>
 const liste = document.getElementById("liste");
 
+// ⚠️ SIMULATION utilisateur connecté
+let utilisateur = localStorage.getItem("user") || "Mamadou";
+
 db.collection("produits").onSnapshot(snapshot => {
     liste.innerHTML = "";
 
     snapshot.forEach(doc => {
         const p = doc.data();
 
-        const div = document.createElement("div");
-        div.className = "card";
-
-        div.innerHTML = `
+        let html = `
+        <div class="card">
         🌾 <b>${p.nom}</b><br>
         💰 ${p.prix} FCFA<br>
-        👨‍🌾 ${p.vendeur} (${p.region})
+        👨‍🌾 ${p.vendeur}
         `;
 
-        liste.appendChild(div);
+        // 🔥 SI c’est le propriétaire → bouton modifier
+        if(p.vendeur === utilisateur){
+            html += `
+            <br><input id="prix-${doc.id}" placeholder="Nouveau prix">
+            <button onclick="modifier('${doc.id}')">Modifier</button>
+            `;
+        }
+
+        html += `</div>`;
+
+        liste.innerHTML += html;
     });
 });
+
+// 🔥 fonction modifier
+function modifier(id){
+    let nouveau = document.getElementById("prix-"+id).value;
+
+    db.collection("produits").doc(id).update({
+        prix: parseInt(nouveau)
+    })
+    .then(()=> alert("✅ Prix modifié"));
+}
 </script>
 
 </body>
