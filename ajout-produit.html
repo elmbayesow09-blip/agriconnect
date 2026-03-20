@@ -1,50 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Ajouter produit</title>
 </head>
-<body>
 
-<h2>Ajouter un produit agricole</h2>
-<input id="nom" placeholder="Nom du produit"><br><br>
-<input id="description" placeholder="Description"><br><br>
-<input id="image" placeholder="URL de l'image"><br><br>
-<button onclick="ajouterProduit()">Ajouter</button>
+<body style="font-family:Arial;text-align:center;">
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+<h2>➕ Ajouter un produit</h2>
 
-const firebaseConfig = {
-apiKey: "AIzaSyD7ChJIlfTgvDgzQpyFV_Ol_7a46E2Qfj4",
-authDomain: "agriconnect-933f0.firebaseapp.com",
-projectId: "agriconnect-933f0",
-storageBucket: "agriconnect-933f0.appspot.com",
-messagingSenderId: "1028061092951",
-appId: "1:1028061092951:web:66afa5dcf60dfeedfad712"
-};
+<input id="nom" placeholder="Nom produit"><br><br>
+<input id="prix" placeholder="Prix"><br><br>
+<input id="vendeur" placeholder="Votre nom"><br><br>
+<input id="region" placeholder="Région"><br><br>
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+<button onclick="ajouter()">Ajouter</button>
 
-window.ajouterProduit = async function(){
-let nom = document.getElementById("nom").value;
-let description = document.getElementById("description").value;
-let image = document.getElementById("image").value;
+<script src="firebase.js"></script>
 
-await addDoc(collection(db,"produits"),{
-nom: nom,
-description: description,
-image: image
-});
+<script>
+function ajouter(){
+const nom = document.getElementById("nom").value;
+const prix = parseInt(document.getElementById("prix").value);
+const vendeur = document.getElementById("vendeur").value;
+const region = document.getElementById("region").value;
 
-alert("Produit ajouté avec succès");
+db.collection("produits").add({
+    nom,
+    prix,
+    vendeur,
+    region
+})
+.then(()=> alert("✅ Produit ajouté"));
 }
 </script>
-
-<footer style="margin-top:40px;background:#2e7d32;color:white;padding:20px">
-© 2026 Agriconnect | Contact : elmbayesow09@gmail.com
-</footer>
 
 </body>
 </html>
