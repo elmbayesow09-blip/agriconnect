@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Profil</title>
+</head>
+
+<body style="font-family:Arial;text-align:center;">
+
+<h2>👤 Mon profil</h2>
+
+<input id="nom" placeholder="Nom"><br><br>
+<input id="region" placeholder="Région"><br><br>
+
+<select id="type">
+<option value="agriculteur">Agriculteur</option>
+<option value="acheteur">Acheteur</option>
+</select><br><br>
+
+<button onclick="save()">Enregistrer</button>
+
+<script src="firebase.js"></script>
+
+<script>
+function save(){
+const nom = document.getElementById("nom").value;
+const region = document.getElementById("region").value;
+const type = document.getElementById("type").value;
+
+// sauvegarde simple
+localStorage.setItem("user", nom);
+
+db.collection("users").doc(nom).set({
+    nom,
+    region,
+    type
+})
+.then(()=> alert("✅ Profil enregistré"));
+}
+</script>
+
+</body>
+</html>
