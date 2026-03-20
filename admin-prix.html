@@ -2,29 +2,59 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admin Prix</title>
+<title>Admin</title>
 </head>
 
-<body style="font-family:Arial;">
+<body style="font-family:Arial">
 
-<h1>🧑‍💼 Propositions de prix</h1>
+<h1>👑 Dashboard Admin</h1>
 
-<ul id="liste"></ul>
+<h2>📦 Produits</h2>
+<div id="produits"></div>
 
-<script type="module">
-import { db } from "./firebase.js";
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<h2>🛒 Commandes</h2>
+<div id="commandes"></div>
 
-let liste = document.getElementById("liste");
+<script src="firebase.js"></script>
 
-let snapshot = await getDocs(collection(db, "propositions"));
+<script>
+// PRODUITS
+db.collection("produits").onSnapshot(snapshot=>{
+let html="";
 
 snapshot.forEach(doc=>{
-    let d = doc.data();
+let p = doc.data();
 
-    let li = document.createElement("li");
-    li.innerText = d.produit + " → " + d.prix + " FCFA (" + d.email + ")";
-    liste.appendChild(li);
+html += `
+<p>
+${p.nom} - ${p.prix} FCFA
+<button onclick="supprimer('${doc.id}')">❌ Supprimer</button>
+</p>
+`;
+});
+
+document.getElementById("produits").innerHTML = html;
+});
+
+// SUPPRIMER
+function supprimer(id){
+db.collection("produits").doc(id).delete()
+.then(()=> alert("Supprimé"));
+}
+
+// COMMANDES
+db.collection("commandes").onSnapshot(snapshot=>{
+let html="";
+
+snapshot.forEach(doc=>{
+let c = doc.data();
+
+html += `
+<p>${c.produit} - ${c.prix} FCFA (${c.user})</p>
+`;
+});
+
+document.getElementById("commandes").innerHTML = html;
 });
 </script>
 
