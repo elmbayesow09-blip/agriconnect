@@ -22,7 +22,7 @@
 function ajouter(){
 const nom = document.getElementById("nom").value;
 const prix = parseInt(document.getElementById("prix").value);
-const vendeur = document.getElementById("vendeur").value;
+const vendeur = localStorage.getItem("user");
 const region = document.getElementById("region").value;
 
 db.collection("produits").add({
