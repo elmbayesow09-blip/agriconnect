@@ -25,21 +25,29 @@ let p = doc.data();
 container.innerHTML += `
 <p>${p.nom} - ${p.prix} FCFA</p>
 <button onclick="payer('${p.nom}', ${p.prix})">💳 Payer</button>
-function payer(nom, prix){
-let numero = prompt("Entrez numéro Wave / Orange Money");
+function acheter(nom, prix){
+let user = firebase.auth().currentUser;
 
-if(!numero){
-alert("Numéro requis");
+if(!user){
+alert("Connecte-toi !");
 return;
 }
 
-db.collection("paiements").add({
+// ✅ Enregistrer commande
+db.collection("commandes").add({
 produit: nom,
 prix: prix,
-numero: numero,
+user: user.email,
 date: new Date()
-})
-.then(()=> alert("✅ Paiement simulé réussi"));
+});
+
+// 🔔 Notification
+db.collection("notifications").add({
+message: "Nouvelle commande de " + nom,
+date: new Date()
+});
+
+alert("✅ Commande + notification envoyée");
 }
 </script>
 
