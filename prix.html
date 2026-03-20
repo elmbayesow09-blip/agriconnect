@@ -1,17 +1,45 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Prix agricoles</title>
+
+<style>
+body{font-family:Arial;background:#f4f4f4;padding:20px;}
+.card{background:white;padding:15px;margin-bottom:10px;border-radius:10px;}
+</style>
 </head>
 
-<body style="font-family:Arial;text-align:center;">
+<body>
 
-<h1>📈 Marché des prix agricoles</h1>
+<h1>📈 Marché des prix agricoles (temps réel)</h1>
 
-<p>Riz : 5000 FCFA</p>
-<p>Maïs : 3000 FCFA</p>
-<p>Arachide : 4000 FCFA</p>
+<div id="liste"></div>
+
+<script src="firebase.js"></script>
+
+<script>
+const liste = document.getElementById("liste");
+
+db.collection("produits").onSnapshot(snapshot => {
+    liste.innerHTML = "";
+
+    snapshot.forEach(doc => {
+        const p = doc.data();
+
+        const div = document.createElement("div");
+        div.className = "card";
+
+        div.innerHTML = `
+        🌾 <b>${p.nom}</b><br>
+        💰 ${p.prix} FCFA<br>
+        👨‍🌾 ${p.vendeur} (${p.region})
+        `;
+
+        liste.appendChild(div);
+    });
+});
+</script>
 
 </body>
 </html>
