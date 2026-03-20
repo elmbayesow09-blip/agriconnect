@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">  
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <title>Agriconnect</title>
@@ -12,6 +12,14 @@ body{
     background:#f4f4f4;
 }
 
+/* HEADER */
+header{
+    background:#2e7d32;
+    color:white;
+    padding:15px;
+    font-size:20px;
+}
+
 /* MENU */
 #menu{
     position:fixed;
@@ -19,7 +27,7 @@ body{
     top:0;
     width:260px;
     height:100%;
-    background:#2e7d32;
+    background:#1b5e20;
     color:white;
     transition:0.3s;
 }
@@ -29,18 +37,11 @@ body{
     padding:15px;
     color:white;
     text-decoration:none;
+    border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
 #menu a:hover{
-    background:#1b5e20;
-}
-
-/* HEADER */
-header{
     background:#2e7d32;
-    color:white;
-    padding:15px;
-    font-size:20px;
 }
 
 #btnMenu{
@@ -62,9 +63,9 @@ header{
 }
 
 .hero h1{
-    background:rgba(0,0,0,0.5);
-    padding:10px;
-    border-radius:8px;
+    background:rgba(0,0,0,0.6);
+    padding:15px 25px;
+    border-radius:10px;
 }
 
 /* CONTENT */
@@ -74,43 +75,42 @@ header{
 
 .section{
     background:white;
-    padding:20px;
+    padding:25px;
     margin-bottom:20px;
     border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* FEATURES */
-.features{
+/* GRID */
+.grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
     gap:15px;
 }
 
-.feature{
-    background:#e8f5e9;
+/* BUTTON */
+button{
+    background:#2e7d32;
+    color:white;
+    border:none;
     padding:15px;
-    border-radius:10px;
-}
-
-/* IMAGES */
-.images{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:10px;
-    margin-top:15px;
-}
-
-.images img{
+    border-radius:8px;
+    cursor:pointer;
     width:100%;
-    border-radius:10px;
+    font-size:15px;
+}
+
+button:hover{
+    background:#1b5e20;
 }
 
 /* FOOTER */
 footer{
-    text-align:center;
-    padding:20px;
     background:#2e7d32;
     color:white;
+    text-align:center;
+    padding:15px;
+    font-size:14px;
 }
 </style>
 </head>
@@ -119,96 +119,83 @@ footer{
 
 <!-- MENU -->
 <div id="menu">
-<a href="index.html">🏠 Accueil</a>
-<a href="login.html">🔐 Connexion</a>
-<a href="inscription.html">📝 Inscription</a>
-<a href="produits.html">📦 Produits</a>
-<a href="prix.html">📈 Prix agricoles</a>
-<a href="comande.html">🛒 Acheter produit</a>
-<a href="dashboard-commandes.html">📊 Commandes</a>
-<a href="carte.html">🗺️ Carte agricole</a>
-<a href="entreprises.html">🏢 Entreprises</a>
-<a href="assistance-ia.html">🤖 Assistant IA</a>
-<a href="ia-conseil-agricoles.html">🌱 Conseils IA</a>
+<a href="index.html">Accueil</a>
+<a href="produits.html">Produits</a>
+<a href="commande.html">Acheter</a>
+<a href="prix.html">Marché des prix</a>
+<a href="entreprises.html">Entreprises</a>
+<a href="chat.html">Messagerie</a>
+<a href="notifications.html">Notifications</a>
+<a href="dashboard-commandes.html">Commandes</a>
+<a href="admin.html">Administration</a>
+<a href="login.html">Connexion</a>
+<a href="inscription.html">Inscription</a>
 </div>
 
 <!-- HEADER -->
 <header>
 <span id="btnMenu" onclick="toggleMenu()">☰</span>
-🌾 Agriconnect 🇸🇳
+Agriconnect
 </header>
 
 <!-- HERO -->
 <div class="hero">
-<h1>Connecter l’agriculture au futur 🚜</h1>
+<h1>Plateforme numérique pour le développement agricole</h1>
 </div>
 
 <div class="container">
 
-<!-- PRÉSENTATION -->
+<!-- PRESENTATION -->
 <div class="section">
-<h2>🌍 À propos d’Agriconnect</h2>
+<h2>Présentation</h2>
 
 <p>
-Agriconnect est une plateforme numérique qui permet de connecter les agriculteurs, les acheteurs
-et les entreprises agricoles au Sénégal 🇸🇳. Elle facilite la vente des produits agricoles,
-améliore l’accès aux informations du marché et utilise la technologie pour moderniser l’agriculture.
+Agriconnect est une plateforme digitale dédiée à la mise en relation des agriculteurs,
+des entreprises et des acheteurs. Elle permet de faciliter la commercialisation des
+produits agricoles, d'accéder aux informations de marché et de renforcer les échanges
+au sein du secteur agricole.
 </p>
 
 <p>
-Notre ambition est de rendre l’agriculture plus accessible, plus rentable et plus intelligente grâce
-à l’innovation digitale et à l’intelligence artificielle 🤖.
+La plateforme vise à moderniser les pratiques agricoles grâce aux outils numériques
+et à favoriser un écosystème agricole structuré, efficace et accessible.
 </p>
-
 </div>
 
-<!-- FONCTIONNALITÉS -->
+<!-- SERVICES -->
 <div class="section">
-<h2>🚀 Fonctionnalités principales</h2>
+<h2>Accès aux services</h2>
 
-<div class="features">
+<div class="grid">
 
-<div class="feature">📦 Consulter les produits agricoles disponibles</div>
+<a href="produits.html"><button>Produits</button></a>
 
-<div class="feature">🛒 Acheter facilement des produits</div>
+<a href="commande.html"><button>Acheter un produit</button></a>
 
-<div class="feature">📈 Suivre les prix du marché agricole</div>
+<a href="prix.html"><button>Marché des prix agricoles</button></a>
 
-<div class="feature">🏢 Découvrir les entreprises et ONG agricoles</div>
+<a href="entreprises.html"><button>Entreprises agricoles</button></a>
 
-<div class="feature">🗺️ Explorer la carte agricole du Sénégal</div>
+<a href="chat.html"><button>Messagerie</button></a>
 
-<div class="feature">🤖 Poser des questions à l’IA agricole</div>
+<a href="notifications.html"><button>Notifications</button></a>
 
-<div class="feature">🌱 Recevoir des conseils agricoles</div>
+<a href="dashboard-commandes.html"><button>Mes commandes</button></a>
 
-<div class="feature">📊 Suivre vos commandes</div>
-
-</div>
+<a href="admin.html"><button>Administration</button></a>
 
 </div>
 
-<!-- IMAGES -->
+</div>
+
+<!-- OBJECTIF -->
 <div class="section">
-<h2>🚜 Agriculture moderne</h2>
-
-<div class="images">
-
-<img src="https://images.unsplash.com/photo-1598514983318-2f64f8f4796c">
-<img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6">
-<img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d">
-
-</div>
-
-</div>
-
-<!-- VISION -->
-<div class="section">
-<h2>🌟 Notre vision</h2>
+<h2>Objectif</h2>
 
 <p>
-Faire d’Agriconnect la première plateforme agricole numérique en Afrique 🌍,
-capable de transformer le secteur agricole grâce à la technologie et à l’innovation.
+L’objectif d’Agriconnect est de devenir une référence dans le domaine de
+l’agriculture numérique en Afrique, en offrant une plateforme fiable,
+sécurisée et performante permettant à chaque acteur de valoriser son activité.
 </p>
 
 </div>
@@ -217,7 +204,7 @@ capable de transformer le secteur agricole grâce à la technologie et à l’in
 
 <!-- FOOTER -->
 <footer>
-© 2026 Agriconnect | elmbayesow09@gmail.com
+Contact : elmbayesow09@gmail.com | Agriconnect 2026
 </footer>
 
 <script>
