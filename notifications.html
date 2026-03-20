@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Notifications</title>
+
+<style>
+body{font-family:Arial;background:#f4f4f4;padding:20px;}
+.card{background:white;padding:15px;margin-bottom:10px;border-radius:10px;}
+</style>
+</head>
+
+<body>
+
+<h1>Notifications</h1>
+
+<div id="notifications"></div>
+
+<script src="firebase.js"></script>
+
+<script>
+const container = document.getElementById("notifications");
+
+db.collection("notifications")
+.orderBy("date","desc")
+.onSnapshot(snapshot=>{
+    container.innerHTML = "";
+
+    snapshot.forEach(doc=>{
+        let n = doc.data();
+
+        container.innerHTML += `
+        <div class="card">
+        ${n.message}
+        </div>
+        `;
+    });
+});
+</script>
+
+</body>
+</html>
