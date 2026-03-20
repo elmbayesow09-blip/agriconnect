@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Notifications</title>
+</head>
+
+<body style="font-family:Arial">
+
+<h2>🔔 Notifications</h2>
+
+<div id="notif"></div>
+
+<script src="firebase.js"></script>
+
+<script>
+const box = document.getElementById("notif");
+
+db.collection("notifications")
+.orderBy("date","desc")
+.onSnapshot(snapshot=>{
+box.innerHTML="";
+
+snapshot.forEach(doc=>{
+let n = doc.data();
+
+box.innerHTML += `
+<p>🔔 ${n.message}</p>
+<hr>
+`;
+});
+});
+</script>
+
+</body>
+</html>
