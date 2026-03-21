@@ -81,29 +81,6 @@ header{
     box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* GRID */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:15px;
-}
-
-/* BUTTON */
-button{
-    background:#2e7d32;
-    color:white;
-    border:none;
-    padding:15px;
-    border-radius:8px;
-    cursor:pointer;
-    width:100%;
-    font-size:15px;
-}
-
-button:hover{
-    background:#1b5e20;
-}
-
 /* FOOTER */
 footer{
     background:#2e7d32;
@@ -117,7 +94,7 @@ footer{
 
 <body>
 
-<!-- MENU -->
+<!-- MENU GAUCHE -->
 <div id="menu">
 <a href="index.html">Accueil</a>
 <a href="produits.html">Produits</a>
@@ -138,71 +115,60 @@ footer{
 Agriconnect
 </header>
 
-<!-- HERO -->
+<!-- IMAGE -->
 <div class="hero">
 <h1>Plateforme numérique pour le développement agricole</h1>
 </div>
 
 <div class="container">
 
-<!-- PRESENTATION -->
 <div class="section">
 <h2>Présentation</h2>
 
 <p>
 Agriconnect est une plateforme digitale dédiée à la mise en relation des agriculteurs,
-des entreprises et des acheteurs. Elle permet de faciliter la commercialisation des
-produits agricoles, d'accéder aux informations de marché et de renforcer les échanges
-au sein du secteur agricole.
+des entreprises et des acheteurs. Elle facilite la vente des produits agricoles,
+l’accès aux informations de marché et la communication entre les acteurs du secteur.
 </p>
 
 <p>
-La plateforme vise à moderniser les pratiques agricoles grâce aux outils numériques
-et à favoriser un écosystème agricole structuré, efficace et accessible.
+La plateforme contribue à moderniser l’agriculture grâce aux technologies numériques
+et à améliorer la transparence des échanges commerciaux.
 </p>
+
 </div>
 
-<!-- SERVICES -->
 <div class="section">
-<h2>Accès aux services</h2>
+<h2>Fonctionnalités</h2>
 
-<div class="grid">
+<p>
+La plateforme propose plusieurs services essentiels :
+</p>
 
-<a href="produits.html"><button>Produits</button></a>
-
-<a href="commande.html"><button>Acheter un produit</button></a>
-
-<a href="prix.html"><button>Marché des prix agricoles</button></a>
-
-<a href="entreprises.html"><button>Entreprises agricoles</button></a>
-
-<a href="chat.html"><button>Messagerie</button></a>
-
-<a href="notifications.html"><button>Notifications</button></a>
-
-<a href="dashboard-commandes.html"><button>Mes commandes</button></a>
-
-<a href="admin.html"><button>Administration</button></a>
+<ul>
+<li>Consultation et achat de produits agricoles</li>
+<li>Accès aux prix du marché en temps réel</li>
+<li>Présentation des entreprises agricoles</li>
+<li>Messagerie entre utilisateurs</li>
+<li>Suivi des commandes</li>
+<li>Système de notifications</li>
+</ul>
 
 </div>
 
-</div>
-
-<!-- OBJECTIF -->
 <div class="section">
 <h2>Objectif</h2>
 
 <p>
-L’objectif d’Agriconnect est de devenir une référence dans le domaine de
-l’agriculture numérique en Afrique, en offrant une plateforme fiable,
-sécurisée et performante permettant à chaque acteur de valoriser son activité.
+L’objectif d’Agriconnect est de créer un écosystème agricole numérique fiable,
+permettant aux producteurs et aux acheteurs de collaborer efficacement
+et de valoriser leurs activités à l’échelle nationale et internationale.
 </p>
 
 </div>
 
 </div>
 
-<!-- FOOTER -->
 <footer>
 Contact : elmbayesow09@gmail.com | Agriconnect 2026
 </footer>
@@ -215,7 +181,7 @@ if(menu.style.left === "0px"){
 menu.style.left = "-260px";
 }else{
 menu.style.left = "0px";
-} 
+}
 }
 </script>
 
