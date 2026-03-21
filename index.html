@@ -1,74 +1,129 @@
-<!DOCTYPE html><html lang="fr"> 
-<head>
-  <meta charset="UTF-8">
-  <title>Plateforme Agricole IA</title>
-  <style>
-    body { font-family: Arial; margin:0; background:#f4f4f4; }
-    header { background:#2e7d32; color:white; padding:15px; text-align:center; }
-    .container { display:flex; flex-wrap:wrap; padding:20px; gap:15px; }
-    .card {
-      background:white;
-      padding:20px;
-      border-radius:10px;
-      width:200px;
-      text-align:center;
-      box-shadow:0 2px 5px rgba(0,0,0,0.2);
-    }
-    button {
-      margin-top:10px;
-      padding:10px;
-      border:none;
-      border-radius:5px;
-      background:#2e7d32;
-      color:white;
-      cursor:pointer;
-    }
-    button:hover { background:#1b5e20; }
-  </style>
-</head>
-<body><header>
-  <h1>Plateforme Agricole avec IA</h1>
-</header><div class="container">  <div class="card"><h3>Produits</h3><button onclick="go('produits.html')">Voir</button></div>
-  <div class="card"><h3>Acheter</h3><button onclick="go('acheter.html')">Acheter</button></div>
-  <div class="card"><h3>Notifications</h3><button onclick="go('notifications.html')">Ouvrir</button></div>
-  <div class="card"><h3>Commandes</h3><button onclick="go('commandes.html')">Voir</button></div>
-  <div class="card"><h3>Messagerie</h3><button onclick="go('messagerie.html')">Ouvrir</button></div>
-  <div class="card"><h3>Conseils IA</h3><button onclick="go('conseils-ia.html')">Consulter</button></div>
-  <div class="card"><h3>Assistant IA</h3><button onclick="go('assistant.html')">Parler</button></div>
-  <div class="card"><h3>Administration</h3><button onclick="go('admin.html')">Accéder</button></div>
-  <div class="card"><h3>Connexion</h3><button onclick="go('login.html')">Se connecter</button></div>
-  <div class="card"><h3>Inscription</h3><button onclick="go('register.html')">S'inscrire</button></div>
-  <div class="card"><h3>Marché des prix</h3><button onclick="go('marche.html')">Voir prix</button></div>
-  <div class="card"><h3>Entreprise</h3><button onclick="go('entreprise.html')">Voir</button></div></div><script>
-function go(page){
-  window.location.href = page;
-}
-</script></body>
-</html><!-- Exemple de correction erreur 404 pour acheter.html --><!-- acheter.html --><!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Acheter</title>
-</head>
-<body>
-<h1>Page Acheter</h1>
-<p>Liste des produits disponibles à l'achat</p>
-<a href="index.html">Retour</a>
-</body>
-</html><!-- assistant.html --><!DOCTYPE html><html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Assistant IA</title>
-</head>
-<body>
-<h1>Assistant IA Agricole</h1>
-<input type="text" id="question" placeholder="Pose ta question...">
-<button onclick="askAI()">Envoyer</button>
-<p id="response"></p><script>
-function askAI(){
-  let q = document.getElementById('question').value;
-  document.getElementById('response').innerText = "Réponse IA simulée pour: " + q;
+<title>Agriconnect</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#f4f4f4;}
+
+header{
+background:#2e7d32;
+color:white;
+padding:15px;
 }
-</script><a href="index.html">Retour</a>
+
+#menu{
+position:fixed;
+left:-260px;
+top:0;
+width:260px;
+height:100%;
+background:#1b5e20;
+transition:0.3s;
+}
+
+#menu a{
+display:block;
+padding:15px;
+color:white;
+text-decoration:none;
+}
+
+#menu a:hover{
+background:#2e7d32;
+}
+
+#btnMenu{
+font-size:25px;
+cursor:pointer;
+}
+
+.hero{
+background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
+height:250px;
+background-size:cover;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+}
+
+.container{padding:20px;}
+
+.section{
+background:white;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MENU -->
+<div id="menu">
+
+<a href="index.html">Accueil</a>
+<a href="produits.html">Produits</a>
+<a href="commande.html">Acheter</a>
+<a href="prix.html">Marché des prix</a>
+<a href="entreprises.html">Entreprises</a>
+
+<a href="assistant-ia.html">Assistant IA</a>
+<a href="ia-conseil-agricoles.html">Conseils agricoles IA</a>
+
+<a href="chat.html">Messagerie</a>
+<a href="notifications.html">Notifications</a>
+<a href="dashboard-commandes.html">Commandes</a>
+<a href="admin.html">Administration</a>
+
+<a href="login.html">Connexion</a>
+<a href="inscription.html">Inscription</a>
+
+</div>
+
+<!-- HEADER -->
+<header>
+<span id="btnMenu" onclick="toggleMenu()">☰</span>
+Agriconnect
+</header>
+
+<!-- IMAGE -->
+<div class="hero">
+<h1>Plateforme agricole numérique</h1>
+</div>
+
+<div class="container">
+
+<div class="section">
+<h2>Présentation</h2>
+<p>
+Agriconnect connecte agriculteurs, entreprises et acheteurs.
+</p>
+</div>
+
+<div class="section">
+<h2>Objectif</h2>
+<p>
+Moderniser l’agriculture grâce au numérique.
+</p>
+</div>
+
+</div>
+
+<script>
+function toggleMenu(){
+let menu = document.getElementById("menu");
+
+if(menu.style.left === "0px"){
+menu.style.left = "-260px";
+}else{
+menu.style.left = "0px";
+}
+}
+</script>
 
 </body>
 </html>
