@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Acheter</title>
+<style>
+body{font-family:Arial;background:#f4f4f4;padding:20px;}
+.card{background:white;padding:15px;margin-bottom:10px;border-radius:5px;}
+button{background:#2e7d32;color:white;padding:10px;border:none;}
+</style>
+</head>
+
+<body>
+
+<h1>Achat de produits</h1>
+
+<div class="card">
+Riz - 5000 FCFA
+<button onclick="acheter('Riz',5000)">Acheter</button>
+</div>
+
+<div class="card">
+Maïs - 3000 FCFA
+<button onclick="acheter('Maïs',3000)">Acheter</button>
+</div>
+
+<script>
+function acheter(nom, prix){
+
+let commandes = JSON.parse(localStorage.getItem("commandes")) || [];
+commandes.push({produit:nom,prix:prix});
+localStorage.setItem("commandes", JSON.stringify(commandes));
+
+let notif = JSON.parse(localStorage.getItem("notifications")) || [];
+notif.push("Nouvelle commande : " + nom);
+localStorage.setItem("notifications", JSON.stringify(notif));
+
+alert("Commande réussie");
+
+}
+</script>
+
+</body>
+</html>
