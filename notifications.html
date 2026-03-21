@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Notifications</title>
+<style>
+body{font-family:Arial;background:#f4f4f4;padding:20px;}
+</style>
+</head>
+
+<body>
+
+<h1>Notifications</h1>
+
+<div id="notif"></div>
+
+<script>
+let notif = JSON.parse(localStorage.getItem("notifications")) || [];
+
+let html = "";
+
+notif.forEach(n=>{
+html += "<p>"+n+"</p>";
+});
+
+document.getElementById("notif").innerHTML = html;
+</script>
+
+</body>
+</html>
