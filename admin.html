@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin</title>
+<style>
+body{font-family:Arial;background:#f4f4f4;padding:20px;}
+</style>
+</head>
+
+<body>
+
+<h1>Administration</h1>
+
+<h2>Commandes</h2>
+
+<div id="liste"></div>
+
+<script>
+let commandes = JSON.parse(localStorage.getItem("commandes")) || [];
+
+let html = "";
+
+commandes.forEach(c=>{
+html += "<p>"+c.produit+" - "+c.prix+" FCFA</p>";
+});
+
+document.getElementById("liste").innerHTML = html;
+</script>
+
+</body>
+</html>
