@@ -14,15 +14,20 @@ body{font-family:Arial;background:#f4f4f4;padding:20px;}
 <div id="notif"></div>
 
 <script>
-let notif = JSON.parse(localStorage.getItem("notifications")) || [];
+db.collection("notifications")
+.orderBy("date","desc")
+.onSnapshot(snapshot=>{
 
-let html = "";
+let html="";
 
-notif.forEach(n=>{
-html += "<p>"+n+"</p>";
+snapshot.forEach(doc=>{
+let n = doc.data();
+html += "<p>"+n.message+"</p>";
 });
 
 document.getElementById("notif").innerHTML = html;
+
+});
 </script>
 
 </body>
