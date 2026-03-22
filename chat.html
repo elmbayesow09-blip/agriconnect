@@ -1,67 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Chat</title>
-
-<style>
-body{font-family:Arial;}
-#messages{height:300px;overflow:auto;border:1px solid gray;padding:10px;}
-</style>
-
 </head>
 
 <body>
 
-<h2>💬 Chat Agricole</h2>
+<h1>Messagerie</h1>
+
+<input id="msg" placeholder="Message">
+<button onclick="send()">Envoyer</button>
 
 <div id="messages"></div>
 
-<input id="msg" placeholder="Votre message">
-<button onclick="send()">Envoyer</button>
-
-<script src="firebase.js"></script>
-
 <script>
-const messagesDiv = document.getElementById("messages");
+function afficher(){
+let msgs = JSON.parse(localStorage.getItem("messages")) || [];
+let html="";
 
-// 🔥 afficher messages en temps réel
-db.collection("messages")
-.orderBy("date")
-.onSnapshot(snapshot=>{
-messagesDiv.innerHTML="";
-
-snapshot.forEach(doc=>{
-let m = doc.data();
-
-messagesDiv.innerHTML += `
-<p><b>${m.user}:</b> ${m.text}</p>
-`;
+msgs.forEach(m=>{
+html += "<p>"+m+"</p>";
 });
 
-// scroll auto
-messagesDiv.scrollTop = messagesDiv.scrollHeight;
-});
+document.getElementById("messages").innerHTML = html;
+}
 
-// 🔥 envoyer message
 function send(){
-let user = firebase.auth().currentUser;
+let msg = document.getElementById("msg").value;
 
-if(!user){
-alert("Connecte-toi !");
-return;
+let msgs = JSON.parse(localStorage.getItem("messages")) || [];
+
+msgs.push(msg);
+
+localStorage.setItem("messages", JSON.stringify(msgs));
+
+afficher();
 }
 
-let text = document.getElementById("msg").value;
-
-db.collection("messages").add({
-user: user.email,
-text: text,
-date: new Date()
-});
-
-document.getElementById("msg").value="";
-}
+afficher();
 </script>
 
 </body>
