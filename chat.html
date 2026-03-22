@@ -2,42 +2,66 @@
 <html>
 <head>
 <title>Chat</title>
+
+<style>
+body{font-family:Arial;padding:20px;}
+input{padding:10px;width:70%;}
+button{padding:10px;background:#2e7d32;color:white;border:none;}
+#messages{margin-top:20px;background:#f4f4f4;padding:10px;}
+</style>
 </head>
 
 <body>
 
 <h1>Messagerie</h1>
 
-<input id="msg" placeholder="Message">
-<button onclick="send()">Envoyer</button>
+<input id="msg" placeholder="Écris un message">
+<button onclick="envoyer()">Envoyer</button>
 
 <div id="messages"></div>
 
-<script>
-function afficher(){
-let msgs = JSON.parse(localStorage.getItem("messages")) || [];
-let html="";
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
 
-msgs.forEach(m=>{
-html += "<p>"+m+"</p>";
+<script>
+
+// 🔹 ENVOYER MESSAGE
+function envoyer(){
+
+let user = localStorage.getItem("user") || "Anonyme";
+let msg = document.getElementById("msg").value;
+
+if(msg === "") return;
+
+db.collection("messages").add({
+user: user,
+message: msg,
+date: new Date()
+});
+
+document.getElementById("msg").value = "";
+
+}
+
+// 🔹 AFFICHER MESSAGES EN DIRECT
+db.collection("messages")
+.orderBy("date")
+.onSnapshot(snapshot=>{
+
+let html = "";
+
+snapshot.forEach(doc=>{
+let m = doc.data();
+
+html += "<p><b>"+m.user+"</b> : "+m.message+"</p>";
 });
 
 document.getElementById("messages").innerHTML = html;
-}
 
-function send(){
-let msg = document.getElementById("msg").value;
+});
 
-let msgs = JSON.parse(localStorage.getItem("messages")) || [];
-
-msgs.push(msg);
-
-localStorage.setItem("messages", JSON.stringify(msgs));
-
-afficher();
-}
-
-afficher();
 </script>
 
 </body>
