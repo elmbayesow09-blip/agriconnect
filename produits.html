@@ -17,31 +17,52 @@
 <div id="liste"></div>
 
 <script>
-function afficher(){
-let produits = JSON.parse(localStorage.getItem("produits")) || [];
-let html="";
-
-produits.forEach(p=>{
-html += "<p>"+p.nom+" - "+p.prix+" FCFA</p>";
-});
-
-document.getElementById("liste").innerHTML = html;
-}
 
 function ajouter(){
+
+let user = localStorage.getItem("user");
+
+if(!user){
+alert("Connecte-toi");
+return;
+}
+
 let nom = document.getElementById("nom").value;
 let prix = document.getElementById("prix").value;
 
-let produits = JSON.parse(localStorage.getItem("produits")) || [];
+db.collection("produits").add({
+nom: nom,
+prix: prix,
+user: user
+});
 
-produits.push({nom,prix});
-
-localStorage.setItem("produits", JSON.stringify(produits));
-
-afficher();
 }
 
-afficher();
+db.collection("produits").onSnapshot(snapshot=>{
+let html="";
+
+snapshot.forEach(doc=>{
+let p = doc.data();
+
+html += `
+<p>
+${p.nom} - ${p.prix} FCFA (par ${p.user})
+<button onclick="modifier('${doc.id}')">Modifier prix</button>
+</p>
+`;
+});
+
+document.getElementById("liste").innerHTML = html;
+});
+
+function modifier(id){
+let nouveau = prompt("Nouveau prix :");
+
+db.collection("produits").doc(id).update({
+prix: nouveau
+});
+}
+
 </script>
 
 </body>
