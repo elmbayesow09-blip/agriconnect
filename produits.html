@@ -1,56 +1,47 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-<meta charset="UTF-8">
 <title>Produits</title>
-
-<style>
-body{font-family:Arial;background:#f4f4f4;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px;}
-.card{background:white;border-radius:10px;padding:15px;text-align:center;}
-button{background:#2e7d32;color:white;padding:10px;border:none;border-radius:5px;}
-</style>
 </head>
 
 <body>
 
-<h1 style="text-align:center;">📦 Produits agricoles</h1>
+<h1>Ajouter produit</h1>
 
-<div class="grid">
+<input id="nom" placeholder="Nom produit">
+<input id="prix" placeholder="Prix">
 
-<div class="card">
-<h3>🌾 Riz</h3>
-<p>5000 FCFA</p>
-<button onclick="ajouterPanier('Riz',5000)">Ajouter au panier</button>
-</div>
+<button onclick="ajouter()">Ajouter</button>
 
-<div class="card">
-<h3>🌽 Maïs</h3>
-<p>3000 FCFA</p>
-<button onclick="ajouterPanier('Maïs',3000)">Ajouter au panier</button>
-</div>
-
-<div class="card">
-<h3>🥜 Arachide</h3>
-<p>4000 FCFA</p>
-<button onclick="ajouterPanier('Arachide',4000)">Ajouter au panier</button>
-</div>
-
-</div>
-
-<a href="panier.html">🛒 Voir panier</a>
+<h2>Liste produits</h2>
+<div id="liste"></div>
 
 <script>
-function ajouterPanier(produit, prix){
+function afficher(){
+let produits = JSON.parse(localStorage.getItem("produits")) || [];
+let html="";
 
-let panier = JSON.parse(localStorage.getItem("panier")) || [];
+produits.forEach(p=>{
+html += "<p>"+p.nom+" - "+p.prix+" FCFA</p>";
+});
 
-panier.push({produit, prix});
-
-localStorage.setItem("panier", JSON.stringify(panier));
-
-alert("✅ Ajouté au panier !");
+document.getElementById("liste").innerHTML = html;
 }
+
+function ajouter(){
+let nom = document.getElementById("nom").value;
+let prix = document.getElementById("prix").value;
+
+let produits = JSON.parse(localStorage.getItem("produits")) || [];
+
+produits.push({nom,prix});
+
+localStorage.setItem("produits", JSON.stringify(produits));
+
+afficher();
+}
+
+afficher();
 </script>
 
 </body>
