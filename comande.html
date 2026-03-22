@@ -26,17 +26,29 @@ Maïs - 3000 FCFA
 <script>
 function acheter(nom, prix){
 
-let commandes = JSON.parse(localStorage.getItem("commandes")) || [];
-commandes.push({produit:nom,prix:prix});
-localStorage.setItem("commandes", JSON.stringify(commandes));
+let user = localStorage.getItem("user");
 
-let notif = JSON.parse(localStorage.getItem("notifications")) || [];
-notif.push("Nouvelle commande : " + nom);
-localStorage.setItem("notifications", JSON.stringify(notif));
+if(!user){
+alert("Connecte-toi");
+return;
+}
+
+db.collection("commandes").add({
+produit: nom,
+prix: prix,
+acheteur: user,
+date: new Date()
+});
+
+db.collection("notifications").add({
+message: user + " a acheté " + nom,
+date: new Date()
+});
 
 alert("Commande réussie");
 
 }
+
 </script>
 
 </body>
