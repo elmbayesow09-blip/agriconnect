@@ -1,45 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"> 
-<title>Mes commandes</title>
+<title>Commandes</title>
 </head>
 
-<body style="font-family:Arial;text-align:center;">
+<body>
 
-<h1>📦 Mes commandes</h1>
+<h1>Mes commandes</h1>
 
 <div id="liste"></div>
 
-<script src="firebase.js"></script>
-
 <script>
-const liste = document.getElementById("liste");
+let commandes = JSON.parse(localStorage.getItem("commandes")) || [];
 
-firebase.auth().onAuthStateChanged(user=>{
-if(!user){
-alert("Connecte-toi !");
-return;
-}
+let html="";
 
-db.collection("commandes")
-.where("user","==",user.email)
-.onSnapshot(snapshot=>{
-liste.innerHTML="";
-
-snapshot.forEach(doc=>{
-let c = doc.data();
-
-liste.innerHTML += `
-<p>
-${c.produit} - ${c.prix} FCFA<br>
-📅 ${new Date(c.date.seconds*1000).toLocaleString()}
-</p>
-<hr>
-`;
+commandes.forEach(c=>{
+html += "<p>"+c.produit+" - "+c.prix+" FCFA</p>";
 });
-});
-});
+
+document.getElementById("liste").innerHTML = html;
 </script>
 
 </body>
