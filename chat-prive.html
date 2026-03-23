@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Chat privé</title>
+
+<style>
+body{font-family:Arial;background:#f4f4f4;padding:20px;}
+.container{background:white;padding:20px;border-radius:10px;}
+input{padding:10px;margin:5px;width:100%;}
+button{padding:10px;background:#2e7d32;color:white;border:none;}
+#chat{margin-top:20px;background:#eee;padding:10px;height:300px;overflow:auto;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Chat privé</h1>
+
+<input id="to" placeholder="Email du destinataire">
+<input id="msg" placeholder="Écrire message">
+
+<button onclick="send()">Envoyer</button>
+
+<div id="chat"></div>
+
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+
+// ENVOYER MESSAGE
+function send(){
+
+let from = localStorage.getItem("user");
+let to = document.getElementById("to").value;
+let msg = document.getElementById("msg").value;
+
+if(!from){
+alert("Connecte-toi");
+return;
+}
+
+if(msg === "") return;
+
+db.collection("messages").add({
+from: from,
+to: to,
+message: msg,
+date: new Date()
+});
+
+document.getElementById("msg").value = "";
+
+}
+
+// AFFICHER MESSAGES
+db.collection("messages")
+.orderBy("date")
+.onSnapshot(snapshot=>{
+
+let user = localStorage.getItem("user");
+let html="";
+
+snapshot.forEach(doc=>{
+let m = doc.data();
+
+if(m.from === user || m.to === user){
+html += "<p><b>"+m.from+"</b> : "+m.message+"</p>";
+}
+});
+
+document.getElementById("chat").innerHTML = html;
+
+});
+
+</script>
+
+</body>
+</html>
