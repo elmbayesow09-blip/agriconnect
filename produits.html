@@ -1,66 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Produits</title>
+<title>Profil</title>
 </head>
 
 <body>
 
-<h1>Ajouter produit</h1>
+<h1>Mon profil</h1>
 
-<input id="nom" placeholder="Nom produit">
-<input id="prix" placeholder="Prix">
+<input id="nom" placeholder="Ton nom">
+<input id="role" placeholder="agriculteur ou acheteur">
+<input id="photo" placeholder="lien image">
 
-<button onclick="ajouter()">Ajouter</button>
+<button onclick="save()">Enregistrer</button>
 
-<h2>Liste produits</h2>
-<div id="liste"></div>
+<script src="firebase.js"></script>
 
 <script>
 
-function ajouter(){
+function save(){
 
 let user = localStorage.getItem("user");
 
-if(!user){
-alert("Connecte-toi");
-return;
-}
-
-let nom = document.getElementById("nom").value;
-let prix = document.getElementById("prix").value;
-
-db.collection("produits").add({
-nom: nom,
-prix: prix,
-user: user
+db.collection("users").doc(user).set({
+nom: document.getElementById("nom").value,
+role: document.getElementById("role").value,
+photo: document.getElementById("photo").value
 });
 
-}
+alert("Profil enregistré");
 
-db.collection("produits").onSnapshot(snapshot=>{
-let html="";
-
-snapshot.forEach(doc=>{
-let p = doc.data();
-
-html += `
-<p>
-${p.nom} - ${p.prix} FCFA (par ${p.user})
-<button onclick="modifier('${doc.id}')">Modifier prix</button>
-</p>
-`;
-});
-
-document.getElementById("liste").innerHTML = html;
-});
-
-function modifier(id){
-let nouveau = prompt("Nouveau prix :");
-
-db.collection("produits").doc(id).update({
-prix: nouveau
-});
 }
 
 </script>
