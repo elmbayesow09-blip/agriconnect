@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Produits entreprise</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f4f4;
+padding:20px;
+}
+
+h1{
+text-align:center;
+color:#2e7d32;
+}
+
+.card{
+background:white;
+padding:15px;
+margin:10px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+button{
+background:#2e7d32;
+color:white;
+border:none;
+padding:10px;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1b5e20;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Produits de l'entreprise</h1>
+
+<div id="produits"></div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+
+// récupérer ID entreprise
+let params = new URLSearchParams(window.location.search);
+let id = params.get("id");
+
+// afficher produits liés
+db.collection("produits")
+.where("entrepriseId","==",id)
+.onSnapshot(snapshot=>{
+
+let html = "";
+
+snapshot.forEach(doc=>{
+let p = doc.data();
+
+html += `
+<div class="card">
+<h3>${p.nom}</h3>
+<p>Prix : ${p.prix} FCFA</p>
+
+<button onclick="acheter('${p.nom}', ${p.prix})">
+Acheter
+</button>
+</div>
+`;
+});
+
+document.getElementById("produits").innerHTML = html;
+
+});
+
+// fonction achat
+function acheter(nom, prix){
+
+let user = localStorage.getItem("user");
+
+if(!user){
+alert("Connecte-toi");
+return;
+}
+
+db.collection("commandes").add({
+produit: nom,
+prix: prix,
+user: user,
+date: new Date()
+});
+
+alert("Commande effectuée");
+
+}
+
+</script>
+
+</body>
+</html>
