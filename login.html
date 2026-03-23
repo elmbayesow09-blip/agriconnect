@@ -1,33 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <title>Connexion</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f4f4;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+background:white;
+padding:30px;
+border-radius:10px;
+width:300px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h1{text-align:center;}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+width:100%;
+padding:10px;
+background:#2e7d32;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1b5e20;
+}
+</style>
 </head>
 
-<body style="font-family:Arial;text-align:center;">
+<body>
 
-<h2>🔐 Connexion</h2>
+<div class="container">
 
-<input id="email" placeholder="Email"><br><br>
-<input id="password" type="password" placeholder="Mot de passe"><br><br>
+<h1>Connexion</h1>
+
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Mot de passe">
 
 <button onclick="login()">Se connecter</button>
 
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 <script src="firebase.js"></script>
 
 <script>
+
 function login(){
-const email = document.getElementById("email").value;
-const password = document.getElementById("password").value;
+
+let email = document.getElementById("email").value;
+let password = document.getElementById("password").value;
 
 firebase.auth().signInWithEmailAndPassword(email, password)
-.then(user=>{
-    alert("✅ Connecté");
-    window.location.href="index.html";
+.then((userCredential)=>{
+
+// 🔥 IMPORTANT
+localStorage.setItem("user", email);
+
+alert("Connexion réussie");
+
+// redirection vers accueil
+window.location.href = "index.html";
+
 })
-.catch(err=> alert(err.message));
+.catch((error)=>{
+alert("Erreur : " + error.message);
+});
+
 }
+
 </script>
 
 </body>
