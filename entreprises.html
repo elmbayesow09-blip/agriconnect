@@ -2,113 +2,84 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Entreprises agricoles Sénégal</title>
+<title>Entreprises agricoles</title>
 
 <style>
 body{
-    font-family:Arial;
-    margin:0;
-    background:#f4f4f4;
+font-family:Arial;
+background:#f4f4f4;
+padding:20px;
 }
 
-header{
-    background:#2e7d32;
-    color:white;
-    padding:25px;
-    text-align:center;
-}
-
-.container{
-    padding:20px;
+h1{
+text-align:center;
+color:#2e7d32;
 }
 
 .card{
-    background:white;
-    padding:15px;
-    margin:10px 0;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+background:white;
+padding:20px;
+margin:10px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
-h2{
-    color:#2e7d32;
+button{
+background:#2e7d32;
+color:white;
+border:none;
+padding:10px;
+border-radius:5px;
+cursor:pointer;
 }
 
-footer{
-    text-align:center;
-    padding:20px;
-    background:#2e7d32;
-    color:white;
-    margin-top:20px;
+button:hover{
+background:#1b5e20;
 }
 </style>
-
 </head>
 
 <body>
 
-<header>
-<h1>🏢 Entreprises & ONG Agricoles 🇸🇳</h1>
-<p>Sénégal - Plateforme Agriconnect</p>
-</header>
+<h1>Entreprises agricoles</h1>
 
-<div class="container">
+<div id="liste"></div>
 
-<h2>📍 Dakar</h2>
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
 
+<script>
+
+db.collection("entreprises").onSnapshot(snapshot=>{
+
+let html = "";
+
+snapshot.forEach(doc=>{
+let e = doc.data();
+
+html += `
 <div class="card">
-<strong>ISRA</strong><br>
-Institut Sénégalais de Recherches Agricoles
+<h3>${e.nom}</h3>
+<p>Région : ${e.region}</p>
+
+<button onclick="voir('${doc.id}')">
+Voir les produits
+</button>
 </div>
+`;
+});
 
-<div class="card">
-<strong>ANCAR</strong><br>
-Conseil agricole et rural
-</div>
+document.getElementById("liste").innerHTML = html;
 
-<div class="card">
-<strong>SAED (siège national)</strong><br>
-Développement agricole et irrigation
-</div>
+});
 
-<h2>📍 Saint-Louis</h2>
+function voir(id){
+window.location.href = "entreprise-detail.html?id=" + id;
+}
 
-<div class="card">
-<strong>SAED Delta</strong><br>
-Gestion des terres agricoles du fleuve Sénégal
-</div>
-
-<h2>📍 Kaolack</h2>
-
-<div class="card">
-<strong>Coopératives agricoles</strong><br>
-Production arachide, mil, niébé
-</div>
-
-<h2>📍 Casamance (Kolda/Ziguinchor)</h2>
-
-<div class="card">
-<strong>PADERCA</strong><br>
-Développement agricole rural
-</div>
-
-<div class="card">
-<strong>ONG Mozdahir</strong><br>
-Agriculture + reboisement + développement rural
-</div>
-
-<h2>🌍 ONG internationales</h2>
-
-<div class="card">FAO (ONU Agriculture)</div>
-<div class="card">PAM / WFP (Aide alimentaire)</div>
-<div class="card">IFAD (Développement rural)</div>
-<div class="card">ROPPA (Agriculteurs Afrique de l’Ouest)</div>
-
-</div>
-
-<footer>
-© 2026 Agriconnect | Sénégal 🇸🇳
-</footer>
+</script>
 
 </body>
 </html>
