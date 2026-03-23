@@ -1,38 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-<title>Profil</title>
+<meta charset="UTF-8">
+<title>Profil utilisateur</title>
+
+<style>
+body{font-family:Arial;background:#f4f4f4;padding:20px;}
+.container{background:white;padding:20px;border-radius:10px;}
+input{display:block;width:100%;padding:10px;margin:10px 0;}
+button{padding:10px;background:#2e7d32;color:white;border:none;border-radius:5px;}
+</style>
 </head>
 
 <body>
 
+<div class="container">
 <h1>Mon profil</h1>
 
-<input id="nom" placeholder="Nom">
-<input id="role" placeholder="Rôle (Agriculteur / Acheteur)">
-<input id="photo" placeholder="Lien photo">
+<input id="nom" placeholder="Ton nom">
+<input id="role" placeholder="Rôle (agriculteur ou acheteur)">
+<input id="photo" placeholder="Lien de ta photo">
 
 <button onclick="save()">Enregistrer</button>
+</div>
 
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 <script src="firebase.js"></script>
 
 <script>
+
 function save(){
 
 let user = localStorage.getItem("user");
 
+if(!user){
+alert("Connecte-toi d'abord");
+return;
+}
+
+let nom = document.getElementById("nom").value;
+let role = document.getElementById("role").value;
+let photo = document.getElementById("photo").value;
+
 db.collection("users").doc(user).set({
-nom: document.getElementById("nom").value,
-role: document.getElementById("role").value,
-photo: document.getElementById("photo").value,
-online: true
+nom: nom,
+role: role,
+photo: photo
 });
 
 alert("Profil enregistré");
 
 }
+
 </script>
 
 </body>
