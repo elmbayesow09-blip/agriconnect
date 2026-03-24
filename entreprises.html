@@ -2,26 +2,23 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Entreprises agricoles</title>
+<title>Entreprises</title>
 
 <style>
-body{ 
-font-family:Arial;
-background:#f4f4f4;
-padding:20px;
-}
-
-h1{
-text-align:center;
-color:#2e7d32;
-}
+body{font-family:Arial;background:#f4f4f4;padding:20px;}
 
 .card{
 background:white;
 padding:20px;
 margin:10px;
 border-radius:10px;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+img{
+width:100%;
+height:150px;
+object-fit:cover;
+border-radius:10px;
 }
 
 button{
@@ -29,12 +26,7 @@ background:#2e7d32;
 color:white;
 border:none;
 padding:10px;
-border-radius:5px;
-cursor:pointer;
-}
-
-button:hover{
-background:#1b5e20;
+margin-top:10px;
 }
 </style>
 </head>
@@ -45,7 +37,6 @@ background:#1b5e20;
 
 <div id="liste"></div>
 
-<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 <script src="firebase.js"></script>
@@ -54,19 +45,30 @@ background:#1b5e20;
 
 db.collection("entreprises").onSnapshot(snapshot=>{
 
-let html = "";
+let html="";
 
 snapshot.forEach(doc=>{
 let e = doc.data();
 
 html += `
 <div class="card">
+
+<img src="${e.image}">
+
 <h3>${e.nom}</h3>
-<p>Région : ${e.region}</p>
+
+<p><b>Région :</b> ${e.region}</p>
+
+<p>${e.description}</p>
 
 <button onclick="voir('${doc.id}')">
-Voir les produits
+Voir produits
 </button>
+
+<button onclick="contacter('${e.nom}')">
+Contacter
+</button>
+
 </div>
 `;
 });
@@ -77,6 +79,10 @@ document.getElementById("liste").innerHTML = html;
 
 function voir(id){
 window.location.href = "entreprise-detail.html?id=" + id;
+}
+
+function contacter(nom){
+alert("Contactez " + nom + " via le chat");
 }
 
 </script>
