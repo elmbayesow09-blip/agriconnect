@@ -3,18 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <title>Agriconnect</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f4f4;}
 
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#f4f4f4;
+}
+
+/* HEADER */
 header{
 background:#2e7d32;
 color:white;
 padding:15px;
+display:flex;
+align-items:center;
 }
 
-.container{padding:20px;}
+#menuBtn{
+font-size:25px;
+cursor:pointer;
+margin-right:15px;
+}
 
+/* MENU */
+#menu{
+position:fixed;
+left:-260px;
+top:0;
+width:260px;
+height:100%;
+background:#1b5e20;
+transition:0.3s;
+}
+
+#menu a{
+display:block;
+padding:15px;
+color:white;
+text-decoration:none;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+#menu a:hover{
+background:#2e7d32;
+}
+
+/* HERO */
+.hero{
+background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
+height:300px;
+background-size:cover;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+text-align:center;
+}
+
+.hero h1{
+background:rgba(0,0,0,0.6);
+padding:20px;
+border-radius:10px;
+}
+
+/* SECTIONS */
+.container{
+padding:20px;
+}
+
+.section{
+background:white;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -30,98 +98,127 @@ border-radius:8px;
 cursor:pointer;
 }
 
-.section{
-background:white;
-padding:20px;
-margin-bottom:20px;
-border-radius:10px;
+button:hover{
+background:#1b5e20;
 }
+
+/* FOOTER */
+footer{
+background:#2e7d32;
+color:white;
+text-align:center;
+padding:15px;
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- MENU -->
+<div id="menu">
+<a href="index.html">Accueil</a>
+<a href="produits.html">Produits</a>
+<a href="comande.html">Acheter</a>
+<a href="prix.html">Marché des prix</a>
+<a href="entreprises.html">Entreprises</a>
+<a href="chat.html">Messagerie</a>
+<a href="chat-prive.html">Chat privé</a>
+<a href="notifications.html">Notifications</a>
+<a href="dashboard-commandes.html">Commandes</a>
+<a href="admin.html">Administration</a>
+<a href="login.html">Connexion</a>
+<a href="profil.html">Profil</a>
+</div>
+
+<!-- HEADER -->
 <header>
+<span id="menuBtn" onclick="toggleMenu()">☰</span>
 <h2>Agriconnect</h2>
 </header>
 
+<!-- HERO -->
+<div class="hero">
+<h1>Digitaliser l’agriculture pour un avenir meilleur</h1>
+</div>
+
 <div class="container">
 
+<!-- PRESENTATION -->
 <div class="section">
-<h2>Bienvenue sur Agriconnect</h2>
+<h2>Présentation</h2>
 
 <p>
-Plateforme digitale pour connecter agriculteurs, entreprises et acheteurs
-afin de faciliter la vente et l'achat de produits agricoles.
+Agriconnect est une plateforme numérique dédiée à la modernisation du secteur agricole.
+Elle connecte les agriculteurs, les entreprises et les acheteurs afin de faciliter
+la commercialisation des produits agricoles et améliorer la transparence du marché.
+</p>
+
+<p>
+Grâce à cette solution, les utilisateurs peuvent vendre, acheter, communiquer et accéder
+à des informations fiables en temps réel.
 </p>
 
 </div>
 
+<!-- SERVICES -->
 <div class="section">
-<h2>Services</h2>
+<h2>Services disponibles</h2>
 
 <div class="grid">
 
-<a href="produits.html">
-<button id="btnAjouter">Ajouter produit</button>
-</a>
+<a href="produits.html"><button>Produits</button></a>
 
-<a href="comande.html">
-<button id="btnAcheter">Acheter</button>
-</a>
+<a href="comande.html"><button>Acheter</button></a>
 
-<a href="entreprises.html">
-<button id="btnEntreprise">Entreprises</button>
-</a>
+<a href="prix.html"><button>Marché des prix</button></a>
 
-<a href="chat-prive.html">
-<button>Chat privé</button>
-</a>
+<a href="entreprises.html"><button>Entreprises</button></a>
 
-<a href="profil.html">
-<button>Profil</button>
-</a>
+<a href="chat.html"><button>Messagerie</button></a>
 
-</div>
+<a href="chat-prive.html"><button>Chat privé</button></a>
+
+<a href="notifications.html"><button>Notifications</button></a>
+
+<a href="dashboard-commandes.html"><button>Commandes</button></a>
+
+<a href="admin.html"><button>Administration</button></a>
+
+<a href="profil.html"><button>Profil</button></a>
 
 </div>
 
 </div>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-<script src="firebase.js"></script>
+<!-- OBJECTIF -->
+<div class="section">
+<h2>Objectif</h2>
+
+<p>
+L’objectif d’Agriconnect est de créer un écosystème digital performant permettant
+aux acteurs agricoles de développer leurs activités, d’accéder à de nouveaux marchés
+et d’optimiser leurs revenus grâce aux technologies numériques.
+</p>
+
+</div>
+
+</div>
+
+<footer>
+Contact : elmbayesow09@gmail.com | Agriconnect 2026
+</footer>
 
 <script>
 
-// GESTION ROLE
-let user = localStorage.getItem("user");
+function toggleMenu(){
+let menu = document.getElementById("menu");
 
-if(user){
-
-db.collection("users").doc(user).get().then(doc=>{
-
-let role = doc.data().role;
-
-// cacher tout
-document.getElementById("btnAjouter").style.display = "none";
-document.getElementById("btnAcheter").style.display = "none";
-
-// afficher selon rôle
-if(role === "agriculteur"){
-document.getElementById("btnAjouter").style.display = "block";
+if(menu.style.left === "0px"){
+menu.style.left = "-260px";
+}else{
+menu.style.left = "0px";
 }
-
-if(role === "acheteur"){
-document.getElementById("btnAcheter").style.display = "block";
-}
-
-if(role === "entreprise"){
-document.getElementById("btnAjouter").style.display = "block";
-}
-
-});
 
 }
 
