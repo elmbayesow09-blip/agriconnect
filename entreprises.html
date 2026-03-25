@@ -3,15 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Entreprises</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
-body{
-font-family:Arial;
-margin:0;
-background:#f4f4f4;
-}
+body{font-family:Arial;margin:0;background:#f4f4f4;}
 
 /* HEADER */
 header{
@@ -23,73 +18,78 @@ text-align:center;
 
 /* HERO */
 .hero{
-background:#1b5e20;
+background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
+background-size:cover;
 color:white;
-padding:40px;
+padding:60px;
 text-align:center;
 }
 
-.hero h2{
-margin-bottom:10px;
+.hero h1{font-size:28px;}
+.hero p{margin:10px 0;}
+
+.hero button{
+background:#ff9800;
+border:none;
+padding:15px 25px;
+color:white;
+font-size:16px;
+border-radius:5px;
+cursor:pointer;
 }
 
-/* AVANTAGES */
-.avantages{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:15px;
-margin-top:20px;
-}
-
-.avantage{
-background:white;
-color:black;
-padding:15px;
-border-radius:10px;
-}
-
-/* CONTAINER */
-.container{
-padding:20px;
+/* SECTION */
+.section{
+padding:30px;
+text-align:center;
 }
 
 /* GRID */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
 gap:20px;
+margin-top:20px;
 }
 
-/* CARD */
-.card{
+/* BOX */
+.box{
 background:white;
-padding:15px;
+padding:20px;
 border-radius:10px;
 box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* IMAGE */
-.card img{
-width:100%;
-height:150px;
-object-fit:cover;
+/* STATS */
+.stats{
+display:flex;
+justify-content:space-around;
+background:#2e7d32;
+color:white;
+padding:30px;
+}
+
+.stat{
+text-align:center;
+}
+
+/* ENTREPRISE CARD */
+.card{
+background:white;
+padding:15px;
+margin:15px;
 border-radius:10px;
 }
 
-/* BUTTON */
 button{
 background:#2e7d32;
 color:white;
 border:none;
 padding:10px;
-margin-top:10px;
 cursor:pointer;
 width:100%;
-border-radius:5px;
-}
-
-button:hover{
-background:#1b5e20;
+margin-top:10px;
 }
 
 </style>
@@ -104,48 +104,94 @@ Entreprises agricoles
 <!-- HERO -->
 <div class="hero">
 
-<h2>Développez votre entreprise avec Agriconnect</h2>
+<h1>Développez votre entreprise avec Agriconnect</h1>
 
-<p>
-Une plateforme moderne pour vendre vos produits et trouver de nouveaux clients.
-</p>
+<p>Augmentez vos ventes et trouvez de nouveaux clients facilement</p>
 
-<button onclick="window.location.href='inscription.html'">
-Rejoindre en tant qu'entreprise
+<button onclick="go('inscription.html')">
+Commencer maintenant
 </button>
 
+</div>
+
 <!-- AVANTAGES -->
-<div class="avantages">
+<div class="section">
 
-<div class="avantage">
-<h4>Visibilité nationale</h4>
-<p>Exposez vos produits à des clients partout dans le pays.</p>
+<h2>Pourquoi choisir Agriconnect ?</h2>
+
+<div class="grid">
+
+<div class="box">
+<h3>Visibilité nationale</h3>
+<p>Exposez vos produits partout dans le pays</p>
 </div>
 
-<div class="avantage">
-<h4>Nouveaux clients</h4>
-<p>Augmentez votre clientèle grâce à la plateforme.</p>
+<div class="box">
+<h3>Nouveaux clients</h3>
+<p>Augmentez vos ventes rapidement</p>
 </div>
 
-<div class="avantage">
-<h4>Vente facile</h4>
-<p>Publiez et vendez vos produits rapidement.</p>
+<div class="box">
+<h3>Vente facile</h3>
+<p>Publiez vos produits en quelques clics</p>
 </div>
 
-<div class="avantage">
-<h4>Communication directe</h4>
-<p>Discutez directement avec vos clients.</p>
+<div class="box">
+<h3>Communication directe</h3>
+<p>Discutez avec vos clients</p>
 </div>
 
 </div>
 
 </div>
 
-<div class="container">
+<!-- STATS -->
+<div class="stats">
+
+<div class="stat">
+<h2>100+</h2>
+<p>Entreprises</p>
+</div>
+
+<div class="stat">
+<h2>500+</h2>
+<p>Produits</p>
+</div>
+
+<div class="stat">
+<h2>1000+</h2>
+<p>Utilisateurs</p>
+</div>
+
+</div>
+
+<!-- TEMOIGNAGES -->
+<div class="section">
+
+<h2>Ils nous font confiance</h2>
+
+<div class="grid">
+
+<div class="box">
+<p>"Grâce à Agriconnect, j’ai trouvé beaucoup de clients."</p>
+<b>- Entreprise locale</b>
+</div>
+
+<div class="box">
+<p>"Une plateforme simple et efficace pour vendre nos produits."</p>
+<b>- Fournisseur agricole</b>
+</div>
+
+</div>
+
+</div>
+
+<!-- LISTE ENTREPRISE -->
+<div class="section">
 
 <h2>Entreprises partenaires</h2>
 
-<div class="grid" id="liste"></div>
+<div id="liste"></div>
 
 </div>
 
@@ -154,6 +200,7 @@ Rejoindre en tant qu'entreprise
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
 <script>
+
 const firebaseConfig = {
 apiKey: "XXX",
 authDomain: "XXX",
@@ -162,6 +209,7 @@ projectId: "XXX"
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+
 </script>
 
 <script>
@@ -174,31 +222,13 @@ snapshot.forEach(doc=>{
 
 let e = doc.data();
 
-// valeurs par défaut
-let note = e.note || "Pas encore";
-let produits = e.nbProduits || 0;
-
 html += `
 <div class="card">
 
-<img src="${e.image || 'https://via.placeholder.com/300'}">
-
 <h3>${e.nom}</h3>
-
-<p><b>Région :</b> ${e.region}</p>
-
 <p>${e.description}</p>
 
-<p><b>Note :</b> ⭐ ${note}</p>
-<p><b>Produits :</b> ${produits}</p>
-
-<button onclick="voir('${doc.id}')">
-Voir produits
-</button>
-
-<button onclick="contacter('${e.nom}')">
-Contacter
-</button>
+<button onclick="voir('${doc.id}')">Voir</button>
 
 </div>
 `;
@@ -210,11 +240,11 @@ document.getElementById("liste").innerHTML = html;
 });
 
 function voir(id){
-window.location.href = "entreprise-detail.html?id=" + id;
+window.location.href = "entreprise-detail.html?id="+id;
 }
 
-function contacter(nom){
-alert("Contactez " + nom + " via le chat");
+function go(page){
+window.location.href = page;
 }
 
 </script>
