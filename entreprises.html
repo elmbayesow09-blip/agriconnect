@@ -29,6 +29,25 @@ padding:40px;
 text-align:center;
 }
 
+.hero h2{
+margin-bottom:10px;
+}
+
+/* AVANTAGES */
+.avantages{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin-top:20px;
+}
+
+.avantage{
+background:white;
+color:black;
+padding:15px;
+border-radius:10px;
+}
+
 /* CONTAINER */
 .container{
 padding:20px;
@@ -84,16 +103,41 @@ Entreprises agricoles
 
 <!-- HERO -->
 <div class="hero">
-<h2>Développez votre activité avec Agriconnect</h2>
+
+<h2>Développez votre entreprise avec Agriconnect</h2>
 
 <p>
-Rejoignez une plateforme moderne pour vendre vos produits agricoles,
-trouver des clients et développer votre entreprise.
+Une plateforme moderne pour vendre vos produits et trouver de nouveaux clients.
 </p>
 
 <button onclick="window.location.href='inscription.html'">
 Rejoindre en tant qu'entreprise
 </button>
+
+<!-- AVANTAGES -->
+<div class="avantages">
+
+<div class="avantage">
+<h4>Visibilité nationale</h4>
+<p>Exposez vos produits à des clients partout dans le pays.</p>
+</div>
+
+<div class="avantage">
+<h4>Nouveaux clients</h4>
+<p>Augmentez votre clientèle grâce à la plateforme.</p>
+</div>
+
+<div class="avantage">
+<h4>Vente facile</h4>
+<p>Publiez et vendez vos produits rapidement.</p>
+</div>
+
+<div class="avantage">
+<h4>Communication directe</h4>
+<p>Discutez directement avec vos clients.</p>
+</div>
+
+</div>
 
 </div>
 
@@ -110,7 +154,6 @@ Rejoindre en tant qu'entreprise
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
 <script>
-
 const firebaseConfig = {
 apiKey: "XXX",
 authDomain: "XXX",
@@ -119,7 +162,6 @@ projectId: "XXX"
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-
 </script>
 
 <script>
@@ -132,6 +174,10 @@ snapshot.forEach(doc=>{
 
 let e = doc.data();
 
+// valeurs par défaut
+let note = e.note || "Pas encore";
+let produits = e.nbProduits || 0;
+
 html += `
 <div class="card">
 
@@ -142,6 +188,9 @@ html += `
 <p><b>Région :</b> ${e.region}</p>
 
 <p>${e.description}</p>
+
+<p><b>Note :</b> ⭐ ${note}</p>
+<p><b>Produits :</b> ${produits}</p>
 
 <button onclick="voir('${doc.id}')">
 Voir produits
