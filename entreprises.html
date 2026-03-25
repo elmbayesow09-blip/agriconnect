@@ -3,57 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <title>Entreprises</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body{font-family:Arial;background:#f4f4f4;padding:20px;}
 
-.card{
-background:white;
-padding:20px;
-margin:10px;
-border-radius:10px;
+body{
+font-family:Arial;
+margin:0;
+background:#f4f4f4;
 }
 
-img{
+/* HEADER */
+header{
+background:#2e7d32;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+/* HERO */
+.hero{
+background:#1b5e20;
+color:white;
+padding:40px;
+text-align:center;
+}
+
+/* CONTAINER */
+.container{
+padding:20px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+/* CARD */
+.card{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* IMAGE */
+.card img{
 width:100%;
 height:150px;
 object-fit:cover;
 border-radius:10px;
 }
 
+/* BUTTON */
 button{
 background:#2e7d32;
 color:white;
 border:none;
 padding:10px;
 margin-top:10px;
+cursor:pointer;
+width:100%;
+border-radius:5px;
 }
+
+button:hover{
+background:#1b5e20;
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>Entreprises agricoles</h1>
+<header>
+Entreprises agricoles
+</header>
 
-<div id="liste"></div>
+<!-- HERO -->
+<div class="hero">
+<h2>Développez votre activité avec Agriconnect</h2>
 
+<p>
+Rejoignez une plateforme moderne pour vendre vos produits agricoles,
+trouver des clients et développer votre entreprise.
+</p>
+
+<button onclick="window.location.href='inscription.html'">
+Rejoindre en tant qu'entreprise
+</button>
+
+</div>
+
+<div class="container">
+
+<h2>Entreprises partenaires</h2>
+
+<div class="grid" id="liste"></div>
+
+</div>
+
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-<script src="firebase.js"></script>
+
+<script>
+
+const firebaseConfig = {
+apiKey: "XXX",
+authDomain: "XXX",
+projectId: "XXX"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+</script>
 
 <script>
 
 db.collection("entreprises").onSnapshot(snapshot=>{
 
-let html="";
+let html = "";
 
 snapshot.forEach(doc=>{
+
 let e = doc.data();
 
 html += `
 <div class="card">
 
-<img src="${e.image}">
+<img src="${e.image || 'https://via.placeholder.com/300'}">
 
 <h3>${e.nom}</h3>
 
@@ -71,6 +153,7 @@ Contacter
 
 </div>
 `;
+
 });
 
 document.getElementById("liste").innerHTML = html;
