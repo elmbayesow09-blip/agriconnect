@@ -1,49 +1,250 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Agriconnect</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Agriconnect</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
+
 body{margin:0;font-family:Arial;background:#f4f4f4;}
-/* HEADER */header{background:#2e7d32;color:white;padding:15px;display:flex;align-items:center;}
-#menuBtn{font-size:25px;cursor:pointer;margin-right:15px;}
-/* MENU */#menu{position:fixed;left:-260px;top:0;width:260px;height:100%;background:#1b5e20;transition:0.3s;z-index:1000;}
-#menu a{display:block;padding:15px;color:white;text-decoration:none;}
-#menu a:hover{background:#2e7d32;}
-/* HERO */.hero{background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');height:250px;background-size:cover;display:flex;align-items:center;justify-content:center;color:white;text-align:center;}
-.hero h1{background:rgba(0,0,0,0.6);padding:20px;border-radius:10px;}
-/* SECTION */.section{padding:20px;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;}
-/* CARD */.card{background:white;padding:15px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,0.1);text-align:center;}
-.card img{width:100%;height:120px;object-fit:cover;border-radius:10px;}
-/* BUTTON */button{background:#2e7d32;color:white;border:none;padding:8px;margin-top:10px;cursor:pointer;width:100%;}
-/* FOOTER */footer{background:#2e7d32;color:white;text-align:center;padding:10px;}
-</style></head>
+
+/* HEADER */
+header{
+background:#2e7d32;
+color:white;
+padding:15px;
+display:flex;
+align-items:center;
+}
+
+#menuBtn{
+font-size:25px;
+cursor:pointer;
+margin-right:15px;
+}
+
+/* MENU */
+#menu{
+position:fixed;
+left:-260px;
+top:0;
+width:260px;
+height:100%;
+background:#1b5e20;
+transition:0.3s;
+z-index:1000;
+}
+
+#menu a{
+display:block;
+padding:15px;
+color:white;
+text-decoration:none;
+}
+
+#menu a:hover{
+background:#2e7d32;
+}
+
+/* HERO */
+.hero{
+background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
+height:250px;
+background-size:cover;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+text-align:center;
+}
+
+.hero h1{
+background:rgba(0,0,0,0.6);
+padding:20px;
+border-radius:10px;
+}
+
+/* SECTION */
+.section{
+padding:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+}
+
+/* CARD */
+.card{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.card img{
+width:100%;
+height:120px;
+object-fit:cover;
+border-radius:10px;
+}
+
+/* BUTTON */
+button{
+background:#2e7d32;
+color:white;
+border:none;
+padding:8px;
+margin-top:10px;
+cursor:pointer;
+width:100%;
+}
+
+/* FOOTER */
+footer{
+background:#2e7d32;
+color:white;
+text-align:center;
+padding:10px;
+}
+
+</style>
+</head>
+
 <body>
-<!-- MENU --><div id="menu">
-<a href="index.html">Accueil</a><a href="produits.html">Produits</a><a href="comande.html">Acheter</a><a href="prix.html">Marché des prix</a><a href="entreprises.html">Entreprises</a>
-<a href="chat.html">Messagerie</a><a href="chat-prive.html">Chat privé</a>
-<a href="notifications.html">Notifications</a><a href="dashboard-commandes.html">Commandes</a>
-<a href="assistance-ia.html">Assistant IA</a><a href="ia-conseil-agricoles.html">Conseils IA</a>
+
+<!-- MENU -->
+<div id="menu">
+
+<a href="index.html">Accueil</a>
+<a href="produits.html">Produits</a>
+<a href="comande.html">Acheter</a>
+<a href="prix.html">Marché des prix</a>
+<a href="entreprises.html">Entreprises</a>
+
+<a href="chat.html">Messagerie</a>
+<a href="chat-prive.html">Chat privé</a>
+
+<a href="notifications.html">Notifications</a>
+<a href="dashboard-commandes.html">Commandes</a>
+
+<a href="assistance-ia.html">Assistant IA</a>
+<a href="ia-conseil-agricoles.html">Conseils IA</a>
+
 <a href="admin.html">Administration</a>
-<a href="profil.html">Profil</a><a href="login.html">Connexion</a><a href="inscription.html">Inscription</a>
+
+<a href="profil.html">Profil</a>
+<a href="login.html">Connexion</a>
+<a href="inscription.html">Inscription</a>
+
 </div>
-<!-- HEADER --><header><span id="menuBtn" onclick="toggleMenu()">☰</span>Agriconnect</header>
-<!-- HERO --><div class="hero"><h1>Digitaliser l’agriculture pour un avenir meilleur</h1></div>
-<!-- PRODUITS AGRICULTEURS --><div class="section"><h2>Produits agricoles</h2><div class="grid" id="produits"></div></div>
-<!-- ENTREPRISES --><div class="section"><h2>Produits des entreprises</h2><div class="grid" id="entreprises"></div></div>
-<!-- PRESENTATION --><div class="section"><h2>À propos</h2><p>Agriconnect est une plateforme numérique qui connecte les agriculteurs,les acheteurs et les entreprises pour faciliter la vente et l’achatde produits agricoles ainsi que l’accès aux intrants et services.</p></div>
-<footer>Contact : elmbayesow09@gmail.com</footer>
-<!-- FIREBASE --><script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+<!-- HEADER -->
+<header>
+<span id="menuBtn" onclick="toggleMenu()">☰</span>
+Agriconnect
+</header>
+
+<!-- HERO -->
+<div class="hero">
+<h1>Digitaliser l’agriculture pour un avenir meilleur</h1>
+</div>
+
+<!-- PRODUITS AGRICULTEURS -->
+<div class="section">
+<h2>Produits agricoles</h2>
+<div class="grid" id="produits"></div>
+</div>
+
+<!-- ENTREPRISES -->
+<div class="section">
+<h2>Produits des entreprises</h2>
+<div class="grid" id="entreprises"></div>
+</div>
+
+<!-- PRESENTATION -->
+<div class="section">
+<h2>À propos</h2>
+<p>
+Agriconnect est une plateforme numérique qui connecte les agriculteurs,
+les acheteurs et les entreprises pour faciliter la vente et l’achat
+de produits agricoles ainsi que l’accès aux intrants et services.
+</p>
+</div>
+
+<footer>
+Contact : elmbayesow09@gmail.com
+</footer>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
 <script>
-const firebaseConfig = {apiKey: "XXX",authDomain: "XXX",projectId: "XXX"};
-firebase.initializeApp(firebaseConfig);const db = firebase.firestore();
+
+const firebaseConfig = {
+apiKey: "XXX",
+authDomain: "XXX",
+projectId: "XXX"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 </script>
+
 <script>
-/* MENU */function toggleMenu(){let menu = document.getElementById("menu");menu.style.left = (menu.style.left === "0px") ? "-260px" : "0px";}
-/* PRODUITS AGRICULTEURS */db.collection("Produits").onSnapshot(snapshot=>{let html = "";
-snapshot.forEach(doc=>{let p = doc.data();
-html += `<div class="card"><img src="https://via.placeholder.com/150"><h3>${p.nom}</h3><p>${p.prix} FCFA</p><button>Acheter</button></div>`;});
-document.getElementById("produits").innerHTML = html;});
-/* ENTREPRISES */db.collection("entreprises").onSnapshot(snapshot=>{let html = "";
-snapshot.forEach(doc=>{let e = doc.data();
-html += `<div class="card"><img src="${e.logo}"><h3>${e.nom}</h3><p>${e.description}</p><button>Voir</button></div>`;});
-document.getElementById("entreprises").innerHTML = html;});
+
+/* MENU */
+function toggleMenu(){
+let menu = document.getElementById("menu");
+menu.style.left = (menu.style.left === "0px") ? "-260px" : "0px";
+}
+
+/* PRODUITS AGRICULTEURS */
+db.collection("Produits").onSnapshot(snapshot=>{
+let html = "";
+
+snapshot.forEach(doc=>{
+let p = doc.data();
+
+html += `
+<div class="card">
+<img src="https://via.placeholder.com/150">
+<h3>${p.nom}</h3>
+<p>${p.prix} FCFA</p>
+<button>Acheter</button>
+</div>
+`;
+});
+
+document.getElementById("produits").innerHTML = html;
+});
+
+/* ENTREPRISES */
+db.collection("entreprises").onSnapshot(snapshot=>{
+let html = "";
+
+snapshot.forEach(doc=>{
+let e = doc.data();
+
+html += `
+<div class="card">
+<img src="${e.logo}">
+<h3>${e.nom}</h3>
+<p>${e.description}</p>
+<button>Voir</button>
+</div>
+`;
+});
+
+document.getElementById("entreprises").innerHTML = html;
+});
+
 </script>
-</body></html>
+
+</body>
+</html>
