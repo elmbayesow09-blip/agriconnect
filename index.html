@@ -1,249 +1,196 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <title>Agriconnect</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-
-body{margin:0;font-family:Arial;background:#f4f4f4;}
-
-/* HEADER */
-header{
-background:#2e7d32;
-color:white;
-padding:15px;
-display:flex;
-align-items:center;
-}
-
-#menuBtn{
-font-size:25px;
-cursor:pointer;
-margin-right:15px;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
 /* MENU */
-#menu{
-position:fixed;
-left:-260px;
-top:0;
-width:260px;
-height:100%;
-background:#1b5e20;
-transition:0.3s;
-z-index:1000;
+.menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 220px;
+    height: 100%;
+    background: linear-gradient(#1e3c2f, #2e8b57);
+    color: white;
+    padding-top: 20px;
 }
 
-#menu a{
-display:block;
-padding:15px;
-color:white;
-text-decoration:none;
+.menu a {
+    display: block;
+    color: white;
+    padding: 12px;
+    text-decoration: none;
 }
 
-#menu a:hover{
-background:#2e7d32;
+.menu a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* CONTENU */
+.content {
+    margin-left: 230px;
+    padding: 20px;
 }
 
 /* HERO */
-.hero{
-background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
-height:250px;
-background-size:cover;
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
-text-align:center;
+.hero {
+    background: linear-gradient(to right, #2e8b57, #6dbf73);
+    color: white;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
 }
 
-.hero h1{
-background:rgba(0,0,0,0.6);
-padding:20px;
-border-radius:10px;
+/* PRODUITS */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    background: white;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
 }
 
 /* SECTION */
-.section{
-padding:20px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:15px;
-}
-
-/* CARD */
-.card{
-background:white;
-padding:15px;
-border-radius:10px;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
-text-align:center;
-}
-
-.card img{
-width:100%;
-height:120px;
-object-fit:cover;
-border-radius:10px;
-}
-
-/* BUTTON */
-button{
-background:#2e7d32;
-color:white;
-border:none;
-padding:8px;
-margin-top:10px;
-cursor:pointer;
-width:100%;
+.section-title {
+    margin-top: 40px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 /* FOOTER */
-footer{
-background:#2e7d32;
-color:white;
-text-align:center;
-padding:10px;
+.footer {
+    margin-top: 40px;
+    padding: 15px;
+    background: #2e8b57;
+    color: white;
+    text-align: center;
 }
-
 </style>
+
 </head>
 
 <body>
 
 <!-- MENU -->
-<div id="menu">
-
-<a href="index.html">Accueil</a>
-<a href="produits.html">Produits</a>
-<a href="comande.html">Acheter</a>
-<a href="prix.html">Marché des prix</a>
-<a href="entreprises.html">Entreprises</a>
-
-<a href="chat.html">Messagerie</a>
-<a href="chat-prive.html">Chat privé</a>
-
-<a href="notifications.html">Notifications</a>
-<a href="dashboard-commandes.html">Commandes</a>
-
-<a href="assistance-ia.html">Assistant IA</a>
-<a href="ia-conseil-agricoles.html">Conseils IA</a>
-
-<a href="admin.html">Administration</a>
-
-<a href="profil.html">Profil</a>
-<a href="login.html">Connexion</a>
-<a href="inscription.html">Inscription</a>
-
+<div class="menu">
+    <a href="index.html">Accueil</a>
+    <a href="produits.html">Produits</a>
+    <a href="acheter.html">Acheter</a>
+    <a href="marche.html">Marché des prix</a>
+    <a href="entreprise.html">Entreprises</a>
+    <a href="messagerie.html">Messagerie</a>
+    <a href="chat.html">Chat privé</a>
+    <a href="notifications.html">Notifications</a>
+    <a href="commandes.html">Commandes</a>
+    <a href="assistant.html">Assistant IA</a>
+    <a href="conseils.html">Conseils IA</a>
+    <a href="admin.html">Administration</a>
+    <a href="profil.html">Profil</a>
 </div>
 
-<!-- HEADER -->
-<header>
-<span id="menuBtn" onclick="toggleMenu()">☰</span>
-Agriconnect
-</header>
+<!-- CONTENU -->
+<div class="content">
 
 <!-- HERO -->
 <div class="hero">
-<h1>Digitaliser l’agriculture pour un avenir meilleur</h1>
+    <h1>Digitaliser l’agriculture pour un avenir meilleur</h1>
+    <p>
+        Agriconnect est une plateforme qui connecte agriculteurs, entreprises et acheteurs.
+        Achetez, vendez et développez votre activité agricole facilement.
+    </p>
 </div>
 
-<!-- PRODUITS AGRICULTEURS -->
-<div class="section">
-<h2>Produits agricoles</h2>
-<div class="grid" id="produits"></div>
-</div>
+<!-- PRODUITS AGRICOLES -->
+<div class="section-title">Produits agricoles</div>
+<div class="products" id="produits"></div>
 
-<!-- ENTREPRISES -->
-<div class="section">
-<h2>Produits des entreprises</h2>
-<div class="grid" id="entreprises"></div>
-</div>
+<!-- PRODUITS ENTREPRISES -->
+<div class="section-title">Produits des entreprises</div>
+<div class="products" id="entreprises"></div>
 
-<!-- PRESENTATION -->
-<div class="section">
-<h2>À propos</h2>
+<!-- À PROPOS -->
+<div class="section-title">À propos</div>
 <p>
-Agriconnect est une plateforme numérique qui connecte les agriculteurs,
-les acheteurs et les entreprises pour faciliter la vente et l’achat
-de produits agricoles ainsi que l’accès aux intrants et services.
+Agriconnect permet :
+- aux agriculteurs de vendre leurs produits  
+- aux entreprises de commercialiser leurs intrants (semences, engrais…)  
+- aux acheteurs de trouver facilement des produits agricoles  
+
+Notre objectif : moderniser l’agriculture grâce au numérique.
 </p>
+
 </div>
 
-<footer>
+<div class="footer">
 Contact : elmbayesow09@gmail.com
-</footer>
+</div>
 
 <!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-apiKey: "XXX",
-authDomain: "XXX",
-projectId: "XXX"
+    apiKey: "TON_API_KEY",
+    authDomain: "TON_PROJET.firebaseapp.com",
+    projectId: "TON_PROJET"
 };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-</script>
+/* PRODUITS AGRICOLES */
+const produitsContainer = document.getElementById("produits");
 
-<script>
+const produitsSnapshot = await getDocs(collection(db, "Produits"));
+produitsSnapshot.forEach(doc => {
+    const data = doc.data();
 
-/* MENU */
-function toggleMenu(){
-let menu = document.getElementById("menu");
-menu.style.left = (menu.style.left === "0px") ? "-260px" : "0px";
-}
-
-/* PRODUITS AGRICULTEURS */
-db.collection("Produits").onSnapshot(snapshot=>{
-let html = "";
-
-snapshot.forEach(doc=>{
-let p = doc.data();
-
-html += `
-<div class="card">
-<img src="https://via.placeholder.com/150">
-<h3>${p.nom}</h3>
-<p>${p.prix} FCFA</p>
-<button>Acheter</button>
-</div>
-`;
-});
-
-document.getElementById("produits").innerHTML = html;
+    produitsContainer.innerHTML += `
+        <div class="card">
+            <img src="${data.image}" />
+            <h3>${data.nom}</h3>
+            <p>${data.prix} FCFA</p>
+        </div>
+    `;
 });
 
 /* ENTREPRISES */
-db.collection("entreprises").onSnapshot(snapshot=>{
-let html = "";
+const entreprisesContainer = document.getElementById("entreprises");
 
-snapshot.forEach(doc=>{
-let e = doc.data();
+const entreprisesSnapshot = await getDocs(collection(db, "Entreprises"));
+entreprisesSnapshot.forEach(doc => {
+    const data = doc.data();
 
-html += `
-<div class="card">
-<img src="${e.logo}">
-<h3>${e.nom}</h3>
-<p>${e.description}</p>
-<button>Voir</button>
-</div>
-`;
+    entreprisesContainer.innerHTML += `
+        <div class="card">
+            <img src="${data.logo}" />
+            <h3>${data.nom}</h3>
+            <p>⭐ ${data.note}</p>
+        </div>
+    `;
 });
-
-document.getElementById("entreprises").innerHTML = html;
-});
-
 </script>
 
 </body>
