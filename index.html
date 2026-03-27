@@ -3,175 +3,216 @@
 <head>
 <meta charset="UTF-8">
 <title>Agriconnect</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
 
 <style>
-
-body{
-margin:0;
-font-family:Arial, sans-serif;
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f5f5f5;
 }
 
-/* HEADER */
-header{
-background:#2e7d32;
-color:white;
-padding:15px;
-display:flex;
-align-items:center;
+/* MENU */
+.menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 220px;
+    height: 100%;
+    background: #1b5e20;
+    padding-top: 20px;
 }
 
-/* MENU BUTTON */
-#menuBtn{
-font-size:25px;
-cursor:pointer;
-margin-right:15px;
+.menu a {
+    display: block;
+    color: white;
+    padding: 15px;
+    text-decoration: none;
 }
 
-/* MENU GAUCHE */
-#menu{
-position:fixed;
-left:-250px;
-top:0;
-width:250px;
-height:100%;
-background:#1b5e20;
-transition:0.3s;
-padding-top:60px;
+.menu a:hover {
+    background: #2e7d32;
 }
 
-#menu a{
-display:block;
-color:white;
-padding:15px;
-text-decoration:none;
+/* CONTENU */
+.content {
+    margin-left: 230px;
+    padding: 20px;
 }
 
-#menu a:hover{
-background:#2e7d32;
+/* HERO */
+.hero {
+    background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef') center/cover;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
 }
 
-/* HERO IMAGE */
-.hero{
-background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
-height:400px;
-background-size:cover;
-background-position:center;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-color:white;
+.hero h1 {
+    font-size: 40px;
 }
 
-.hero-content{
-background:rgba(0,0,0,0.6);
-padding:20px;
-border-radius:10px;
+.hero button {
+    padding: 15px 30px;
+    background: #4CAF50;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
 }
 
-/* SECTION */
-.container{
-padding:30px;
+/* STATS */
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0;
 }
 
-.section{
-max-width:900px;
-margin:auto;
-text-align:center;
+.stat {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 30%;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+/* FEATURES */
+.features {
+    display: flex;
+    gap: 20px;
+}
+
+.feature {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+/* ENTREPRISES */
+.entreprises {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.card img {
+    width: 60px;
 }
 
 /* FOOTER */
-footer{
-background:#2e7d32;
-color:white;
-text-align:center;
-padding:15px;
-margin-top:40px;
+footer {
+    margin-top: 40px;
+    background: #1b5e20;
+    color: white;
+    text-align: center;
+    padding: 15px;
 }
-
 </style>
 </head>
 
 <body>
 
 <!-- MENU -->
-<div id="menu">
-
-<a href="index.html">Accueil</a>
-<a href="produits.html">Produits</a>
-<a href="comande.html">Acheter</a>
-<a href="prix.html">Marché des prix</a>
-<a href="entreprises.html">Entreprises</a>
-<a href="chat.html">Messagerie</a>
-<a href="notifications.html">Notifications</a>
-<a href="admin.html">Administration</a>
-<a href="login.html">Connexion</a>
-<a href="inscription.html">Inscription</a>
-
+<div class="menu">
+    <a href="index.html">Accueil</a>
+    <a href="produits.html">Produits</a>
+    <a href="acheter.html">Acheter</a>
+    <a href="entreprise.html">Entreprises</a>
+    <a href="chat.html">Messagerie</a>
+    <a href="notifications.html">Notifications</a>
+    <a href="commandes.html">Commandes</a>
+    <a href="admin.html">Administration</a>
+    <a href="login.html">Connexion</a>
+    <a href="register.html">Inscription</a>
 </div>
 
-<!-- HEADER -->
-<header>
-<span id="menuBtn" onclick="toggleMenu()">☰</span>
-<h2>Agriconnect</h2>
-</header>
+<!-- CONTENU -->
+<div class="content">
 
-<!-- IMAGE + TEXTE -->
+<!-- HERO -->
 <div class="hero">
+    <h1>Agriconnect</h1>
+    <p>Digitalisation de l'agriculture moderne</p>
+    <button onclick="window.location.href='register.html'">Commencer maintenant</button>
+</div>
 
-<div class="hero-content">
+<!-- STATS -->
+<div class="stats">
+    <div class="stat">
+        <h2>+1000</h2>
+        <p>Utilisateurs</p>
+    </div>
+    <div class="stat">
+        <h2>+200</h2>
+        <p>Entreprises</p>
+    </div>
+    <div class="stat">
+        <h2>+500</h2>
+        <p>Produits</p>
+    </div>
+</div>
 
-<h1>Bienvenue sur Agriconnect</h1>
+<!-- FEATURES -->
+<h2>Fonctionnalités</h2>
+<div class="features">
+    <div class="feature">Vente directe</div>
+    <div class="feature">Chat privé</div>
+    <div class="feature">IA agricole</div>
+    <div class="feature">Marché des prix</div>
+</div>
 
-<p>
-Une plateforme numérique moderne dédiée à la digitalisation de l’agriculture.
-</p>
-
-<p>
-Notre objectif est de connecter les agriculteurs, les acheteurs et les entreprises
-afin de faciliter la vente, améliorer la communication et renforcer l’économie agricole.
-</p>
+<!-- ENTREPRISES -->
+<h2>Entreprises partenaires</h2>
+<div class="entreprises" id="entreprises"></div>
 
 </div>
 
-</div>
-
-<!-- TEXTE -->
-<div class="container">
-
-<div class="section">
-
-<h2>Notre mission</h2>
-
-<p>
-Agriconnect permet aux agriculteurs de vendre leurs produits directement,
-aux entreprises de développer leurs activités, et aux acheteurs de trouver
-facilement des produits agricoles de qualité.
-</p>
-
-</div>
-
-</div>
-
-<!-- FOOTER -->
 <footer>
-Agriconnect 2026 | Contact : elmbayesow09@gmail.com
+Agriconnect 2026 | Contact : elmabayesow03@gmail.com
 </footer>
 
-<!-- SCRIPT -->
+<!-- FIREBASE SCRIPT -->
 <script>
+const firebaseConfig = {
+    apiKey: "TON_API_KEY",
+    authDomain: "TON_PROJECT.firebaseapp.com",
+    projectId: "TON_PROJECT",
+};
 
-function toggleMenu(){
-let menu = document.getElementById("menu");
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-if(menu.style.left === "0px"){
-menu.style.left = "-250px";
-}else{
-menu.style.left = "0px";
-}
-}
+/* AFFICHER ENTREPRISES */
+db.collection("Entreprises").get().then(snapshot => {
+    const container = document.getElementById("entreprises");
 
+    snapshot.forEach(doc => {
+        const data = doc.data();
+
+        container.innerHTML += `
+        <div class="card">
+            <img src="${data.logo}">
+            <h3>${data.nom}</h3>
+            <p>${data.description}</p>
+            <p>⭐ ${data.note}</p>
+        </div>
+        `;
+    });
+});
 </script>
 
 </body>
