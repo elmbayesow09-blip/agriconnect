@@ -7,12 +7,7 @@
 
 <style>
 
-/* GLOBAL */
-body{
-margin:0;
-font-family:Arial;
-background:#f4f4f4;
-}
+body{font-family:Arial;margin:0;background:#f4f4f4;}
 
 /* HEADER */
 header{
@@ -29,7 +24,7 @@ cursor:pointer;
 margin-right:15px;
 }
 
-/* MENU GAUCHE */
+/* MENU */
 #menu{
 position:fixed;
 left:-260px;
@@ -86,7 +81,6 @@ border-radius:10px;
 box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* LOGO */
 .logo{
 width:60px;
 height:60px;
@@ -94,7 +88,6 @@ border-radius:50%;
 object-fit:cover;
 }
 
-/* PRODUITS */
 .produits img{
 width:60px;
 height:60px;
@@ -102,7 +95,6 @@ margin:5px;
 border-radius:5px;
 }
 
-/* BUTTON */
 button{
 background:#2e7d32;
 color:white;
@@ -111,22 +103,6 @@ padding:10px;
 margin-top:10px;
 cursor:pointer;
 width:100%;
-}
-
-/* EMAIL FLOTTANT */
-.email{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#2e7d32;
-color:white;
-padding:12px 15px;
-border-radius:50px;
-cursor:pointer;
-}
-
-.email:hover{
-background:#1b5e20;
 }
 
 </style>
@@ -163,41 +139,25 @@ background:#1b5e20;
 <!-- HEADER -->
 <header>
 <span id="menuBtn" onclick="toggleMenu()">☰</span>
-Entreprises
+Entreprises Agricoles
 </header>
 
 <!-- HERO -->
 <div class="hero">
 <h2>Développez votre entreprise avec Agriconnect</h2>
-<p>Accédez à des milliers de clients</p>
+<p>Augmentez vos ventes et trouvez de nouveaux clients</p>
 <button onclick="go('inscription.html')">Créer un compte</button>
 </div>
 
 <!-- STATS -->
 <div class="stats">
-<div>
-<h3 id="nbE">0</h3>
-<p>Entreprises</p>
-</div>
-
-<div>
-<h3 id="nbP">0</h3>
-<p>Produits</p>
-</div>
-
-<div>
-<h3 id="nbV">0</h3>
-<p>Ventes</p>
-</div>
+<div><h2 id="totalEntreprises">0</h2><p>Entreprises</p></div>
+<div><h2 id="totalProduits">0</h2><p>Produits</p></div>
+<div><h2 id="totalVentes">0</h2><p>Ventes</p></div>
 </div>
 
 <!-- LISTE -->
 <div class="grid" id="liste"></div>
-
-<!-- EMAIL -->
-<div class="email" onclick="contact()">
-Contact
-</div>
 
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
@@ -218,43 +178,30 @@ const db = firebase.firestore();
 
 <script>
 
-// MENU
 function toggleMenu(){
-let m = document.getElementById("menu");
-m.style.left = (m.style.left === "0px") ? "-260px" : "0px";
+let menu = document.getElementById("menu");
+menu.style.left = (menu.style.left === "0px") ? "-260px" : "0px";
 }
 
-// EMAIL
-function contact(){
-window.location.href = "mailto:elmbayesow09@gmail.com";
-}
-
-// NAVIGATION
-function go(page){
-window.location.href = page;
-}
-
-// DATA
-let totalP = 0;
-let totalV = 0;
+let totalProduits = 0;
+let totalVentes = 0;
 
 db.collection("entreprises").onSnapshot(snapshot=>{
 
 let html = "";
-totalP = 0;
-totalV = 0;
+totalProduits = 0;
+totalVentes = 0;
 
-document.getElementById("nbE").innerText = snapshot.size;
+document.getElementById("totalEntreprises").innerText = snapshot.size;
 
 snapshot.forEach(doc=>{
 
 let e = doc.data();
 
 let produits = e.produits || [];
-let ventes = e.ventes || 0;
 
-totalP += produits.length;
-totalV += ventes;
+totalProduits += produits.length;
+totalVentes += e.ventes || 0;
 
 html += `
 <div class="card">
@@ -265,14 +212,15 @@ html += `
 
 <p>${e.description}</p>
 
-<p>⭐ ${e.note}</p>
-<p>📊 ${ventes} ventes</p>
+<p>⭐ ${e.note || 0}</p>
+<p>📊 ${e.ventes || 0} ventes</p>
 
 <div class="produits">
-${produits.map(p=>`<img src="${p}">`).join("")}
+${produits.map(p=>`<img src="${p}">`).join('')}
 </div>
 
 <button onclick="voir('${doc.id}')">Voir</button>
+<button onclick="chat('${e.nom}')">Contacter</button>
 
 </div>
 `;
@@ -280,14 +228,22 @@ ${produits.map(p=>`<img src="${p}">`).join("")}
 });
 
 document.getElementById("liste").innerHTML = html;
-document.getElementById("nbP").innerText = totalP;
-document.getElementById("nbV").innerText = totalV;
+
+document.getElementById("totalProduits").innerText = totalProduits;
+document.getElementById("totalVentes").innerText = totalVentes;
 
 });
 
-// VOIR
 function voir(id){
 window.location.href = "entreprise-detail.html?id="+id;
+}
+
+function chat(nom){
+alert("Chat avec " + nom);
+}
+
+function go(page){
+window.location.href = page;
 }
 
 </script>
