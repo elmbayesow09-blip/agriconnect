@@ -2,12 +2,15 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Entreprises</title>
-<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>Agriconnect</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
-body{font-family:Arial;margin:0;background:#f4f4f4;}
+body{
+margin:0;
+font-family:Arial, sans-serif;
+}
 
 /* HEADER */
 header{
@@ -18,91 +21,73 @@ display:flex;
 align-items:center;
 }
 
+/* MENU BUTTON */
 #menuBtn{
 font-size:25px;
 cursor:pointer;
 margin-right:15px;
 }
 
-/* MENU */
+/* MENU GAUCHE */
 #menu{
 position:fixed;
-left:-260px;
+left:-250px;
 top:0;
-width:260px;
+width:250px;
 height:100%;
 background:#1b5e20;
 transition:0.3s;
-z-index:1000;
+padding-top:60px;
 }
 
 #menu a{
 display:block;
-padding:15px;
 color:white;
+padding:15px;
 text-decoration:none;
-border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
 #menu a:hover{
 background:#2e7d32;
 }
 
-/* HERO */
+/* HERO IMAGE */
 .hero{
-background:#1b5e20;
+background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
+height:400px;
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
 color:white;
-padding:40px;
+}
+
+.hero-content{
+background:rgba(0,0,0,0.6);
+padding:20px;
+border-radius:10px;
+}
+
+/* SECTION */
+.container{
+padding:30px;
+}
+
+.section{
+max-width:900px;
+margin:auto;
 text-align:center;
 }
 
-/* STATS */
-.stats{
-display:flex;
-justify-content:space-around;
+/* FOOTER */
+footer{
 background:#2e7d32;
 color:white;
-padding:20px;
-}
-
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-padding:20px;
-}
-
-/* CARD */
-.card{
-background:white;
+text-align:center;
 padding:15px;
-border-radius:10px;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
-
-.logo{
-width:60px;
-height:60px;
-border-radius:50%;
-object-fit:cover;
-}
-
-.produits img{
-width:60px;
-height:60px;
-margin:5px;
-border-radius:5px;
-}
-
-button{
-background:#2e7d32;
-color:white;
-border:none;
-padding:10px;
-margin-top:10px;
-cursor:pointer;
-width:100%;
+margin-top:40px;
 }
 
 </style>
@@ -118,19 +103,9 @@ width:100%;
 <a href="comande.html">Acheter</a>
 <a href="prix.html">Marché des prix</a>
 <a href="entreprises.html">Entreprises</a>
-
 <a href="chat.html">Messagerie</a>
-<a href="chat-prive.html">Chat privé</a>
-
 <a href="notifications.html">Notifications</a>
-<a href="dashboard-commandes.html">Commandes</a>
-
-<a href="assistance-ia.html">Assistant IA</a>
-<a href="ia-conseil-agricoles.html">Conseils IA</a>
-
 <a href="admin.html">Administration</a>
-
-<a href="profil.html">Profil</a>
 <a href="login.html">Connexion</a>
 <a href="inscription.html">Inscription</a>
 
@@ -139,111 +114,62 @@ width:100%;
 <!-- HEADER -->
 <header>
 <span id="menuBtn" onclick="toggleMenu()">☰</span>
-Entreprises Agricoles
+<h2>Agriconnect</h2>
 </header>
 
-<!-- HERO -->
+<!-- IMAGE + TEXTE -->
 <div class="hero">
-<h2>Développez votre entreprise avec Agriconnect</h2>
-<p>Augmentez vos ventes et trouvez de nouveaux clients</p>
-<button onclick="go('inscription.html')">Créer un compte</button>
+
+<div class="hero-content">
+
+<h1>Bienvenue sur Agriconnect</h1>
+
+<p>
+Une plateforme numérique moderne dédiée à la digitalisation de l’agriculture.
+</p>
+
+<p>
+Notre objectif est de connecter les agriculteurs, les acheteurs et les entreprises
+afin de faciliter la vente, améliorer la communication et renforcer l’économie agricole.
+</p>
+
 </div>
 
-<!-- STATS -->
-<div class="stats">
-<div><h2 id="totalEntreprises">0</h2><p>Entreprises</p></div>
-<div><h2 id="totalProduits">0</h2><p>Produits</p></div>
-<div><h2 id="totalVentes">0</h2><p>Ventes</p></div>
 </div>
 
-<!-- LISTE -->
-<div class="grid" id="liste"></div>
+<!-- TEXTE -->
+<div class="container">
 
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<div class="section">
 
-<script>
+<h2>Notre mission</h2>
 
-const firebaseConfig = {
-apiKey: "XXX",
-authDomain: "XXX",
-projectId: "XXX"
-};
+<p>
+Agriconnect permet aux agriculteurs de vendre leurs produits directement,
+aux entreprises de développer leurs activités, et aux acheteurs de trouver
+facilement des produits agricoles de qualité.
+</p>
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+</div>
 
-</script>
+</div>
 
+<!-- FOOTER -->
+<footer>
+Agriconnect 2026 | Contact : elmbayesow09@gmail.com
+</footer>
+
+<!-- SCRIPT -->
 <script>
 
 function toggleMenu(){
 let menu = document.getElementById("menu");
-menu.style.left = (menu.style.left === "0px") ? "-260px" : "0px";
+
+if(menu.style.left === "0px"){
+menu.style.left = "-250px";
+}else{
+menu.style.left = "0px";
 }
-
-let totalProduits = 0;
-let totalVentes = 0;
-
-db.collection("entreprises").onSnapshot(snapshot=>{
-
-let html = "";
-totalProduits = 0;
-totalVentes = 0;
-
-document.getElementById("totalEntreprises").innerText = snapshot.size;
-
-snapshot.forEach(doc=>{
-
-let e = doc.data();
-
-let produits = e.produits || [];
-
-totalProduits += produits.length;
-totalVentes += e.ventes || 0;
-
-html += `
-<div class="card">
-
-<img src="${e.logo}" class="logo">
-
-<h3>${e.nom}</h3>
-
-<p>${e.description}</p>
-
-<p>⭐ ${e.note || 0}</p>
-<p>📊 ${e.ventes || 0} ventes</p>
-
-<div class="produits">
-${produits.map(p=>`<img src="${p}">`).join('')}
-</div>
-
-<button onclick="voir('${doc.id}')">Voir</button>
-<button onclick="chat('${e.nom}')">Contacter</button>
-
-</div>
-`;
-
-});
-
-document.getElementById("liste").innerHTML = html;
-
-document.getElementById("totalProduits").innerText = totalProduits;
-document.getElementById("totalVentes").innerText = totalVentes;
-
-});
-
-function voir(id){
-window.location.href = "entreprise-detail.html?id="+id;
-}
-
-function chat(nom){
-alert("Chat avec " + nom);
-}
-
-function go(page){
-window.location.href = page;
 }
 
 </script>
