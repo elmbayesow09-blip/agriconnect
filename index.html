@@ -3,110 +3,123 @@
 <head>
 <meta charset="UTF-8">
 <title>Agriconnect</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+
+/* GLOBAL */
+body{
+margin:0;
+font-family:Arial;
+display:flex;
 }
 
 /* MENU */
-.menu {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 220px;
-    height: 100%;
-    background: linear-gradient(#1e3c2f, #2e8b57);
-    color: white;
-    padding-top: 20px;
+.menu{
+width:250px;
+background:#1b5e20;
+color:white;
+height:100vh;
+padding-top:20px;
+position:fixed;
 }
 
-.menu a {
-    display: block;
-    color: white;
-    padding: 12px;
-    text-decoration: none;
+.menu a{
+display:block;
+padding:15px;
+color:white;
+text-decoration:none;
 }
 
-.menu a:hover {
-    background: rgba(255,255,255,0.2);
+.menu a:hover{
+background:#2e7d32;
 }
 
-/* CONTENU */
-.content {
-    margin-left: 230px;
-    padding: 20px;
+/* CONTENT */
+.content{
+margin-left:250px;
+padding:20px;
+width:100%;
+background:#f4f4f4;
 }
 
-/* HERO */
-.hero {
-    background: linear-gradient(to right, #2e8b57, #6dbf73);
-    color: white;
-    padding: 40px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-/* PRODUITS */
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    background: white;
-    text-align: center;
-}
-
-.card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
+/* HERO IMAGE */
+.hero{
+background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
+background-size:cover;
+color:white;
+padding:60px;
+border-radius:10px;
+text-align:center;
 }
 
 /* SECTION */
-.section-title {
-    margin-top: 40px;
-    font-size: 20px;
-    font-weight: bold;
+.section{
+background:white;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
 }
 
-/* FOOTER */
-.footer {
-    margin-top: 40px;
-    padding: 15px;
-    background: #2e8b57;
-    color: white;
-    text-align: center;
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
 }
+
+/* CARD */
+.card{
+background:#fff;
+padding:15px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.card img{
+width:100%;
+height:120px;
+object-fit:cover;
+border-radius:10px;
+}
+
+/* BUTTON */
+button{
+background:#2e7d32;
+color:white;
+border:none;
+padding:10px;
+margin-top:10px;
+cursor:pointer;
+width:100%;
+}
+
 </style>
-
 </head>
 
 <body>
 
 <!-- MENU -->
 <div class="menu">
-    <a href="index.html">Accueil</a>
-    <a href="produits.html">Produits</a>
-    <a href="acheter.html">Acheter</a>
-    <a href="marche.html">Marché des prix</a>
-    <a href="entreprise.html">Entreprises</a>
-    <a href="messagerie.html">Messagerie</a>
-    <a href="chat.html">Chat privé</a>
-    <a href="notifications.html">Notifications</a>
-    <a href="commandes.html">Commandes</a>
-    <a href="assistant.html">Assistant IA</a>
-    <a href="conseils.html">Conseils IA</a>
-    <a href="admin.html">Administration</a>
-    <a href="profil.html">Profil</a>
+
+<a href="#">Accueil</a>
+<a href="#">Produits</a>
+<a href="#">Acheter</a>
+<a href="#">Marché des prix</a>
+<a href="#">Entreprises</a>
+<a href="#">Messagerie</a>
+<a href="#">Chat privé</a>
+<a href="#">Notifications</a>
+<a href="#">Commandes</a>
+<a href="#">Assistant IA</a>
+<a href="#">Conseils IA</a>
+<a href="#">Administration</a>
+<a href="#">Profil</a>
+<a href="#">Connexion</a>
+<a href="#">Inscription</a>
+
 </div>
 
 <!-- CONTENU -->
@@ -114,84 +127,86 @@ body {
 
 <!-- HERO -->
 <div class="hero">
-    <h1>Digitaliser l’agriculture pour un avenir meilleur</h1>
-    <p>
-        Agriconnect est une plateforme qui connecte agriculteurs, entreprises et acheteurs.
-        Achetez, vendez et développez votre activité agricole facilement.
-    </p>
+<h1>Digitaliser l’agriculture pour un avenir meilleur</h1>
+<p>
+Agriconnect connecte agriculteurs, entreprises et acheteurs pour vendre,
+acheter et développer l’activité agricole facilement.
+</p>
 </div>
 
 <!-- PRODUITS AGRICOLES -->
-<div class="section-title">Produits agricoles</div>
-<div class="products" id="produits"></div>
+<div class="section">
+<h2>Produits agricoles</h2>
 
-<!-- PRODUITS ENTREPRISES -->
-<div class="section-title">Produits des entreprises</div>
-<div class="products" id="entreprises"></div>
+<div class="grid">
 
-<!-- À PROPOS -->
-<div class="section-title">À propos</div>
+<div class="card">
+<img src="https://via.placeholder.com/200">
+<h3>Riz</h3>
+<p>5000 FCFA</p>
+<button>Acheter</button>
+</div>
+
+<div class="card">
+<img src="https://via.placeholder.com/200">
+<h3>Maïs</h3>
+<p>3000 FCFA</p>
+<button>Acheter</button>
+</div>
+
+<div class="card">
+<img src="https://via.placeholder.com/200">
+<h3>Arachide</h3>
+<p>4000 FCFA</p>
+<button>Acheter</button>
+</div>
+
+</div>
+</div>
+
+<!-- ENTREPRISES -->
+<div class="section">
+<h2>Produits des entreprises</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://via.placeholder.com/200">
+<h3>AgroTech</h3>
+<p>Semences améliorées</p>
+<button>Voir</button>
+</div>
+
+<div class="card">
+<img src="https://via.placeholder.com/200">
+<h3>BioFarm</h3>
+<p>Engrais bio</p>
+<button>Voir</button>
+</div>
+
+<div class="card">
+<img src="https://via.placeholder.com/200">
+<h3>GreenMarket</h3>
+<p>Produits agricoles divers</p>
+<button>Voir</button>
+</div>
+
+</div>
+</div>
+
+<!-- A PROPOS -->
+<div class="section">
+<h2>À propos</h2>
+
 <p>
-Agriconnect permet :
-- aux agriculteurs de vendre leurs produits  
-- aux entreprises de commercialiser leurs intrants (semences, engrais…)  
-- aux acheteurs de trouver facilement des produits agricoles  
-
-Notre objectif : moderniser l’agriculture grâce au numérique.
+Agriconnect est une plateforme digitale dédiée à la modernisation de l’agriculture.
+Elle permet aux agriculteurs de vendre leurs produits, aux entreprises de commercialiser
+leurs intrants et aux acheteurs de trouver facilement des produits agricoles.
 </p>
 
 </div>
 
-<div class="footer">
-Contact : elmbayesow09@gmail.com
 </div>
-
-<!-- FIREBASE -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-    apiKey: "TON_API_KEY",
-    authDomain: "TON_PROJET.firebaseapp.com",
-    projectId: "TON_PROJET"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-/* PRODUITS AGRICOLES */
-const produitsContainer = document.getElementById("produits");
-
-const produitsSnapshot = await getDocs(collection(db, "Produits"));
-produitsSnapshot.forEach(doc => {
-    const data = doc.data();
-
-    produitsContainer.innerHTML += `
-        <div class="card">
-            <img src="${data.image}" />
-            <h3>${data.nom}</h3>
-            <p>${data.prix} FCFA</p>
-        </div>
-    `;
-});
-
-/* ENTREPRISES */
-const entreprisesContainer = document.getElementById("entreprises");
-
-const entreprisesSnapshot = await getDocs(collection(db, "Entreprises"));
-entreprisesSnapshot.forEach(doc => {
-    const data = doc.data();
-
-    entreprisesContainer.innerHTML += `
-        <div class="card">
-            <img src="${data.logo}" />
-            <h3>${data.nom}</h3>
-            <p>⭐ ${data.note}</p>
-        </div>
-    `;
-});
-</script>
 
 </body>
 </html>
