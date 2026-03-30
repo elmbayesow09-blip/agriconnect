@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"> 
+<meta charset="UTF-8">
 <title>Agriculteurs - AgriConnect</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- LEAFLET -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
@@ -17,7 +16,7 @@ margin:0;
 background:#f4f7f6;
 }
 
-/* HERO PRO */
+/* HERO */
 .hero-agriculteurs {
 background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
 url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
@@ -26,59 +25,65 @@ background-position: center;
 padding: 80px 20px;
 text-align: center;
 color: white;
-border-radius: 0 0 30px 30px;
 }
 
 .hero-agriculteurs h1 {
 font-size: 40px;
-font-weight: bold;
 }
 
-.hero-agriculteurs p {
-font-size: 18px;
-opacity: 0.9;
-}
-
-/* BUTTON PRO */
 .btn-agri-pro {
-position: relative;
-overflow: hidden;
 background: #27ae60;
 color: white;
 padding: 15px 30px;
 border-radius: 10px;
 border: none;
-font-weight: bold;
 cursor: pointer;
-margin-top:20px;
 }
 
-.shimmer {
+/* SEARCH PRO */
+.search-container-pro {
+position: relative;
+max-width: 500px;
+margin: 30px auto;
+}
+
+.search-box {
+display: flex;
+align-items: center;
+background: white;
+padding: 15px 20px;
+border-radius: 12px;
+box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.search-box input {
+border: none;
+outline: none;
+width: 100%;
+margin-left: 10px;
+}
+
+.region-dropdown {
 position: absolute;
-top: 0; left: -100%;
-width: 50%; height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-animation: shimmer 3s infinite;
+top: 110%;
+width: 100%;
+background: white;
+border-radius: 12px;
+box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+list-style: none;
+max-height: 250px;
+overflow-y: auto;
+display: none;
+z-index: 100;
 }
 
-@keyframes shimmer {
-0% { left: -100%; }
-100% { left: 150%; }
+.region-dropdown li {
+padding: 12px;
+cursor: pointer;
 }
 
-/* SECTION */
-.section{
-padding:40px;
-text-align:center;
-}
-
-/* SELECT PRO */
-#regionSelect{
-width:300px;
-padding:12px;
-border-radius:10px;
-border:1px solid #ddd;
-margin-bottom:20px;
+.region-dropdown li:hover {
+background: #f0fdf4;
 }
 
 /* GRID */
@@ -89,42 +94,17 @@ gap:20px;
 padding:20px;
 }
 
-/* CARD PRO */
 .card{
 background:white;
 padding:20px;
 border-radius:15px;
 box-shadow:0 5px 20px rgba(0,0,0,0.05);
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
-}
-
-/* BADGE */
-.badge{
-background:#eafaf1;
-color:#27ae60;
-padding:5px 10px;
-border-radius:20px;
-font-size:12px;
-}
-
-/* BUTTON */
-.btn{
-display:inline-block;
-margin-top:10px;
-cursor:pointer;
-color:#27ae60;
-font-weight:bold;
 }
 
 /* MAP */
 #map{
 height:450px;
 margin:40px;
-border-radius:15px;
 }
 
 /* FORM */
@@ -134,30 +114,21 @@ padding:30px;
 max-width:800px;
 margin:40px auto;
 border-radius:15px;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
 
-input, select{
+input{
 width:100%;
 padding:10px;
 margin:10px 0;
-border-radius:8px;
-border:1px solid #ccc;
 }
 
 button{
-width:100%;
 padding:15px;
 background:#27ae60;
 color:white;
 border:none;
 border-radius:10px;
 cursor:pointer;
-font-weight:bold;
-}
-
-button:hover{
-background:#219150;
 }
 
 </style>
@@ -168,59 +139,46 @@ background:#219150;
 <!-- HERO -->
 <div class="hero-agriculteurs">
 <h1>Agriculteurs</h1>
-<p>Trouvez, contactez et localisez les producteurs agricoles</p>
+<p>Trouvez les producteurs partout au Sénégal</p>
+<button class="btn-agri-pro">Devenir partenaire</button>
+</div>
 
-<button class="btn-agri-pro">
-Devenir Partenaire Agricole
-<div class="shimmer"></div>
-</button>
+<!-- SEARCH PRO -->
+<div class="search-container-pro">
+
+<div class="search-box">
+<span>📍</span>
+<input type="text" id="regionInput" placeholder="Rechercher une région" onkeyup="filterRegions()">
+</div>
+
+<ul id="regionList" class="region-dropdown">
+<li onclick="selectRegion('Dakar')">Dakar</li>
+<li onclick="selectRegion('Thiès')">Thiès</li>
+<li onclick="selectRegion('Kaolack')">Kaolack</li>
+<li onclick="selectRegion('Saint-Louis')">Saint-Louis</li>
+</ul>
 
 </div>
 
-<!-- FILTRE -->
-<div class="section">
-
-<select id="regionSelect">
-<option value="all">Toutes les régions</option>
-<option value="dakar">Dakar</option>
-<option value="thies">Thiès</option>
-<option value="kaolack">Kaolack</option>
-<option value="saint-louis">Saint-Louis</option>
-</select>
-
+<!-- LIST -->
 <div class="grid" id="liste"></div>
 
-</div>
-
-<!-- CARTE -->
-<h2 style="text-align:center;">Carte des agriculteurs</h2>
+<!-- MAP -->
 <div id="map"></div>
 
 <!-- FORM -->
 <div class="form">
-
-<h3>Ajouter une exploitation</h3>
+<h3>Ajouter un agriculteur</h3>
 
 <form id="form">
-
 <input type="text" id="nom" placeholder="Nom" required>
-
-<select id="region">
-<option>Dakar</option>
-<option>Thiès</option>
-<option>Kaolack</option>
-<option>Saint-Louis</option>
-</select>
-
-<input type="text" id="produits" placeholder="Produits (riz, maïs...)">
-
+<input type="text" id="region" placeholder="Région" required>
+<input type="text" id="produits" placeholder="Produits">
 <input type="number" step="any" id="lat" placeholder="Latitude" required>
 <input type="number" step="any" id="lng" placeholder="Longitude" required>
 
 <button type="submit">Ajouter</button>
-
 </form>
-
 </div>
 
 <!-- FIREBASE -->
@@ -238,24 +196,18 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 </script>
 
-<!-- LEAFLET -->
+<!-- MAP -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-// MAP
 var map = L.map('map').setView([14.5, -14.4], 7);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-var icon = L.icon({
-iconUrl:'https://cdn-icons-png.flaticon.com/512/2829/2829844.png',
-iconSize:[30,30]
-});
-
 let allData = [];
 
-// LOAD FIREBASE
+// FIRESTORE LOAD
 db.collection("agriculteurs").onSnapshot(snapshot=>{
 
 allData = [];
@@ -268,11 +220,9 @@ snapshot.forEach(doc=>{
 let a = doc.data();
 allData.push(a);
 
-// MAP
 if(a.lat && a.lng){
-L.marker([a.lat, a.lng], {icon:icon})
-.addTo(map)
-.bindPopup("<b>"+a.nom+"</b><br>"+a.produits);
+L.marker([a.lat, a.lng]).addTo(map)
+.bindPopup(a.nom);
 }
 });
 
@@ -282,37 +232,56 @@ afficher(allData);
 
 // DISPLAY
 function afficher(data){
-
 let html = "";
 
 data.forEach(a=>{
 html += `
 <div class="card">
 <h3>${a.nom}</h3>
-<p><b>Région:</b> ${a.region}</p>
-<p><b>Produits:</b> ${a.produits}</p>
-<span class="badge">${a.specialite || "Agriculture"}</span>
-<div class="btn" onclick="contacter('${a.nom}')">Contacter</div>
+<p>${a.region}</p>
+<p>${a.produits}</p>
 </div>
 `;
 });
 
 document.getElementById("liste").innerHTML = html;
-
 }
 
-// FILTER
-document.getElementById("regionSelect").addEventListener("change", function(){
+// SEARCH SYSTEM
+const regionInput = document.getElementById('regionInput');
+const regionList = document.getElementById('regionList');
 
-let val = this.value;
+regionInput.addEventListener('click', ()=>{
+regionList.style.display = 'block';
+});
 
-if(val === "all"){
-afficher(allData);
-}else{
-let f = allData.filter(a=>a.region.toLowerCase() === val);
-afficher(f);
+function filterRegions(){
+const filter = regionInput.value.toLowerCase();
+const li = regionList.getElementsByTagName('li');
+
+for (let i = 0; i < li.length; i++) {
+let text = li[i].textContent.toLowerCase();
+li[i].style.display = text.includes(filter) ? "" : "none";
+}
 }
 
+// SELECT REGION
+function selectRegion(name){
+regionInput.value = name;
+regionList.style.display = 'none';
+
+let filtered = allData.filter(a =>
+a.region.toLowerCase() === name.toLowerCase()
+);
+
+afficher(filtered);
+}
+
+// CLOSE DROPDOWN
+document.addEventListener('click', (e)=>{
+if (!e.target.closest('.search-container-pro')){
+regionList.style.display = 'none';
+}
 });
 
 // ADD DATA
@@ -320,24 +289,17 @@ document.getElementById("form").addEventListener("submit", function(e){
 e.preventDefault();
 
 let data = {
-nom: document.getElementById("nom").value,
-region: document.getElementById("region").value,
-produits: document.getElementById("produits").value,
-lat: parseFloat(document.getElementById("lat").value),
-lng: parseFloat(document.getElementById("lng").value)
+nom: nom.value,
+region: region.value,
+produits: produits.value,
+lat: parseFloat(lat.value),
+lng: parseFloat(lng.value)
 };
 
 db.collection("agriculteurs").add(data);
-
 alert("Ajout réussi");
 this.reset();
-
 });
-
-// CONTACT
-function contacter(nom){
-alert("Contacter " + nom);
-}
 
 </script>
 
