@@ -17,12 +17,53 @@ margin:0;
 background:#f4f7f6;
 }
 
-/* HEADER */
-header{
-background:#1a3022;
-color:white;
-padding:20px;
-text-align:center;
+/* HERO PRO */
+.hero-agriculteurs {
+background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
+background-size: cover;
+background-position: center;
+padding: 80px 20px;
+text-align: center;
+color: white;
+border-radius: 0 0 30px 30px;
+}
+
+.hero-agriculteurs h1 {
+font-size: 40px;
+font-weight: bold;
+}
+
+.hero-agriculteurs p {
+font-size: 18px;
+opacity: 0.9;
+}
+
+/* BUTTON PRO */
+.btn-agri-pro {
+position: relative;
+overflow: hidden;
+background: #27ae60;
+color: white;
+padding: 15px 30px;
+border-radius: 10px;
+border: none;
+font-weight: bold;
+cursor: pointer;
+margin-top:20px;
+}
+
+.shimmer {
+position: absolute;
+top: 0; left: -100%;
+width: 50%; height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+0% { left: -100%; }
+100% { left: 150%; }
 }
 
 /* SECTION */
@@ -31,12 +72,12 @@ padding:40px;
 text-align:center;
 }
 
-/* SELECT */
+/* SELECT PRO */
 #regionSelect{
 width:300px;
 padding:12px;
 border-radius:10px;
-border:2px solid #ddd;
+border:1px solid #ddd;
 margin-bottom:20px;
 }
 
@@ -48,7 +89,7 @@ gap:20px;
 padding:20px;
 }
 
-/* CARD */
+/* CARD PRO */
 .card{
 background:white;
 padding:20px;
@@ -124,10 +165,17 @@ background:#219150;
 
 <body>
 
-<header>
+<!-- HERO -->
+<div class="hero-agriculteurs">
 <h1>Agriculteurs</h1>
-<p>Trouvez, contactez et localisez les producteurs</p>
-</header>
+<p>Trouvez, contactez et localisez les producteurs agricoles</p>
+
+<button class="btn-agri-pro">
+Devenir Partenaire Agricole
+<div class="shimmer"></div>
+</button>
+
+</div>
 
 <!-- FILTRE -->
 <div class="section">
@@ -195,7 +243,7 @@ const db = firebase.firestore();
 
 <script>
 
-// INIT MAP
+// MAP
 var map = L.map('map').setView([14.5, -14.4], 7);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
@@ -207,10 +255,11 @@ iconSize:[30,30]
 
 let allData = [];
 
-// LOAD DATA
+// LOAD FIREBASE
 db.collection("agriculteurs").onSnapshot(snapshot=>{
 
 allData = [];
+
 map.eachLayer(layer=>{
 if(layer instanceof L.Marker) map.removeLayer(layer);
 });
@@ -266,7 +315,7 @@ afficher(f);
 
 });
 
-// ADD
+// ADD DATA
 document.getElementById("form").addEventListener("submit", function(e){
 e.preventDefault();
 
