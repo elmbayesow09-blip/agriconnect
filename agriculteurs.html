@@ -2,8 +2,11 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Agriculteurs</title>
+<title>Agriculteurs - AgriConnect</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- LEAFLET -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
 
@@ -16,39 +19,10 @@ background:#f4f7f6;
 
 /* HEADER */
 header{
-background:#2e7d32;
+background:#1a3022;
 color:white;
-padding:15px;
+padding:20px;
 text-align:center;
-}
-
-/* BOUTON AGRI */
-.nav-btn-agri {
-display: inline-flex;
-align-items: center;
-gap: 10px;
-padding: 10px 24px;
-background-color: transparent;
-color: #27ae60;
-border: 2px solid #27ae60;
-border-radius: 50px;
-font-weight: 600;
-text-decoration: none;
-transition: all 0.3s ease;
-cursor: pointer;
-margin:20px;
-}
-
-.nav-btn-agri:hover {
-background-color: #27ae60;
-color: white;
-box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
-transform: translateY(-2px);
-}
-
-.nav-btn-agri:hover svg {
-transform: rotate(15deg);
-transition: transform 0.3s ease;
 }
 
 /* SECTION */
@@ -57,65 +31,92 @@ padding:40px;
 text-align:center;
 }
 
-.section h2 span{
-color:#27ae60;
-}
-
 /* SELECT */
 #regionSelect{
 width:300px;
-padding:15px;
+padding:12px;
 border-radius:10px;
-border:2px solid #e0e0e0;
-font-size:1rem;
-margin-bottom:30px;
-}
-
-#regionSelect:focus{
-border-color:#27ae60;
+border:2px solid #ddd;
+margin-bottom:20px;
 }
 
 /* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
+gap:20px;
+padding:20px;
 }
 
 /* CARD */
 .card{
 background:white;
-padding:25px;
-border-radius:20px;
+padding:20px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
 transition:0.3s;
-border:1px solid #eee;
 }
 
 .card:hover{
-transform:translateY(-10px);
-box-shadow:0 20px 40px rgba(0,0,0,0.05);
+transform:translateY(-5px);
 }
 
 /* BADGE */
 .badge{
-display:inline-block;
 background:#eafaf1;
 color:#27ae60;
 padding:5px 10px;
-border-radius:50px;
-margin:10px 0;
-font-size:0.8rem;
+border-radius:20px;
+font-size:12px;
 }
 
 /* BUTTON */
 .btn{
 display:inline-block;
 margin-top:10px;
-text-decoration:none;
-color:#2d3436;
-font-weight:bold;
-border-bottom:2px solid #27ae60;
 cursor:pointer;
+color:#27ae60;
+font-weight:bold;
+}
+
+/* MAP */
+#map{
+height:450px;
+margin:40px;
+border-radius:15px;
+}
+
+/* FORM */
+.form{
+background:white;
+padding:30px;
+max-width:800px;
+margin:40px auto;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+input, select{
+width:100%;
+padding:10px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:15px;
+background:#27ae60;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+background:#219150;
 }
 
 </style>
@@ -124,35 +125,53 @@ cursor:pointer;
 <body>
 
 <header>
-Espace Agriculteurs
+<h1>Agriculteurs</h1>
+<p>Trouvez, contactez et localisez les producteurs</p>
 </header>
 
-<!-- BOUTON PRO -->
-<a href="#" class="nav-btn-agri">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-<path d="m12 22 8-4V6l-8-4-8 4v12z"></path>
-<path d="M12 22V14"></path>
-</svg>
-Espace Agriculteurs
-</a>
-
-<!-- SECTION -->
+<!-- FILTRE -->
 <div class="section">
-
-<h2>Trouvez des agriculteurs par <span>Région</span></h2>
-
-<p>Contactez les producteurs locaux près de chez vous</p>
 
 <select id="regionSelect">
 <option value="all">Toutes les régions</option>
 <option value="dakar">Dakar</option>
 <option value="thies">Thiès</option>
-<option value="saint-louis">Saint-Louis</option>
 <option value="kaolack">Kaolack</option>
-<option value="ziguinchor">Ziguinchor</option>
+<option value="saint-louis">Saint-Louis</option>
 </select>
 
 <div class="grid" id="liste"></div>
+
+</div>
+
+<!-- CARTE -->
+<h2 style="text-align:center;">Carte des agriculteurs</h2>
+<div id="map"></div>
+
+<!-- FORM -->
+<div class="form">
+
+<h3>Ajouter une exploitation</h3>
+
+<form id="form">
+
+<input type="text" id="nom" placeholder="Nom" required>
+
+<select id="region">
+<option>Dakar</option>
+<option>Thiès</option>
+<option>Kaolack</option>
+<option>Saint-Louis</option>
+</select>
+
+<input type="text" id="produits" placeholder="Produits (riz, maïs...)">
+
+<input type="number" step="any" id="lat" placeholder="Latitude" required>
+<input type="number" step="any" id="lng" placeholder="Longitude" required>
+
+<button type="submit">Ajouter</button>
+
+</form>
 
 </div>
 
@@ -161,7 +180,6 @@ Espace Agriculteurs
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
 <script>
-
 const firebaseConfig = {
 apiKey: "XXX",
 authDomain: "XXX",
@@ -170,58 +188,71 @@ projectId: "XXX"
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-
 </script>
+
+<!-- LEAFLET -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
+// INIT MAP
+var map = L.map('map').setView([14.5, -14.4], 7);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+var icon = L.icon({
+iconUrl:'https://cdn-icons-png.flaticon.com/512/2829/2829844.png',
+iconSize:[30,30]
+});
+
 let allData = [];
 
-// Charger agriculteurs
+// LOAD DATA
 db.collection("agriculteurs").onSnapshot(snapshot=>{
 
 allData = [];
+map.eachLayer(layer=>{
+if(layer instanceof L.Marker) map.removeLayer(layer);
+});
 
 snapshot.forEach(doc=>{
-allData.push(doc.data());
+let a = doc.data();
+allData.push(a);
+
+// MAP
+if(a.lat && a.lng){
+L.marker([a.lat, a.lng], {icon:icon})
+.addTo(map)
+.bindPopup("<b>"+a.nom+"</b><br>"+a.produits);
+}
 });
 
 afficher(allData);
 
 });
 
-// afficher
+// DISPLAY
 function afficher(data){
 
 let html = "";
 
 data.forEach(a=>{
-
 html += `
 <div class="card">
-
 <h3>${a.nom}</h3>
-
-<p><strong>Région :</strong> ${a.region}</p>
-
-<p><strong>Produits :</strong> ${a.produits}</p>
-
+<p><b>Région:</b> ${a.region}</p>
+<p><b>Produits:</b> ${a.produits}</p>
 <span class="badge">${a.specialite || "Agriculture"}</span>
-
-<a class="btn" onclick="contacter('${a.nom}')">
-Contacter
-</a>
-
+<div class="btn" onclick="contacter('${a.nom}')">Contacter</div>
 </div>
 `;
-
 });
 
 document.getElementById("liste").innerHTML = html;
 
 }
 
-// filtre
+// FILTER
 document.getElementById("regionSelect").addEventListener("change", function(){
 
 let val = this.value;
@@ -229,12 +260,32 @@ let val = this.value;
 if(val === "all"){
 afficher(allData);
 }else{
-let filtered = allData.filter(a=>a.region.toLowerCase() === val);
-afficher(filtered);
+let f = allData.filter(a=>a.region.toLowerCase() === val);
+afficher(f);
 }
 
 });
 
+// ADD
+document.getElementById("form").addEventListener("submit", function(e){
+e.preventDefault();
+
+let data = {
+nom: document.getElementById("nom").value,
+region: document.getElementById("region").value,
+produits: document.getElementById("produits").value,
+lat: parseFloat(document.getElementById("lat").value),
+lng: parseFloat(document.getElementById("lng").value)
+};
+
+db.collection("agriculteurs").add(data);
+
+alert("Ajout réussi");
+this.reset();
+
+});
+
+// CONTACT
 function contacter(nom){
 alert("Contacter " + nom);
 }
