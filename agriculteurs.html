@@ -40,7 +40,7 @@ border: none;
 cursor: pointer;
 }
 
-/* SEARCH PRO */
+/* SEARCH */
 .search-container-pro {
 position: relative;
 max-width: 500px;
@@ -53,7 +53,6 @@ align-items: center;
 background: white;
 padding: 15px 20px;
 border-radius: 12px;
-box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
 .search-box input {
@@ -69,21 +68,8 @@ top: 110%;
 width: 100%;
 background: white;
 border-radius: 12px;
-box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-list-style: none;
-max-height: 250px;
-overflow-y: auto;
 display: none;
 z-index: 100;
-}
-
-.region-dropdown li {
-padding: 12px;
-cursor: pointer;
-}
-
-.region-dropdown li:hover {
-background: #f0fdf4;
 }
 
 /* GRID */
@@ -98,7 +84,6 @@ padding:20px;
 background:white;
 padding:20px;
 border-radius:15px;
-box-shadow:0 5px 20px rgba(0,0,0,0.05);
 }
 
 /* MAP */
@@ -131,6 +116,71 @@ border-radius:10px;
 cursor:pointer;
 }
 
+/* ========================= */
+/* CHAT PRO */
+/* ========================= */
+
+#chat-widget-button {
+position: fixed;
+bottom: 30px;
+right: 30px;
+background: #27ae60;
+color: white;
+padding: 15px 25px;
+border-radius: 50px;
+cursor: pointer;
+z-index: 9999;
+}
+
+#chat-window {
+position: fixed;
+bottom: 100px;
+right: 30px;
+width: 350px;
+height: 450px;
+background: white;
+border-radius: 15px;
+display: flex;
+flex-direction: column;
+z-index: 9998;
+
+opacity: 0;
+transform: translateY(20px) scale(0.95);
+pointer-events: none;
+transition: all 0.4s ease;
+}
+
+#chat-window.active {
+opacity: 1;
+transform: translateY(0) scale(1);
+pointer-events: all;
+}
+
+.chat-header {
+background: #1a3022;
+color: white;
+padding: 15px;
+display:flex;
+justify-content:space-between;
+}
+
+.chat-messages {
+flex:1;
+padding:20px;
+overflow-y:auto;
+background:#f9f9f9;
+}
+
+.chat-input {
+padding:15px;
+display:flex;
+gap:10px;
+}
+
+.chat-input input {
+flex:1;
+}
+
 </style>
 </head>
 
@@ -143,21 +193,11 @@ cursor:pointer;
 <button class="btn-agri-pro">Devenir partenaire</button>
 </div>
 
-<!-- SEARCH PRO -->
+<!-- SEARCH -->
 <div class="search-container-pro">
-
 <div class="search-box">
-<span>📍</span>
-<input type="text" id="regionInput" placeholder="Rechercher une région" onkeyup="filterRegions()">
+<input type="text" id="regionInput" placeholder="Rechercher une région">
 </div>
-
-<ul id="regionList" class="region-dropdown">
-<li onclick="selectRegion('Dakar')">Dakar</li>
-<li onclick="selectRegion('Thiès')">Thiès</li>
-<li onclick="selectRegion('Kaolack')">Kaolack</li>
-<li onclick="selectRegion('Saint-Louis')">Saint-Louis</li>
-</ul>
-
 </div>
 
 <!-- LIST -->
@@ -179,6 +219,30 @@ cursor:pointer;
 
 <button type="submit">Ajouter</button>
 </form>
+</div>
+
+<!-- ========================= -->
+<!-- CHAT UI -->
+<!-- ========================= -->
+
+<div id="chat-widget-button" onclick="toggleChat()">
+💬 Contacter
+</div>
+
+<div id="chat-window">
+<div class="chat-header">
+<span>Chat Agriculteur</span>
+<span onclick="toggleChat()" style="cursor:pointer;">×</span>
+</div>
+
+<div class="chat-messages" id="chatMessages">
+<div class="bot-msg">Bonjour 👋 comment puis-je vous aider ?</div>
+</div>
+
+<div class="chat-input">
+<input type="text" id="chatInput" placeholder="Votre message">
+<button onclick="sendMessage()">Envoyer</button>
+</div>
 </div>
 
 <!-- FIREBASE -->
@@ -205,101 +269,64 @@ var map = L.map('map').setView([14.5, -14.4], 7);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-let allData = [];
-
-// FIRESTORE LOAD
 db.collection("agriculteurs").onSnapshot(snapshot=>{
 
-allData = [];
-
-map.eachLayer(layer=>{
-if(layer instanceof L.Marker) map.removeLayer(layer);
-});
+let html = "";
 
 snapshot.forEach(doc=>{
 let a = doc.data();
-allData.push(a);
 
-if(a.lat && a.lng){
-L.marker([a.lat, a.lng]).addTo(map)
-.bindPopup(a.nom);
-}
-});
-
-afficher(allData);
-
-});
-
-// DISPLAY
-function afficher(data){
-let html = "";
-
-data.forEach(a=>{
 html += `
 <div class="card">
 <h3>${a.nom}</h3>
 <p>${a.region}</p>
 <p>${a.produits}</p>
+<button onclick="toggleChat()">Contacter</button>
 </div>
 `;
+
+if(a.lat && a.lng){
+L.marker([a.lat, a.lng]).addTo(map)
+.bindPopup(a.nom);
+}
+
 });
 
 document.getElementById("liste").innerHTML = html;
-}
 
-// SEARCH SYSTEM
-const regionInput = document.getElementById('regionInput');
-const regionList = document.getElementById('regionList');
-
-regionInput.addEventListener('click', ()=>{
-regionList.style.display = 'block';
 });
 
-function filterRegions(){
-const filter = regionInput.value.toLowerCase();
-const li = regionList.getElementsByTagName('li');
-
-for (let i = 0; i < li.length; i++) {
-let text = li[i].textContent.toLowerCase();
-li[i].style.display = text.includes(filter) ? "" : "none";
-}
-}
-
-// SELECT REGION
-function selectRegion(name){
-regionInput.value = name;
-regionList.style.display = 'none';
-
-let filtered = allData.filter(a =>
-a.region.toLowerCase() === name.toLowerCase()
-);
-
-afficher(filtered);
-}
-
-// CLOSE DROPDOWN
-document.addEventListener('click', (e)=>{
-if (!e.target.closest('.search-container-pro')){
-regionList.style.display = 'none';
-}
-});
-
-// ADD DATA
 document.getElementById("form").addEventListener("submit", function(e){
 e.preventDefault();
 
-let data = {
+db.collection("agriculteurs").add({
 nom: nom.value,
 region: region.value,
 produits: produits.value,
 lat: parseFloat(lat.value),
 lng: parseFloat(lng.value)
-};
+});
 
-db.collection("agriculteurs").add(data);
 alert("Ajout réussi");
 this.reset();
 });
+
+/* CHAT */
+function toggleChat() {
+document.getElementById('chat-window').classList.toggle('active');
+}
+
+function sendMessage(){
+let input = document.getElementById("chatInput");
+let msg = input.value;
+
+if(msg === "") return;
+
+let box = document.getElementById("chatMessages");
+
+box.innerHTML += `<div>${msg}</div>`;
+input.value = "";
+}
 
 </script>
 
