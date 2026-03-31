@@ -16,12 +16,46 @@ margin:0;
 background:#f4f7f6;
 }
 
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 30px;
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* AUTH BUTTONS */
+.auth-buttons {
+display: flex;
+gap: 15px;
+align-items: center;
+}
+
+.btn-login {
+color: #27ae60;
+text-decoration: none;
+font-weight: 600;
+}
+
+.btn-register-agri {
+background: #27ae60;
+color: white;
+padding: 10px 20px;
+border-radius: 8px;
+font-weight: 600;
+}
+
+.btn-register-agri:hover {
+background: #1e8449;
+}
+
 /* HERO */
 .hero-agriculteurs {
 background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
 url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
 background-size: cover;
-background-position: center;
 padding: 80px 20px;
 text-align: center;
 color: white;
@@ -29,47 +63,6 @@ color: white;
 
 .hero-agriculteurs h1 {
 font-size: 40px;
-}
-
-.btn-agri-pro {
-background: #27ae60;
-color: white;
-padding: 15px 30px;
-border-radius: 10px;
-border: none;
-cursor: pointer;
-}
-
-/* SEARCH */
-.search-container-pro {
-position: relative;
-max-width: 500px;
-margin: 30px auto;
-}
-
-.search-box {
-display: flex;
-align-items: center;
-background: white;
-padding: 15px 20px;
-border-radius: 12px;
-}
-
-.search-box input {
-border: none;
-outline: none;
-width: 100%;
-margin-left: 10px;
-}
-
-.region-dropdown {
-position: absolute;
-top: 110%;
-width: 100%;
-background: white;
-border-radius: 12px;
-display: none;
-z-index: 100;
 }
 
 /* GRID */
@@ -84,42 +77,66 @@ padding:20px;
 background:white;
 padding:20px;
 border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
 }
 
 /* MAP */
 #map{
-height:450px;
+height:400px;
 margin:40px;
 }
 
-/* FORM */
-.form{
-background:white;
-padding:30px;
-max-width:800px;
-margin:40px auto;
-border-radius:15px;
+/* ========================= */
+/* SECTION PRODUIT PRO */
+/* ========================= */
+
+.add-product-container {
+padding: 60px 5%;
 }
 
-input{
+.vendor-card {
+background: white;
+max-width: 900px;
+margin: 0 auto;
+border-radius: 20px;
+padding: 40px;
+box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+}
+
+.form-main-grid {
+display: grid;
+grid-template-columns: 1fr 1.5fr;
+gap: 30px;
+}
+
+.image-upload-zone {
+border: 2px dashed #ccc;
+border-radius: 15px;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+min-height:250px;
+}
+
+.price-stock-grid {
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.btn-publish {
+margin-top:20px;
 width:100%;
-padding:10px;
-margin:10px 0;
-}
-
-button{
-padding:15px;
 background:#27ae60;
 color:white;
+padding:15px;
 border:none;
 border-radius:10px;
 cursor:pointer;
 }
 
-/* ========================= */
-/* CHAT PRO */
-/* ========================= */
-
+/* CHAT */
 #chat-widget-button {
 position: fixed;
 bottom: 30px;
@@ -129,56 +146,36 @@ color: white;
 padding: 15px 25px;
 border-radius: 50px;
 cursor: pointer;
-z-index: 9999;
 }
 
 #chat-window {
 position: fixed;
 bottom: 100px;
 right: 30px;
-width: 350px;
-height: 450px;
+width: 300px;
+height: 400px;
 background: white;
 border-radius: 15px;
-display: flex;
+display:none;
 flex-direction: column;
-z-index: 9998;
-
-opacity: 0;
-transform: translateY(20px) scale(0.95);
-pointer-events: none;
-transition: all 0.4s ease;
-}
-
-#chat-window.active {
-opacity: 1;
-transform: translateY(0) scale(1);
-pointer-events: all;
 }
 
 .chat-header {
-background: #1a3022;
-color: white;
-padding: 15px;
+background:#1a3022;
+color:white;
+padding:10px;
 display:flex;
 justify-content:space-between;
 }
 
 .chat-messages {
 flex:1;
-padding:20px;
-overflow-y:auto;
-background:#f9f9f9;
+padding:10px;
+overflow:auto;
 }
 
-.chat-input {
-padding:15px;
+.chat-input{
 display:flex;
-gap:10px;
-}
-
-.chat-input input {
-flex:1;
 }
 
 </style>
@@ -186,18 +183,20 @@ flex:1;
 
 <body>
 
+<!-- HEADER -->
+<div class="header">
+<h2>AgriConnect</h2>
+
+<div class="auth-buttons">
+<a href="login.html" class="btn-login">Se connecter</a>
+<a href="register.html" class="btn-register-agri">Créer un compte</a>
+</div>
+</div>
+
 <!-- HERO -->
 <div class="hero-agriculteurs">
 <h1>Agriculteurs</h1>
 <p>Trouvez les producteurs partout au Sénégal</p>
-<button class="btn-agri-pro">Devenir partenaire</button>
-</div>
-
-<!-- SEARCH -->
-<div class="search-container-pro">
-<div class="search-box">
-<input type="text" id="regionInput" placeholder="Rechercher une région">
-</div>
 </div>
 
 <!-- LIST -->
@@ -206,41 +205,54 @@ flex:1;
 <!-- MAP -->
 <div id="map"></div>
 
-<!-- FORM -->
-<div class="form">
-<h3>Ajouter un agriculteur</h3>
+<!-- ========================= -->
+<!-- PUBLIER PRODUIT -->
+<!-- ========================= -->
 
-<form id="form">
-<input type="text" id="nom" placeholder="Nom" required>
-<input type="text" id="region" placeholder="Région" required>
-<input type="text" id="produits" placeholder="Produits">
-<input type="number" step="any" id="lat" placeholder="Latitude" required>
-<input type="number" step="any" id="lng" placeholder="Longitude" required>
+<section class="add-product-container">
+<div class="vendor-card">
 
-<button type="submit">Ajouter</button>
+<h2>Publier un produit</h2>
+
+<form id="product-form">
+
+<div class="form-main-grid">
+
+<div class="image-upload-zone" onclick="fileInput.click()">
+<input type="file" id="fileInput" hidden>
+<p>Ajouter image</p>
+<img id="imgPreview" style="display:none;width:100%;">
+</div>
+
+<div>
+<input type="text" id="nomProduit" placeholder="Nom produit" required>
+<input type="number" id="prixProduit" placeholder="Prix" required>
+<input type="text" id="quantiteProduit" placeholder="Quantité">
+<textarea id="descProduit" placeholder="Description"></textarea>
+</div>
+
+</div>
+
+<button class="btn-publish">Publier</button>
+
 </form>
-</div>
 
-<!-- ========================= -->
-<!-- CHAT UI -->
-<!-- ========================= -->
-
-<div id="chat-widget-button" onclick="toggleChat()">
-💬 Contacter
 </div>
+</section>
+
+<!-- CHAT -->
+<div id="chat-widget-button" onclick="toggleChat()">Chat</div>
 
 <div id="chat-window">
 <div class="chat-header">
-<span>Chat Agriculteur</span>
-<span onclick="toggleChat()" style="cursor:pointer;">×</span>
+<span>Chat</span>
+<span onclick="toggleChat()">X</span>
 </div>
 
-<div class="chat-messages" id="chatMessages">
-<div class="bot-msg">Bonjour 👋 comment puis-je vous aider ?</div>
-</div>
+<div class="chat-messages" id="chatMessages"></div>
 
 <div class="chat-input">
-<input type="text" id="chatInput" placeholder="Votre message">
+<input id="chatInput">
 <button onclick="sendMessage()">Envoyer</button>
 </div>
 </div>
@@ -265,12 +277,13 @@ const db = firebase.firestore();
 
 <script>
 
+/* MAP */
 var map = L.map('map').setView([14.5, -14.4], 7);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
+/* LOAD AGRICULTEURS */
 db.collection("agriculteurs").onSnapshot(snapshot=>{
-
 let html = "";
 
 snapshot.forEach(doc=>{
@@ -286,46 +299,52 @@ html += `
 `;
 
 if(a.lat && a.lng){
-L.marker([a.lat, a.lng]).addTo(map)
-.bindPopup(a.nom);
+L.marker([a.lat, a.lng]).addTo(map).bindPopup(a.nom);
 }
 
 });
 
 document.getElementById("liste").innerHTML = html;
-
 });
 
-document.getElementById("form").addEventListener("submit", function(e){
+/* IMAGE PREVIEW */
+fileInput.addEventListener("change", e=>{
+const reader = new FileReader();
+reader.onload = ()=>{
+imgPreview.src = reader.result;
+imgPreview.style.display = "block";
+};
+reader.readAsDataURL(e.target.files[0]);
+});
+
+/* ADD PRODUIT */
+document.getElementById("product-form").addEventListener("submit", e=>{
 e.preventDefault();
 
-db.collection("agriculteurs").add({
-nom: nom.value,
-region: region.value,
-produits: produits.value,
-lat: parseFloat(lat.value),
-lng: parseFloat(lng.value)
+db.collection("produits").add({
+nom: nomProduit.value,
+prix: prixProduit.value,
+quantite: quantiteProduit.value,
+description: descProduit.value
 });
 
-alert("Ajout réussi");
-this.reset();
+alert("Produit ajouté !");
 });
 
 /* CHAT */
-function toggleChat() {
-document.getElementById('chat-window').classList.toggle('active');
+function toggleChat(){
+let chat = document.getElementById("chat-window");
+chat.style.display = chat.style.display === "flex" ? "none" : "flex";
 }
 
 function sendMessage(){
 let input = document.getElementById("chatInput");
-let msg = input.value;
-
-if(msg === "") return;
-
 let box = document.getElementById("chatMessages");
 
-box.innerHTML += `<div>${msg}</div>`;
-input.value = "";
+if(input.value==="") return;
+
+box.innerHTML += "<div>"+input.value+"</div>";
+input.value="";
 }
 
 </script>
