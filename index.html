@@ -122,7 +122,7 @@ border-radius:10px;
 box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* IMAGE SECTION */
+/* IMAGE */
 .image-section img{
 width:100%;
 max-width:800px;
@@ -130,16 +130,102 @@ border-radius:10px;
 margin-top:20px;
 }
 
-/* FOOTER FLOTTANT */
-.footer-float{
-position:fixed;
-bottom:0;
+/* ===== FOOTER PRO ===== */
+.main-footer {
+background:#1a3022;
+color:#ecf0f1;
+padding:70px 0 20px;
+}
+
+.footer-container {
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:40px;
+padding:0 5%;
+}
+
+.footer-col h3 span{
+color:#27ae60;
+}
+
+.footer-col h4{
+margin-bottom:20px;
+}
+
+.footer-col p{
+color:#bdc3c7;
+font-size:14px;
+}
+
+.footer-col ul{
+list-style:none;
+padding:0;
+}
+
+.footer-col ul li{
+margin-bottom:10px;
+}
+
+.footer-col ul li a{
+color:#bdc3c7;
+text-decoration:none;
+}
+
+.footer-col ul li a:hover{
+color:#27ae60;
+padding-left:5px;
+}
+
+.newsletter-form{
+display:flex;
+margin-top:10px;
+}
+
+.newsletter-form input{
+padding:10px;
+border:none;
 width:100%;
+}
+
+.newsletter-form button{
 background:#27ae60;
 color:white;
-text-align:center;
+border:none;
 padding:10px;
-font-size:14px;
+cursor:pointer;
+}
+
+.footer-bottom{
+text-align:center;
+margin-top:40px;
+border-top:1px solid rgba(255,255,255,0.1);
+padding-top:15px;
+font-size:13px;
+color:#aaa;
+}
+
+.social-links{
+margin-top:10px;
+display:flex;
+gap:10px;
+}
+
+.social-icon{
+width:35px;
+height:35px;
+background:rgba(255,255,255,0.1);
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+color:white;
+text-decoration:none;
+}
+
+.social-icon:hover{
+background:#27ae60;
 }
 
 </style>
@@ -191,8 +277,8 @@ Commencer maintenant
 <h2>Notre mission</h2>
 
 <p>
-AgriConnect vise à transformer l’agriculture grâce au numérique en facilitant la vente des produits,
-la communication entre acteurs et l’accès aux informations de marché en temps réel.
+Transformer l’agriculture grâce au numérique, faciliter la vente des produits,
+et connecter tous les acteurs du marché agricole.
 </p>
 
 </div>
@@ -206,22 +292,22 @@ la communication entre acteurs et l’accès aux informations de marché en temp
 
 <div class="box">
 <h3>Marché digital</h3>
-<p>Vendez et achetez facilement vos produits agricoles en ligne.</p>
+<p>Vendez et achetez facilement vos produits agricoles.</p>
 </div>
 
 <div class="box">
 <h3>Connexion directe</h3>
-<p>Communiquez avec agriculteurs, entreprises et clients.</p>
+<p>Communiquez avec tous les acteurs agricoles.</p>
 </div>
 
 <div class="box">
 <h3>Prix en temps réel</h3>
-<p>Accédez aux informations du marché agricole instantanément.</p>
+<p>Suivez les prix du marché en direct.</p>
 </div>
 
 <div class="box">
 <h3>Développement économique</h3>
-<p>Augmentez vos revenus grâce à une meilleure visibilité.</p>
+<p>Augmentez vos revenus et votre visibilité.</p>
 </div>
 
 </div>
@@ -237,10 +323,58 @@ la communication entre acteurs et l’accès aux informations de marché en temp
 
 </div>
 
-<!-- FOOTER FLOTTANT -->
-<div class="footer-float">
-AgriConnect 2026 | Contact : elmbayesow09@gmail.com
+<!-- FOOTER PRO -->
+<footer class="main-footer">
+
+<div class="footer-container">
+
+<div class="footer-col">
+<h3>Agri<span>Connect</span></h3>
+<p>Plateforme digitale pour moderniser l’agriculture en Afrique.</p>
+
+<div class="social-links">
+<a href="#" class="social-icon">FB</a>
+<a href="#" class="social-icon">WA</a>
+<a href="#" class="social-icon">IN</a>
 </div>
+</div>
+
+<div class="footer-col">
+<h4>Navigation</h4>
+<ul>
+<li><a href="index.html">Accueil</a></li>
+<li><a href="produits.html">Produits</a></li>
+<li><a href="entreprises.html">Entreprises</a></li>
+<li><a href="prix.html">Marché</a></li>
+</ul>
+</div>
+
+<div class="footer-col">
+<h4>Contact</h4>
+<p>Dakar, Sénégal</p>
+<p>+221 77 000 00 00</p>
+<p>elmbayesow09@gmail.com</p>
+</div>
+
+<div class="footer-col">
+<h4>Newsletter</h4>
+<p>Recevez les prix du marché</p>
+
+<form class="newsletter-form">
+<input type="email" placeholder="Votre email">
+<button>OK</button>
+</form>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 AgriConnect | Contact : 
+<a href="mailto:elmbayesow09@gmail.com" style="color:#27ae60;">
+elmbayesow09@gmail.com
+</div>
+
+</footer>
 
 <script>
 
