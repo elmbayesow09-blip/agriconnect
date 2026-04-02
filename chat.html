@@ -1,66 +1,245 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-<title>Chat</title>
+<meta charset="UTF-8">
+<title>Messagerie - AgriConnect</title>
 
 <style>
-body{font-family:Arial;padding:20px;}
-input{padding:10px;width:70%;}
-button{padding:10px;background:#2e7d32;color:white;border:none;}
-#messages{margin-top:20px;background:#f4f4f4;padding:10px;}
+
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+}
+
+/* CONTAINER */
+.messenger-app {
+    display: flex;
+    height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 300px;
+    background: #f8f9fa;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    position: relative;
+}
+
+.user:hover {
+    background: #eee;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: #27ae60;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    position: relative;
+}
+
+/* STATUT EN LIGNE */
+.avatar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background: #2ecc71;
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+/* CHAT AREA */
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
+.chat-header {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    background: white;
+}
+
+/* MESSAGES */
+.message-feed {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.msg {
+    margin-bottom: 15px;
+    padding: 12px 18px;
+    border-radius: 15px;
+    max-width: 70%;
+    animation: popIn 0.3s ease-out;
+}
+
+.received {
+    background: #eaeaea;
+    align-self: flex-start;
+}
+
+.sent {
+    background: #27ae60;
+    color: white;
+    align-self: flex-end;
+}
+
+/* INPUT */
+.message-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    background: white;
+}
+
+.message-input input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.message-input button {
+    margin-left: 10px;
+    padding: 12px 20px;
+    border: none;
+    background: #27ae60;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+/* ANIMATION */
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>Messagerie</h1>
+<div class="messenger-app">
 
-<input id="msg" placeholder="Écris un message">
-<button onclick="envoyer()">Envoyer</button>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">Discussions</div>
 
-<div id="messages"></div>
+        <div class="user">
+            <div class="avatar">MD</div>
+            <div>
+                <b>Modou Diop</b><br>
+                <small>En ligne</small>
+            </div>
+        </div>
 
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-<script src="firebase.js"></script>
+    </div>
+
+    <!-- CHAT -->
+    <div class="chat-area">
+
+        <div class="chat-header">
+            <h3>Modou Diop</h3>
+        </div>
+
+        <div class="message-feed" id="feed">
+            <div class="msg received">Bonjour, le prix est-il négociable ?</div>
+        </div>
+
+        <div class="message-input">
+            <input type="text" id="msgInput" placeholder="Écrire un message...">
+            <button onclick="sendMessage()">Envoyer</button>
+        </div>
+
+    </div>
+
+</div>
 
 <script>
 
-// 🔹 ENVOYER MESSAGE
-function envoyer(){
+/* SON NOTIFICATION */
+const notificationSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2354/2354-preview.mp3");
 
-let user = localStorage.getItem("user") || "Anonyme";
-let msg = document.getElementById("msg").value;
+/* ENVOYER MESSAGE */
+function sendMessage() {
+    const input = document.getElementById("msgInput");
+    const feed = document.getElementById("feed");
 
-if(msg === "") return;
+    if (input.value.trim() !== "") {
 
-db.collection("messages").add({
-user: user,
-message: msg,
-date: new Date()
-});
+        const msg = document.createElement("div");
+        msg.className = "msg sent";
+        msg.textContent = input.value;
 
-document.getElementById("msg").value = "";
+        feed.appendChild(msg);
 
+        feed.scrollTop = feed.scrollHeight;
+
+        input.value = "";
+
+        /* SIMULATION REPONSE */
+        setTimeout(() => {
+            receiveMessage("Merci pour votre message. Réponse en cours...");
+        }, 1500);
+    }
 }
 
-// 🔹 AFFICHER MESSAGES EN DIRECT
-db.collection("messages")
-.orderBy("date")
-.onSnapshot(snapshot=>{
+/* RECEVOIR MESSAGE */
+function receiveMessage(text) {
+    const feed = document.getElementById("feed");
 
-let html = "";
+    const msg = document.createElement("div");
+    msg.className = "msg received";
+    msg.textContent = text;
 
-snapshot.forEach(doc=>{
-let m = doc.data();
+    feed.appendChild(msg);
 
-html += "<p><b>"+m.user+"</b> : "+m.message+"</p>";
-});
+    /* SON */
+    notificationSound.play();
 
-document.getElementById("messages").innerHTML = html;
+    /* SCROLL */
+    feed.scrollTop = feed.scrollHeight;
 
-});
+    /* NOTIFICATION ONGLET */
+    const oldTitle = document.title;
+    document.title = "Nouveau message";
+
+    setTimeout(() => {
+        document.title = oldTitle;
+    }, 3000);
+}
 
 </script>
 
