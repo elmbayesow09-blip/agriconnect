@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>Messagerie - AgriConnect</title>
 
+<!-- CHART JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
 
 /* GLOBAL */
@@ -39,7 +42,6 @@ body {
     align-items: center;
     padding: 15px;
     cursor: pointer;
-    position: relative;
 }
 
 .user:hover {
@@ -59,7 +61,7 @@ body {
     position: relative;
 }
 
-/* STATUT EN LIGNE */
+/* ONLINE */
 .avatar::after {
     content: '';
     position: absolute;
@@ -100,7 +102,6 @@ body {
     padding: 12px 18px;
     border-radius: 15px;
     max-width: 70%;
-    animation: popIn 0.3s ease-out;
 }
 
 .received {
@@ -127,7 +128,6 @@ body {
     padding: 12px;
     border-radius: 25px;
     border: 1px solid #ccc;
-    outline: none;
 }
 
 .message-input button {
@@ -140,10 +140,81 @@ body {
     cursor: pointer;
 }
 
-/* ANIMATION */
-@keyframes popIn {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+/* ===== PROFIL AGRICULTEUR ===== */
+.farmer-profile {
+    background: #f4f7f6;
+    padding: 20px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+/* HERO */
+.hero {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.avatar-large {
+    width: 80px;
+    height: 80px;
+    background: #27ae60;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+}
+
+.badge {
+    background: #27ae60;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+/* STATS */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat h2 {
+    margin: 5px 0;
+    color: #27ae60;
+}
+
+/* SWITCH BUTTON */
+.switch-btn {
+    margin-top: 10px;
+    padding: 10px;
+    background: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 90%;
+    margin-left: 5%;
+    border-radius: 10px;
 }
 
 </style>
@@ -165,10 +236,13 @@ body {
             </div>
         </div>
 
+        <button class="switch-btn" onclick="showProfile()">Voir Profil</button>
+        <button class="switch-btn" onclick="showChat()">Voir Chat</button>
+
     </div>
 
     <!-- CHAT -->
-    <div class="chat-area">
+    <div class="chat-area" id="chat">
 
         <div class="chat-header">
             <h3>Modou Diop</h3>
@@ -179,8 +253,51 @@ body {
         </div>
 
         <div class="message-input">
-            <input type="text" id="msgInput" placeholder="Écrire un message...">
+            <input type="text" id="msgInput" placeholder="Message...">
             <button onclick="sendMessage()">Envoyer</button>
+        </div>
+
+    </div>
+
+    <!-- PROFIL -->
+    <div class="chat-area" id="profile" style="display:none;">
+
+        <div class="farmer-profile">
+
+            <div class="hero">
+                <div class="profile-info">
+                    <div class="avatar-large">MD</div>
+                    <div>
+                        <h2>Modou Diop <span class="badge">Vérifié</span></h2>
+                        <p>Dakar</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <p>Produits vendus</p>
+                    <h2>1240 kg</h2>
+                </div>
+
+                <div class="stat">
+                    <p>Note</p>
+                    <h2>4.9 /5</h2>
+                </div>
+
+                <div class="stat">
+                    <p>Réponse</p>
+                    <h2>98%</h2>
+                </div>
+
+                <div class="stat">
+                    <p>Commandes</p>
+                    <h2>156</h2>
+                </div>
+            </div>
+
+            <canvas id="chart"></canvas>
+
         </div>
 
     </div>
@@ -189,57 +306,44 @@ body {
 
 <script>
 
-/* SON NOTIFICATION */
-const notificationSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2354/2354-preview.mp3");
+/* SWITCH */
+function showProfile() {
+    document.getElementById("chat").style.display = "none";
+    document.getElementById("profile").style.display = "flex";
+}
 
-/* ENVOYER MESSAGE */
+function showChat() {
+    document.getElementById("chat").style.display = "flex";
+    document.getElementById("profile").style.display = "none";
+}
+
+/* MESSAGE */
 function sendMessage() {
     const input = document.getElementById("msgInput");
     const feed = document.getElementById("feed");
 
-    if (input.value.trim() !== "") {
-
+    if(input.value !== "") {
         const msg = document.createElement("div");
         msg.className = "msg sent";
         msg.textContent = input.value;
-
         feed.appendChild(msg);
-
-        feed.scrollTop = feed.scrollHeight;
-
         input.value = "";
-
-        /* SIMULATION REPONSE */
-        setTimeout(() => {
-            receiveMessage("Merci pour votre message. Réponse en cours...");
-        }, 1500);
     }
 }
 
-/* RECEVOIR MESSAGE */
-function receiveMessage(text) {
-    const feed = document.getElementById("feed");
+/* GRAPH */
+const ctx = document.getElementById('chart');
 
-    const msg = document.createElement("div");
-    msg.className = "msg received";
-    msg.textContent = text;
-
-    feed.appendChild(msg);
-
-    /* SON */
-    notificationSound.play();
-
-    /* SCROLL */
-    feed.scrollTop = feed.scrollHeight;
-
-    /* NOTIFICATION ONGLET */
-    const oldTitle = document.title;
-    document.title = "Nouveau message";
-
-    setTimeout(() => {
-        document.title = oldTitle;
-    }, 3000);
-}
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'],
+        datasets: [{
+            data: [400, 600, 800, 700, 1200],
+            backgroundColor: '#27ae60'
+        }]
+    }
+});
 
 </script>
 
