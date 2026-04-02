@@ -1,66 +1,227 @@
-<!DOCTYPE html> 
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Prix agricoles</title>
+<title>Marché Agricole</title>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body{font-family:Arial;background:#f4f4f4;padding:20px;}
-.card{background:white;padding:15px;margin-bottom:10px;border-radius:10px;}
-button{margin-top:5px;background:#2e7d32;color:white;border:none;padding:5px;}
+
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+}
+
+/* HERO */
+.market-hero {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(120deg, #1e3c72, #2a5298);
+    color: white;
+}
+
+/* CARTES */
+.market-trends {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+.trend-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-left: 5px solid #ccc;
+}
+
+.trend-card.up { border-left-color: green; }
+.trend-card.down { border-left-color: red; }
+
+.price-value {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+/* GRID */
+.market-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #eee;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* BADGE */
+.badge {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.up { background: #d4edda; color: green; }
+.down { background: #f8d7da; color: red; }
+.stable { background: #e2e3e5; color: gray; }
+
+/* SEARCH */
+#search {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+    .market-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>📈 Marché agricole (modification possible)</h1>
+<!-- HERO -->
+<div class="market-hero">
+    <h1>Marché Agricole en Temps Réel</h1>
+    <p>Analyse des prix agricoles dans tout le pays</p>
+</div>
 
-<div id="liste"></div>
+<!-- CARTES -->
+<div class="market-trends">
 
-<script src="firebase.js"></script>
+    <div class="trend-card up">
+        <div>Oignon</div>
+        <div class="price-value">450 FCFA</div>
+        <small>+5%</small>
+    </div>
 
+    <div class="trend-card down">
+        <div>Riz</div>
+        <div class="price-value">325 FCFA</div>
+        <small>-2%</small>
+    </div>
+
+    <div class="trend-card">
+        <div>Pomme de terre</div>
+        <div class="price-value">500 FCFA</div>
+        <small>Stable</small>
+    </div>
+
+</div>
+
+<!-- GRID -->
+<div class="market-grid">
+
+    <!-- GRAPH -->
+    <div class="card">
+        <h3>Évolution des prix</h3>
+        <canvas id="chart"></canvas>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card">
+        <h3>Prix par région</h3>
+
+        <input type="text" id="search" placeholder="Rechercher..." onkeyup="searchTable()">
+
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Région</th>
+                    <th>Prix</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>Mil</td>
+                    <td>Kaolack</td>
+                    <td>275</td>
+                    <td><span class="badge stable">Stable</span></td>
+                </tr>
+
+                <tr>
+                    <td>Maïs</td>
+                    <td>Tamba</td>
+                    <td>300</td>
+                    <td><span class="badge up">Hausse</span></td>
+                </tr>
+
+                <tr>
+                    <td>Tomate</td>
+                    <td>Thiès</td>
+                    <td>600</td>
+                    <td><span class="badge down">Baisse</span></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- JS -->
 <script>
-const liste = document.getElementById("liste");
 
-// ⚠️ SIMULATION utilisateur connecté
-let utilisateur = localStorage.getItem("user") || "Mamadou";
+// GRAPH
+const ctx = document.getElementById('chart');
 
-db.collection("produits").onSnapshot(snapshot => {
-    liste.innerHTML = "";
-
-    snapshot.forEach(doc => {
-        const p = doc.data();
-
-        let html = `
-        <div class="card">
-        🌾 <b>${p.nom}</b><br>
-        💰 ${p.prix} FCFA<br>
-        👨‍🌾 ${p.vendeur}
-        `;
-
-        // 🔥 SI c’est le propriétaire → bouton modifier
-        if(p.vendeur === utilisateur){
-            html += `
-            <br><input id="prix-${doc.id}" placeholder="Nouveau prix">
-            <button onclick="modifier('${doc.id}')">Modifier</button>
-            `;
-        }
-
-        html += `</div>`;
-
-        liste.innerHTML += html;
-    });
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'],
+        datasets: [{
+            label: 'Prix Oignon',
+            data: [400, 420, 450, 430, 450],
+            borderColor: 'green',
+            fill: true,
+            backgroundColor: 'rgba(0,128,0,0.1)'
+        }]
+    }
 });
 
-// 🔥 fonction modifier
-function modifier(id){
-    let nouveau = document.getElementById("prix-"+id).value;
+// SEARCH
+function searchTable() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let rows = document.querySelectorAll("#table tbody tr");
 
-    db.collection("produits").doc(id).update({
-        prix: parseInt(nouveau)
-    })
-    .then(()=> alert("✅ Prix modifié"));
+    rows.forEach(row => {
+        let text = row.textContent.toLowerCase();
+        row.style.display = text.includes(input) ? "" : "none";
+    });
 }
+
 </script>
 
 </body>
