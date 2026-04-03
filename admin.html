@@ -1,30 +1,241 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-<title>Admin</title>
-<style>
-body{font-family:Arial;background:#f4f4f4;padding:20px;}
-</style>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - AgriConnect</title>
 
+<style>
+:root {
+    --primary: #27ae60;
+    --dark-bg: #1e293b;
+    --light-bg: #f8fafc;
+    --text-main: #334155;
+}
+
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--light-bg);
+}
+
+/* LAYOUT */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.admin-sidebar {
+    width: 260px;
+    background: var(--dark-bg);
+    color: white;
+    padding: 20px;
+}
+
+.sidebar-brand h2 span {
+    color: var(--primary);
+}
+
+.nav-link {
+    display: block;
+    padding: 12px;
+    color: #94a3b8;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(39,174,96,0.2);
+    color: white;
+}
+
+/* CONTENT */
+.admin-content {
+    flex: 1;
+    padding: 30px;
+}
+
+/* HEADER */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+/* KPI */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 20px;
+}
+
+.kpi-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.kpi-value {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* TABLE */
+.card-pro {
+    background: white;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.pending { background: orange; color: white; }
+.success { background: green; color: white; }
+
+/* SETTINGS */
+.settings-container {
+    margin-top: 30px;
+}
+
+.input-pro {
+    padding: 8px;
+    width: 80px;
+}
+
+.btn-save {
+    background: var(--primary);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+</style>
+
+</head>
 <body>
 
-<h1>Administration</h1>
+<div class="admin-wrapper">
 
-<h2>Commandes</h2>
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-brand">
+            <h2>Agri<span>Admin</span></h2>
+        </div>
 
-<div id="liste"></div>
+        <a href="#" class="nav-link active" onclick="showSection('dashboard')">Tableau de bord</a>
+        <a href="#" class="nav-link" onclick="showSection('commandes')">Commandes</a>
+        <a href="#" class="nav-link" onclick="showSection('produits')">Produits</a>
+        <a href="#" class="nav-link" onclick="showSection('parametres')">Paramètres</a>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="admin-content">
+
+        <header class="content-header">
+            <h1>Administration</h1>
+            <span>Admin : El Hadji</span>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard">
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div>Ventes du jour</div>
+                    <div class="kpi-value">145.000 FCFA</div>
+                </div>
+                <div class="kpi-card">
+                    <div>Commandes</div>
+                    <div class="kpi-value">12</div>
+                </div>
+                <div class="kpi-card">
+                    <div>Stock faible</div>
+                    <div class="kpi-value">3</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMMANDES -->
+        <section id="commandes" style="display:none;">
+            <div class="card-pro">
+                <h3>Commandes</h3>
+                <table class="admin-table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Client</th>
+                        <th>Produit</th>
+                        <th>Statut</th>
+                    </tr>
+                    <tr>
+                        <td>#1</td>
+                        <td>Fatou</td>
+                        <td>Riz</td>
+                        <td><span class="status pending">En attente</span></td>
+                    </tr>
+                    <tr>
+                        <td>#2</td>
+                        <td>Mamadou</td>
+                        <td>Maïs</td>
+                        <td><span class="status success">Livré</span></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- PRODUITS -->
+        <section id="produits" style="display:none;">
+            <div class="card-pro">
+                <h3>Produits</h3>
+                <p>Liste des produits ici (Firebase plus tard)</p>
+            </div>
+        </section>
+
+        <!-- PARAMETRES -->
+        <section id="parametres" style="display:none;">
+            <div class="settings-container card-pro">
+                <h3>Paramètres</h3>
+
+                <label>Commission (%)</label><br>
+                <input type="number" id="commission" class="input-pro" value="5"><br>
+
+                <button class="btn-save" onclick="saveSettings()">Enregistrer</button>
+            </div>
+        </section>
+
+    </main>
+
+</div>
 
 <script>
-let commandes = JSON.parse(localStorage.getItem("commandes")) || [];
+function showSection(section) {
+    document.querySelectorAll("main section").forEach(s => s.style.display = "none");
+    document.getElementById(section).style.display = "block";
+}
 
-let html = "";
+function saveSettings() {
+    const commission = document.getElementById("commission").value;
 
-commandes.forEach(c=>{
-html += "<p>"+c.produit+" - "+c.prix+" FCFA</p>";
-});
-
-document.getElementById("liste").innerHTML = html;
+    alert("Commission mise à jour : " + commission + "%");
+}
 </script>
 
 </body>
