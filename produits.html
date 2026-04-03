@@ -1,36 +1,282 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-<title>Profil</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestion des Produits - Agriconnect</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+}
+
+/* HEADER */
+.page-header {
+    padding: 30px;
+    text-align: center;
+}
+.page-header h1 {
+    margin: 0;
+    color: #1e293b;
+}
+.page-header p {
+    color: #64748b;
+}
+
+/* CONTAINER */
+.produits-container {
+    padding: 20px 5%;
+}
+
+/* CARD FORM */
+.card-pro {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+/* FORM GRID */
+.grid-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.input-group label {
+    font-weight: bold;
+    font-size: 14px;
+}
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* BUTTON */
+.btn-add-stock {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* GRID PRODUITS */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* CARD PRODUIT */
+.product-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.product-details {
+    padding: 15px;
+}
+.product-details h4 {
+    margin: 5px 0;
+}
+.cat-badge {
+    background: #dcfce7;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+.price-tag {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* ACTION BUTTONS */
+.product-actions {
+    display: flex;
+    gap: 10px;
+    padding: 10px 15px 15px;
+}
+
+.btn-edit {
+    flex: 1;
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-delete {
+    flex: 1;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
-<h1>Mon profil</h1>
+<section class="produits-container">
 
-<input id="nom" placeholder="Ton nom">
-<input id="role" placeholder="agriculteur ou acheteur">
-<input id="photo" placeholder="lien image">
+<header class="page-header">
+    <h1>Gestion des Produits</h1>
+    <p>Ajoutez, modifiez et gérez vos produits agricoles</p>
+</header>
 
-<button onclick="save()">Enregistrer</button>
+<div class="card-pro">
+    <h3 id="formTitle">Ajouter un produit</h3>
 
-<script src="firebase.js"></script>
+    <form id="productForm" class="grid-form">
+        <input type="hidden" id="editIndex" value="-1">
+
+        <div class="input-group">
+            <label>Nom</label>
+            <input type="text" id="pName" required>
+        </div>
+
+        <div class="input-group">
+            <label>Catégorie</label>
+            <select id="pCategory">
+                <option>Légumes</option>
+                <option>Fruits</option>
+                <option>Céréales</option>
+                <option>Tubercule</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>Prix (FCFA)</label>
+            <input type="number" id="pPrice" required>
+        </div>
+
+        <div class="input-group">
+            <label>Image URL</label>
+            <input type="text" id="pImage">
+        </div>
+
+        <button type="submit" class="btn-add-stock" id="submitBtn">
+            Enregistrer
+        </button>
+    </form>
+</div>
+
+<div class="products-grid" id="productsGrid"></div>
+
+</section>
 
 <script>
 
-function save(){
+let mesProduits = [
+    {
+        name: "Oignon Rouge",
+        cat: "Légumes",
+        price: 450,
+        img: "https://images.unsplash.com/photo-1508747703725-719777637510?w=400"
+    },
+    {
+        name: "Mangue",
+        cat: "Fruits",
+        price: 1000,
+        img: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=400"
+    }
+];
 
-let user = localStorage.getItem("user");
+const grid = document.getElementById("productsGrid");
 
-db.collection("users").doc(user).set({
-nom: document.getElementById("nom").value,
-role: document.getElementById("role").value,
-photo: document.getElementById("photo").value
+function afficherProduits() {
+    grid.innerHTML = mesProduits.map((p, index) => `
+        <div class="product-card">
+            <img src="${p.img}" class="product-img">
+            <div class="product-details">
+                <span class="cat-badge">${p.cat}</span>
+                <h4>${p.name}</h4>
+                <div class="price-tag">${p.price} FCFA</div>
+            </div>
+            <div class="product-actions">
+                <button class="btn-edit" onclick="preparerModif(${index})">Modifier</button>
+                <button class="btn-delete" onclick="supprimerProduit(${index})">Supprimer</button>
+            </div>
+        </div>
+    `).join("");
+}
+
+/* SUPPRIMER */
+function supprimerProduit(index) {
+    if(confirm("Supprimer ce produit ?")) {
+        mesProduits.splice(index, 1);
+        afficherProduits();
+    }
+}
+
+/* MODIFIER */
+function preparerModif(index) {
+    let p = mesProduits[index];
+
+    document.getElementById("pName").value = p.name;
+    document.getElementById("pCategory").value = p.cat;
+    document.getElementById("pPrice").value = p.price;
+    document.getElementById("pImage").value = p.img;
+
+    document.getElementById("editIndex").value = index;
+
+    document.getElementById("formTitle").textContent = "Modifier produit";
+    document.getElementById("submitBtn").textContent = "Mettre à jour";
+
+    window.scrollTo(0,0);
+}
+
+/* AJOUT / UPDATE */
+document.getElementById("productForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let index = document.getElementById("editIndex").value;
+
+    let produit = {
+        name: document.getElementById("pName").value,
+        cat: document.getElementById("pCategory").value,
+        price: document.getElementById("pPrice").value,
+        img: document.getElementById("pImage").value || "https://via.placeholder.com/400"
+    };
+
+    if(index == -1) {
+        mesProduits.unshift(produit);
+    } else {
+        mesProduits[index] = produit;
+        document.getElementById("editIndex").value = -1;
+        document.getElementById("formTitle").textContent = "Ajouter un produit";
+        document.getElementById("submitBtn").textContent = "Enregistrer";
+    }
+
+    afficherProduits();
+    this.reset();
 });
 
-alert("Profil enregistré");
-
-}
+afficherProduits();
 
 </script>
 
