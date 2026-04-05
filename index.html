@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr"> 
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <title>AgriConnect</title>
@@ -36,7 +36,8 @@ color:#27ae60;
 .nav-links{
 list-style:none;
 display:flex;
-gap:25px;
+gap:20px;
+flex-wrap:wrap;
 }
 
 .nav-links a{
@@ -49,34 +50,6 @@ font-weight:500;
 color:#27ae60;
 }
 
-.nav-contact{
-border:2px solid #27ae60;
-padding:8px 20px;
-border-radius:50px;
-color:#27ae60;
-}
-
-/* MOBILE */
-.menu-toggle{
-display:none;
-font-size:25px;
-cursor:pointer;
-}
-
-@media(max-width:768px){
-.nav-links{
-position:absolute;
-top:70px;
-left:0;
-width:100%;
-background:white;
-flex-direction:column;
-display:none;
-}
-.nav-links.active{display:flex;}
-.menu-toggle{display:block;}
-}
-
 /* HERO */
 .hero{
 text-align:center;
@@ -85,10 +58,6 @@ background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
 url('https://images.unsplash.com/photo-1500382017468-9049fed747ef');
 background-size:cover;
 color:white;
-}
-
-.hero h1{
-font-size:36px;
 }
 
 .btn-primary{
@@ -103,7 +72,7 @@ margin-top:15px;
 
 /* SECTION */
 .section{
-padding:50px 20px;
+padding:60px 20px;
 text-align:center;
 }
 
@@ -122,110 +91,85 @@ border-radius:10px;
 box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* IMAGE */
-.image-section img{
-width:100%;
-max-width:800px;
-border-radius:10px;
-margin-top:20px;
-}
-
-/* ===== FOOTER PRO ===== */
-.main-footer {
-background:#1a3022;
-color:#ecf0f1;
-padding:70px 0 20px;
-}
-
-.footer-container {
-max-width:1200px;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:40px;
-padding:0 5%;
-}
-
-.footer-col h3 span{
-color:#27ae60;
-}
-
-.footer-col h4{
-margin-bottom:20px;
-}
-
-.footer-col p{
-color:#bdc3c7;
-font-size:14px;
-}
-
-.footer-col ul{
-list-style:none;
-padding:0;
-}
-
-.footer-col ul li{
-margin-bottom:10px;
-}
-
-.footer-col ul li a{
-color:#bdc3c7;
-text-decoration:none;
-}
-
-.footer-col ul li a:hover{
-color:#27ae60;
-padding-left:5px;
-}
-
-.newsletter-form{
+/* ===== STATS ===== */
+.impact-stats{
 display:flex;
-margin-top:10px;
+justify-content:space-around;
+flex-wrap:wrap;
+padding:60px;
+background:white;
 }
 
-.newsletter-form input{
-padding:10px;
-border:none;
-width:100%;
-}
-
-.newsletter-form button{
-background:#27ae60;
-color:white;
-border:none;
-padding:10px;
-cursor:pointer;
-}
-
-.footer-bottom{
+.stat{
 text-align:center;
-margin-top:40px;
-border-top:1px solid rgba(255,255,255,0.1);
-padding-top:15px;
-font-size:13px;
-color:#aaa;
+margin:20px;
 }
 
-.social-links{
-margin-top:10px;
-display:flex;
-gap:10px;
+.counter{
+font-size:35px;
+font-weight:bold;
+color:#27ae60;
 }
 
-.social-icon{
-width:35px;
-height:35px;
-background:rgba(255,255,255,0.1);
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-color:white;
-text-decoration:none;
+/* ===== PRODUITS ===== */
+.trending{
+padding:50px;
 }
 
-.social-icon:hover{
+.card{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+}
+
+/* ===== TESTIMONIAL ===== */
+.testimonial{
 background:#27ae60;
+color:white;
+padding:40px;
+}
+
+/* ===== PARTNERS ===== */
+.partners{
+padding:40px;
+background:#eee;
+display:flex;
+justify-content:space-around;
+flex-wrap:wrap;
+}
+
+/* ===== POPUP ===== */
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.popup-box{
+background:white;
+padding:30px;
+border-radius:10px;
+text-align:center;
+}
+
+/* FOOTER */
+footer{
+background:#1a3022;
+color:white;
+padding:20px;
+text-align:center;
 }
 
 </style>
@@ -235,155 +179,138 @@ background:#27ae60;
 
 <!-- NAV -->
 <nav>
-
 <div class="logo">AgriConnect</div>
 
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-<ul class="nav-links" id="menu">
+<ul class="nav-links">
 
 <li><a href="index.html">Accueil</a></li>
 <li><a href="produits.html">Produits</a></li>
+<li><a href="acheter.html">Acheter</a></li>
 <li><a href="entreprises.html">Entreprises</a></li>
 <li><a href="prix.html">Marché</a></li>
 <li><a href="chat.html">Messagerie</a></li>
-<li><a href="admin.html">Admin</a></li>
-
-<li><a href="contact.html" class="nav-contact">Contact</a></li>
+<li><a href="notifications.html">Notifications</a></li>
+<li><a href="commandes.html">Commandes</a></li>
+<li><a href="assistant.html">Assistant IA</a></li>
+<li><a href="admin.html">Administration</a></li>
+<li><a href="login.html">Connexion</a></li>
+<li><a href="inscription.html">Inscription</a></li>
 
 </ul>
-
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-
 <h1>Digitaliser l’agriculture en Afrique</h1>
-
-<p>
-Une plateforme innovante qui connecte agriculteurs, entreprises et acheteurs
-pour moderniser le secteur agricole.
-</p>
-
-<button class="btn-primary" onclick="go('inscription.html')">
-Commencer maintenant
-</button>
-
+<p>Une plateforme moderne pour agriculteurs, entreprises et acheteurs</p>
+<button class="btn-primary" onclick="go('inscription.html')">Commencer</button>
 </div>
 
-<!-- OBJECTIF -->
+<!-- MISSION -->
 <div class="section">
-
 <h2>Notre mission</h2>
-
-<p>
-Transformer l’agriculture grâce au numérique, faciliter la vente des produits,
-et connecter tous les acteurs du marché agricole.
-</p>
-
+<p>Faciliter la vente, connecter les acteurs et moderniser l'agriculture.</p>
 </div>
 
-<!-- AVANTAGES -->
-<div class="section">
+<!-- STATS -->
+<div class="impact-stats">
+<div class="stat">
+<span class="counter" data-target="5000">0</span>
+<p>Agriculteurs</p>
+</div>
 
-<h2>Pourquoi choisir AgriConnect ?</h2>
+<div class="stat">
+<span class="counter" data-target="120">0</span>
+<p>Entreprises</p>
+</div>
+
+<div class="stat">
+<span class="counter" data-target="450000">0</span>
+<p>Produits vendus</p>
+</div>
+</div>
+
+<!-- PRODUITS -->
+<div class="trending">
+<h2>Produits en vedette</h2>
 
 <div class="grid">
 
-<div class="box">
-<h3>Marché digital</h3>
-<p>Vendez et achetez facilement vos produits agricoles.</p>
+<div class="card">
+<img src="https://via.placeholder.com/300">
+<h3>Oignon</h3>
+<p>350 FCFA/kg</p>
 </div>
 
-<div class="box">
-<h3>Connexion directe</h3>
-<p>Communiquez avec tous les acteurs agricoles.</p>
-</div>
-
-<div class="box">
-<h3>Prix en temps réel</h3>
-<p>Suivez les prix du marché en direct.</p>
-</div>
-
-<div class="box">
-<h3>Développement économique</h3>
-<p>Augmentez vos revenus et votre visibilité.</p>
+<div class="card">
+<img src="https://via.placeholder.com/300">
+<h3>Riz</h3>
+<p>450 FCFA/kg</p>
 </div>
 
 </div>
-
 </div>
 
-<!-- IMAGE -->
-<div class="section image-section">
-
-<h2>L’agriculture de demain</h2>
-
-<img src="https://images.unsplash.com/photo-1560493676-04071c5f467b">
-
+<!-- TESTIMONIAL -->
+<div class="testimonial">
+<p>"Grâce à AgriConnect j’ai doublé mes ventes."</p>
+<strong>Producteur Sénégal</strong>
 </div>
 
-<!-- FOOTER PRO -->
-<footer class="main-footer">
+<!-- PARTENAIRES -->
+<div class="partners">
+<p>USSEIN</p>
+<p>FAO</p>
+<p>Ministère Agriculture</p>
+</div>
 
-<div class="footer-container">
-
-<div class="footer-col">
-<h3>Agri<span>Connect</span></h3>
-<p>Plateforme digitale pour moderniser l’agriculture en Afrique.</p>
-
-<div class="social-links">
-<a href="#" class="social-icon">FB</a>
-<a href="#" class="social-icon">WA</a>
-<a href="#" class="social-icon">IN</a>
+<!-- POPUP -->
+<div class="popup" id="popup">
+<div class="popup-box">
+<h3>Recevez les prix du marché</h3>
+<input type="email" placeholder="Votre email"><br><br>
+<button onclick="closePopup()">Valider</button>
 </div>
 </div>
 
-<div class="footer-col">
-<h4>Navigation</h4>
-<ul>
-<li><a href="index.html">Accueil</a></li>
-<li><a href="produits.html">Produits</a></li>
-<li><a href="entreprises.html">Entreprises</a></li>
-<li><a href="prix.html">Marché</a></li>
-</ul>
-</div>
-
-<div class="footer-col">
-<h4>Contact</h4>
-<p>Dakar, Sénégal</p>
-<p>+221 78 182 91 59</p>
-<p>elmbayesow09@gmail.com</p>
-</div>
-
-<div class="footer-col">
-<h4>Newsletter</h4>
-<p>Recevez les prix du marché</p>
-
-<form class="newsletter-form">
-<input type="email" placeholder="Votre email">
-<button>OK</button>
-</form>
-</div>
-
-</div>
-
-<div class="footer-bottom">
-© 2026 AgriConnect | Contact : 
-<a href="mailto:elmbayesow09@gmail.com" style="color:#27ae60;">
-elmbayesow09@gmail.com
-</div>
-
+<!-- FOOTER -->
+<footer>
+<p>Contact : elmbayesow09@gmail.com</p>
 </footer>
 
 <script>
 
-function toggleMenu(){
-document.getElementById("menu").classList.toggle("active");
-}
-
+/* NAVIGATION */
 function go(page){
 window.location.href = page;
+}
+
+/* COMPTEURS */
+const counters = document.querySelectorAll('.counter');
+
+counters.forEach(counter=>{
+const update = ()=>{
+const target = +counter.getAttribute('data-target');
+const count = +counter.innerText;
+const inc = target / 100;
+
+if(count < target){
+counter.innerText = Math.ceil(count + inc);
+setTimeout(update, 20);
+}else{
+counter.innerText = target;
+}
+};
+update();
+});
+
+/* POPUP */
+setTimeout(()=>{
+document.getElementById("popup").style.display="flex";
+},4000);
+
+function closePopup(){
+document.getElementById("popup").style.display="none";
 }
 
 </script>
