@@ -1,223 +1,241 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head> 
+<html lang="fr"> 
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Admin | AgriConnect</title>
+<title>Admin - AgriConnect</title>
 
 <style>
-
-:root{
---green:#27ae60;
---dark:#1e293b;
---bg:#f4f6f9;
+:root {
+    --primary: #27ae60;
+    --dark-bg: #1e293b;
+    --light-bg: #f8fafc;
+    --text-main: #334155;
 }
 
 /* GLOBAL */
-body{
-margin:0;
-font-family:Arial;
-background:var(--bg);
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--light-bg);
+}
+
+/* LAYOUT */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.admin-sidebar {
+    width: 260px;
+    background: var(--dark-bg);
+    color: white;
+    padding: 20px;
+}
+
+.sidebar-brand h2 span {
+    color: var(--primary);
+}
+
+.nav-link {
+    display: block;
+    padding: 12px;
+    color: #94a3b8;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(39,174,96,0.2);
+    color: white;
+}
+
+/* CONTENT */
+.admin-content {
+    flex: 1;
+    padding: 30px;
 }
 
 /* HEADER */
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:white;
-padding:15px 20px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
 }
 
-/* USER BAR */
-.user{
-display:flex;
-align-items:center;
-gap:15px;
+/* KPI */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 20px;
 }
 
-/* BUTTON */
-button{
-background:var(--green);
-color:white;
-border:none;
-padding:10px 15px;
-border-radius:8px;
-cursor:pointer;
+.kpi-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-button:hover{
-background:#219150;
+.kpi-value {
+    font-size: 22px;
+    font-weight: bold;
 }
 
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:20px;
-padding:20px;
+/* TABLE */
+.card-pro {
+    background: white;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-/* CARD */
-.card{
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-text-align:center;
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-/* TOAST */
-.toast{
-position:fixed;
-top:20px;
-right:-300px;
-background:white;
-padding:15px 20px;
-border-left:5px solid var(--green);
-box-shadow:0 5px 20px rgba(0,0,0,0.2);
-transition:0.4s;
+.admin-table th,
+.admin-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
-.toast.show{
-right:20px;
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
 }
 
+.pending { background: orange; color: white; }
+.success { background: green; color: white; }
+
+/* SETTINGS */
+.settings-container {
+    margin-top: 30px;
+}
+
+.input-pro {
+    padding: 8px;
+    width: 80px;
+}
+
+.btn-save {
+    background: var(--primary);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
 </style>
-</head>
 
+</head>
 <body>
 
-<!-- HEADER -->
-<div class="header">
+<div class="admin-wrapper">
 
-<h2>Dashboard Admin</h2>
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-brand">
+            <h2>Agri<span>Admin</span></h2>
+        </div>
 
-<div class="user">
-<span id="userEmail">Chargement...</span>
-<button onclick="logout()">Déconnexion</button>
+        <a href="#" class="nav-link active" onclick="showSection('dashboard')">Tableau de bord</a>
+        <a href="#" class="nav-link" onclick="showSection('commandes')">Commandes</a>
+        <a href="#" class="nav-link" onclick="showSection('produits')">Produits</a>
+        <a href="#" class="nav-link" onclick="showSection('parametres')">Paramètres</a>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="admin-content">
+
+        <header class="content-header">
+            <h1>Administration</h1>
+            <span>Admin : El Hadji</span>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard">
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div>Ventes du jour</div>
+                    <div class="kpi-value">145.000 FCFA</div>
+                </div>
+                <div class="kpi-card">
+                    <div>Commandes</div>
+                    <div class="kpi-value">12</div>
+                </div>
+                <div class="kpi-card">
+                    <div>Stock faible</div>
+                    <div class="kpi-value">3</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMMANDES -->
+        <section id="commandes" style="display:none;">
+            <div class="card-pro">
+                <h3>Commandes</h3>
+                <table class="admin-table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Client</th>
+                        <th>Produit</th>
+                        <th>Statut</th>
+                    </tr>
+                    <tr>
+                        <td>#1</td>
+                        <td>Fatou</td>
+                        <td>Riz</td>
+                        <td><span class="status pending">En attente</span></td>
+                    </tr>
+                    <tr>
+                        <td>#2</td>
+                        <td>Mamadou</td>
+                        <td>Maïs</td>
+                        <td><span class="status success">Livré</span></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- PRODUITS -->
+        <section id="produits" style="display:none;">
+            <div class="card-pro">
+                <h3>Produits</h3>
+                <p>Liste des produits ici (Firebase plus tard)</p>
+            </div>
+        </section>
+
+        <!-- PARAMETRES -->
+        <section id="parametres" style="display:none;">
+            <div class="settings-container card-pro">
+                <h3>Paramètres</h3>
+
+                <label>Commission (%)</label><br>
+                <input type="number" id="commission" class="input-pro" value="5"><br>
+
+                <button class="btn-save" onclick="saveSettings()">Enregistrer</button>
+            </div>
+        </section>
+
+    </main>
+
 </div>
-
-</div>
-
-<!-- STATS -->
-<div class="grid">
-
-<div class="card">
-<h3 id="totalUsers">0</h3>
-<p>Utilisateurs</p>
-</div>
-
-<div class="card">
-<h3 id="totalEntreprises">0</h3>
-<p>Entreprises</p>
-</div>
-
-<div class="card">
-<h3 id="totalProduits">0</h3>
-<p>Produits</p>
-</div>
-
-<div class="card">
-<h3 id="totalCommandes">0</h3>
-<p>Commandes</p>
-</div>
-
-</div>
-
-<!-- TOAST -->
-<div id="toast" class="toast">
-Bienvenue Admin 
-</div>
-
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
 <script>
-
-const firebaseConfig = {
-apiKey: "XXX",
-authDomain: "XXX",
-projectId: "XXX"
-};
-
-if (!firebase.apps.length) {
-firebase.initializeApp(firebaseConfig);
+function showSection(section) {
+    document.querySelectorAll("main section").forEach(s => s.style.display = "none");
+    document.getElementById(section).style.display = "block";
 }
 
-const auth = firebase.auth();
-const db = firebase.firestore();
+function saveSettings() {
+    const commission = document.getElementById("commission").value;
 
-const ADMIN_EMAIL = "elmbayesow09@gmail.com";
-
-/*  SECURITE */
-auth.onAuthStateChanged(user => {
-
-if(user && user.email === ADMIN_EMAIL){
-
-document.getElementById("userEmail").innerText = user.email;
-
-// toast
-showToast();
-
-// charger stats
-loadStats();
-
-}else{
-window.location.href = "login.html";
+    alert("Commission mise à jour : " + commission + "%");
 }
-
-});
-
-/* STATS */
-function loadStats(){
-
-// utilisateurs
-db.collection("users").get().then(snap=>{
-document.getElementById("totalUsers").innerText = snap.size;
-});
-
-// entreprises
-db.collection("entreprises").get().then(snap=>{
-document.getElementById("totalEntreprises").innerText = snap.size;
-});
-
-// produits
-db.collection("produits").get().then(snap=>{
-document.getElementById("totalProduits").innerText = snap.size;
-});
-
-// commandes
-db.collection("commandes").get().then(snap=>{
-document.getElementById("totalCommandes").innerText = snap.size;
-});
-
-}
-
-/* LOGOUT */
-function logout(){
-auth.signOut().then(()=>{
-window.location.href="login.html";
-});
-}
-
-/* TOAST */
-function showToast(){
-const t = document.getElementById("toast");
-
-setTimeout(()=>{
-t.classList.add("show");
-
-setTimeout(()=>{
-t.classList.remove("show");
-},4000);
-
-},500);
-}
-
 </script>
 
 </body>
