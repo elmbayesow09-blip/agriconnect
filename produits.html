@@ -57,15 +57,62 @@ body {
     border: 1px solid #ccc;
 }
 
-/* BUTTON */
-.btn-add-stock {
+/* 🔥 BOUTON ULTRA PRO */
+.btn-save {
     background: #27ae60;
     color: white;
     border: none;
     padding: 12px;
     border-radius: 8px;
-    cursor: pointer;
     font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-save:hover {
+    background: #219150;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(39,174,96,0.3);
+}
+
+.btn-save:disabled {
+    background: #a1c8b3;
+    cursor: not-allowed;
+}
+
+/* LOADER */
+.loader-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #ffffff66;
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+}
+
+.btn-text {
+    transition: opacity 0.3s;
+}
+
+.btn-save.loading .btn-text {
+    opacity: 0;
+}
+
+.btn-save.loading .loader-spinner {
+    display: block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* GRID PRODUITS */
@@ -179,9 +226,12 @@ body {
             <input type="text" id="pImage">
         </div>
 
-        <button type="submit" class="btn-add-stock" id="submitBtn">
-            Enregistrer
+        <!-- 🔥 BOUTON PRO -->
+        <button type="submit" class="btn-save" id="saveButton">
+            <span class="btn-text">Enregistrer</span>
+            <div class="loader-spinner"></div>
         </button>
+
     </form>
 </div>
 
@@ -245,35 +295,47 @@ function preparerModif(index) {
     document.getElementById("editIndex").value = index;
 
     document.getElementById("formTitle").textContent = "Modifier produit";
-    document.getElementById("submitBtn").textContent = "Mettre à jour";
 
     window.scrollTo(0,0);
 }
 
-/* AJOUT / UPDATE */
+/* AJOUT / UPDATE AVEC LOADER */
 document.getElementById("productForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    let index = document.getElementById("editIndex").value;
+    const btn = document.getElementById("saveButton");
 
-    let produit = {
-        name: document.getElementById("pName").value,
-        cat: document.getElementById("pCategory").value,
-        price: document.getElementById("pPrice").value,
-        img: document.getElementById("pImage").value || "https://via.placeholder.com/400"
-    };
+    btn.classList.add("loading");
+    btn.disabled = true;
 
-    if(index == -1) {
-        mesProduits.unshift(produit);
-    } else {
-        mesProduits[index] = produit;
-        document.getElementById("editIndex").value = -1;
-        document.getElementById("formTitle").textContent = "Ajouter un produit";
-        document.getElementById("submitBtn").textContent = "Enregistrer";
-    }
+    setTimeout(() => {
 
-    afficherProduits();
-    this.reset();
+        let index = document.getElementById("editIndex").value;
+
+        let produit = {
+            name: document.getElementById("pName").value,
+            cat: document.getElementById("pCategory").value,
+            price: document.getElementById("pPrice").value,
+            img: document.getElementById("pImage").value || "https://via.placeholder.com/400"
+        };
+
+        if(index == -1) {
+            mesProduits.unshift(produit);
+        } else {
+            mesProduits[index] = produit;
+
+            document.getElementById("editIndex").value = -1;
+            document.getElementById("formTitle").textContent = "Ajouter un produit";
+        }
+
+        afficherProduits();
+        this.reset();
+
+        btn.classList.remove("loading");
+        btn.disabled = false;
+
+    }, 800);
+
 });
 
 afficherProduits();
